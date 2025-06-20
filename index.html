@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrei Ciuculescu - Laravel Backend Developer</title>
+    <meta name="description" content="Laravel backend specialist and DevOps partner for SMBs. Over a decade of experience building robust, scalable web platforms.">
+    <link rel="canonical" href="https://ciuculescu.com/">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .lang-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .lang-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .lang-btn:hover {
+            background: #2980b9;
+        }
+        .loading {
+            margin-top: 1rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Andrei Ciuculescu</h1>
+        <p class="subtitle">Laravel Backend Developer & DevOps Specialist</p>
+        <p>Choose your language / Alege limba:</p>
+        <div class="lang-buttons">
+            <a href="/en/" class="lang-btn" id="en-btn">English</a>
+            <a href="/ro/" class="lang-btn" id="ro-btn">Română</a>
+        </div>
+        <div class="loading" id="loading" style="display: none;">
+            Redirecting based on your browser preferences...
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect based on browser language
+        function detectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0];
+            
+            // Show loading message
+            document.getElementById('loading').style.display = 'block';
+            
+            // Redirect after a short delay
+            setTimeout(() => {
+                if (langCode === 'ro') {
+                    window.location.href = '/ro/';
+                } else {
+                    window.location.href = '/en/';
+                }
+            }, 1500);
+        }
+
+        // Auto-detect language on page load
+        window.addEventListener('load', detectLanguage);
+        
+        // Manual language selection
+        document.getElementById('en-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.setItem('preferred-language', 'en');
+            window.location.href = '/en/';
+        });
+        
+        document.getElementById('ro-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.setItem('preferred-language', 'ro');
+            window.location.href = '/ro/';
+        });
+    </script>
+</body>
+</html>

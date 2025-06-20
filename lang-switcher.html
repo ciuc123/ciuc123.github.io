@@ -1,0 +1,12 @@
+{%- assign current_lang = page.lang | default: "en" -%}
+<div class="language-switcher">
+  {%- if current_lang == "en" -%}
+    <a href="{{ page.url | replace: '/en/', '/ro/' }}" class="lang-link" title="Română">RO</a>
+    <span class="lang-divider">|</span>
+    <span class="lang-current">EN</span>
+  {%- else -%}
+    <span class="lang-current">RO</span>
+    <span class="lang-divider">|</span>
+    <a href="{{ page.url | replace: '/ro/', '/en/' }}" class="lang-link" title="English">EN</a>
+  {%- endif -%}
+</div>

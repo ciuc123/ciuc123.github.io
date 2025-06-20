@@ -1,0 +1,64 @@
+# Site settings
+title: Andrei Ciuculescu
+email: andrei@ciuculescu.com
+description: >-
+  Laravel backend specialist and DevOps partner for SMBs.
+  Over a decade of experience building robust, scalable web platforms.
+baseurl: ""
+url: "https://ciuculescu.com"
+twitter_username: 
+github_username: anrei0000
+linkedin_username: andrei-ciuculescu-021b9449
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Defaults
+defaults:
+  - scope:
+      path: "en"
+    values:
+      layout: "page"
+      lang: "en"
+  - scope:
+      path: "ro"
+    values:
+      layout: "page"
+      lang: "ro"
+
+# Navigation
+header_pages:
+  - en/about.md
+  - en/services.md
+  - en/contact.md
+
+# Author
+author:
+  name: Andrei Ciuculescu
+  linkedin: https://www.linkedin.com/in/andrei-ciuculescu-021b9449/
+
+# Social links
+minima:
+  social_links:
+    github: anrei0000
+    linkedin: andrei-ciuculescu-021b9449
+
+# Language settings
+languages: ["en", "ro"]
+default_lang: "en"
+exclude_from_localizations: ["javascript", "images", "css", "README.md"]
