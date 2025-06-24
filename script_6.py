@@ -1,11 +1,53 @@
-# Continue with more project files
+# Continue creating layout and include files
 
-# _includes/header.html
+# Default layout
+project_files['_layouts/default.html'] = '''<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+{%- include head.html -%}
+
+<body>
+
+  {%- include header.html -%}
+
+  <main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      {{ content }}
+    </div>
+  </main>
+
+  {%- include footer.html -%}
+
+  <script src="{{ "/assets/js/main.js" | relative_url }}"></script>
+</body>
+
+</html>
+'''
+
+# Head include
+project_files['_includes/head.html'] = '''<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo -%}
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  {%- feed_meta -%}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
+</head>
+'''
+
+# Header include
 project_files['_includes/header.html'] = '''<header class="site-header">
   <div class="wrapper">
     <nav class="site-nav">
       <div class="nav-brand">
-        <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+        <a class="site-title" href="{{ "/" | relative_url }}">AC</a>
       </div>
       
       <div class="nav-links">
@@ -27,7 +69,7 @@ project_files['_includes/header.html'] = '''<header class="site-header">
 </header>
 '''
 
-# _includes/footer.html
+# Footer include with contact form
 project_files['_includes/footer.html'] = '''<footer class="site-footer" id="contact">
   <div class="container">
     <div class="footer-content">
@@ -90,13 +132,15 @@ project_files['_includes/footer.html'] = '''<footer class="site-footer" id="cont
     </div>
     
     <div class="footer-bottom">
-      <p class="copyright">&copy; {{ "now" | date: "%Y" }} {{ site.title | escape }}. All rights reserved.</p>
+      <p class="copyright">&copy; {{ "now" | date: "%Y" }} Andrei Ciuculescu. All rights reserved.</p>
     </div>
   </div>
 </footer>
 '''
 
-# assets/css/main.scss
+print("Layout and include files created. Now creating the complete SCSS file...")
+
+# Complete SCSS file
 project_files['assets/css/main.scss'] = '''---
 ---
 
@@ -230,6 +274,7 @@ p {
   transition: all 0.3s ease;
   cursor: pointer;
   border: 2px solid;
+  position: relative;
   
   &.btn-primary {
     background: $secondary-color;
@@ -256,226 +301,30 @@ p {
       box-shadow: 0 10px 20px rgba($secondary-color, 0.2);
     }
   }
-}
-
-// Header
-.site-header {
-  background: rgba($primary-color, 0.95);
-  backdrop-filter: blur(10px);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1rem 0;
-  border-bottom: 1px solid $border-color;
   
-  .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .site-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    @media (max-width: $breakpoint-md) {
-      flex-direction: column;
-      gap: 1rem;
-    }
-  }
-  
-  .site-title {
-    font-size: 1.5rem;
-    font-weight: $font-weight-bold;
-    color: $secondary-color;
-    text-decoration: none;
-    
-    @media (max-width: $breakpoint-md) {
-      font-size: 1.3rem;
-    }
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    
-    @media (max-width: $breakpoint-md) {
-      gap: 1.5rem;
-    }
-  }
-  
-  .nav-link {
-    color: $text-light;
-    text-decoration: none;
-    font-weight: $font-weight-medium;
-    transition: color 0.3s ease;
-    
-    &:hover {
-      color: $secondary-color;
-    }
-  }
-  
-  .nav-social {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .social-link {
-    color: $text-muted;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-    
-    &:hover {
-      color: $secondary-color;
-    }
-  }
-}
-
-// Main content adjustment for fixed header
-.page-content {
-  padding-top: 80px;
-}
-
-// Hero section
-.hero {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 15%) 100%);
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba($secondary-color, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba($accent-color, 0.1) 0%, transparent 50%);
-  }
-  
-  .hero-content {
-    position: relative;
-    z-index: 1;
-  }
-  
-  h1 {
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, $text-light, $secondary-color);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  h2 {
-    font-size: 2rem;
-    color: $secondary-color;
-    margin: 0 0 1rem 0;
-    font-weight: $font-weight-medium;
+  &.loading {
+    color: transparent;
     
     &::after {
-      display: none;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      font-size: 1.5rem;
-    }
-  }
-  
-  .hero-subtitle {
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-    color: $text-muted;
-  }
-  
-  .hero-buttons {
-    display: flex;
-    gap: 1.5rem;
-    
-    @media (max-width: $breakpoint-sm) {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-}
-
-// Services section
-.services {
-  padding: 5rem 0;
-  background: lighten($primary-color, 2%);
-  
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
-    margin-top: 3rem;
-  }
-  
-  .service-card {
-    background: $background-overlay;
-    border: 1px solid $border-color;
-    border-radius: 10px;
-    padding: 2.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    
-    &::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, $secondary-color, $accent-color);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    
-    &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba($secondary-color, 0.1);
-      border-color: rgba($secondary-color, 0.3);
-      
-      &::before {
-        transform: scaleX(1);
-      }
-    }
-    
-    .service-icon {
-      font-size: 3rem;
-      color: $secondary-color;
-      margin-bottom: 1.5rem;
-    }
-    
-    h3 {
-      margin-bottom: 1.5rem;
-    }
-    
-    ul {
-      list-style: none;
-      padding: 0;
-      
-      li {
-        margin-bottom: 0.8rem;
-        position: relative;
-        padding-left: 1.5rem;
-        color: $text-muted;
-        
-        &::before {
-          content: "▸";
-          color: $secondary-color;
-          position: absolute;
-          left: 0;
-          font-weight: bold;
-        }
-      }
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
   }
 }
 
-print("Hero and Services styles completed!")
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}'''
+
+print("SCSS base styles created. Creating rest of styles...")

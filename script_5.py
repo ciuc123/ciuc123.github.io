@@ -1,9 +1,10 @@
+# Let me create the complete project with all files properly
 import os
 
-# Create the complete Jekyll project structure
+# Reset and create the complete project
 project_files = {}
 
-# _config.yml
+# Basic Jekyll configuration files
 project_files['_config.yml'] = '''title: Andrei Ciuculescu - Laravel & DevOps Specialist
 email: contact@ciuculescu.com
 description: >-
@@ -61,40 +62,85 @@ locale: en_US
 timezone: Europe/Bucharest
 '''
 
-# Gemfile
 project_files['Gemfile'] = '''source "https://rubygems.org"
-# Hello! This is where you manage which Jekyll version is used to run.
 
 gem "jekyll", "~> 4.3.2"
 gem "minima", "~> 2.5"
-
-# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
-# uncomment the line below. To upgrade, run `bundle update github-pages`.
 gem "github-pages", "~> 228", group: :jekyll_plugins
 
-# If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem "jekyll-sitemap"
   gem "jekyll-seo-tag"
 end
 
-# Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
-# and associated library.
 platforms :mingw, :x64_mingw, :mswin, :jruby do
   gem "tzinfo", ">= 1", "< 3"
   gem "tzinfo-data"
 end
 
-# Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
-
-# Lock `http_parser.rb` gem to `v0.6.x` on JRuby builds since newer versions of the gem
-# do not have a Java counterpart.
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 '''
 
-# index.md - Homepage
+# JavaScript file
+project_files['assets/js/main.js'] = '''// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// Contact form handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const button = this.querySelector('button[type="submit"]');
+  const originalText = button.textContent;
+  
+  // Add loading state
+  button.classList.add('loading');
+  button.disabled = true;
+  
+  // Simulate form submission (replace with actual form handler)
+  setTimeout(() => {
+    alert('Thank you for your inquiry! I will get back to you within 24 hours.');
+    this.reset();
+    button.classList.remove('loading');
+    button.disabled = false;
+  }, 2000);
+});
+
+// Add active state to navigation links
+const currentLocation = location.pathname;
+const menuItems = document.querySelectorAll('.nav-link');
+menuItems.forEach(item => {
+  if(item.getAttribute('href') === currentLocation){
+    item.classList.add('active');
+  }
+});
+
+// Header background on scroll
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('.site-header');
+  if (window.scrollY > 100) {
+    header.style.background = 'rgba(10, 25, 47, 0.98)';
+  } else {
+    header.style.background = 'rgba(10, 25, 47, 0.95)';
+  }
+});
+'''
+
+print("Core project files created. Now creating page files...")
+
+# Homepage
 project_files['index.md'] = '''---
 layout: default
 title: Home
@@ -215,7 +261,9 @@ permalink: /
 </section>
 '''
 
-# about.md - About page
+print("Homepage created. Creating about page...")
+
+# About page
 project_files['about.md'] = '''---
 layout: default
 title: About
@@ -302,46 +350,4 @@ permalink: /about/
 </section>
 '''
 
-# _layouts/default.html
-project_files['_layouts/default.html'] = '''<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
-
-{%- include head.html -%}
-
-<body>
-
-  {%- include header.html -%}
-
-  <main class="page-content" aria-label="Content">
-    <div class="wrapper">
-      {{ content }}
-    </div>
-  </main>
-
-  {%- include footer.html -%}
-
-  <script src="{{ "/assets/js/main.js" | relative_url }}"></script>
-</body>
-
-</html>
-'''
-
-# _includes/head.html
-project_files['_includes/head.html'] = '''<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {%- seo -%}
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  {%- feed_meta -%}
-  {%- if jekyll.environment == 'production' and site.google_analytics -%}
-    {%- include google-analytics.html -%}
-  {%- endif -%}
-</head>
-'''
-
-print("Basic project files created successfully!")
+print("About page created. Creating layout files...")

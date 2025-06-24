@@ -1,14 +1,13 @@
-# Site settings
-title: Andrei Ciuculescu
-email: andrei@ciuculescu.com
+title: Andrei Ciuculescu - Laravel & DevOps Specialist
+email: contact@ciuculescu.com
 description: >-
-  Laravel backend specialist and DevOps partner for SMBs.
-  Over a decade of experience building robust, scalable web platforms.
+  Professional Laravel backend developer and DevOps specialist with 13+ years experience 
+  building scalable web solutions for small and medium businesses.
 baseurl: ""
 url: "https://ciuculescu.com"
 twitter_username: 
-github_username: anrei0000
-linkedin_username: andrei-ciuculescu-021b9449
+github_username: ciuc123
+linkedin_username: andrei-ciuculescu
 
 # Build settings
 markdown: kramdown
@@ -20,45 +19,37 @@ plugins:
 
 # Exclude from processing
 exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
   - Gemfile
   - Gemfile.lock
-  - node_modules
+  - node_modules/
   - vendor/bundle/
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
 
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
 # Defaults
 defaults:
   - scope:
-      path: "en"
+      path: ""
+      type: "pages"
     values:
-      layout: "page"
-      lang: "en"
+      layout: "default"
   - scope:
-      path: "ro"
+      path: ""
+      type: "posts"
     values:
-      layout: "page"
-      lang: "ro"
+      layout: "post"
 
-# Navigation
-header_pages:
-  - en/about.md
-  - en/services.md
-  - en/contact.md
-
-# Author
-author:
-  name: Andrei Ciuculescu
-  linkedin: https://www.linkedin.com/in/andrei-ciuculescu-021b9449/
-
-# Social links
-minima:
-  social_links:
-    github: anrei0000
-    linkedin: andrei-ciuculescu-021b9449
-
-# Language settings
-languages: ["en", "ro"]
-default_lang: "en"
-exclude_from_localizations: ["javascript", "images", "css", "README.md"]
+# SEO settings
+lang: en
+locale: en_US
+timezone: Europe/Bucharest
