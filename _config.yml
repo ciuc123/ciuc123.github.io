@@ -8,6 +8,8 @@ url: "https://ciuculescu.com"
 twitter_username: 
 github_username: ciuc123
 linkedin_username: andrei-ciuculescu
+author: Andrei Ciuculescu
+permalink: /posts/:year-:month-:day-:title/
 
 # Build settings
 markdown: kramdown
