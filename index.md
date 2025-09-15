@@ -23,12 +23,10 @@ permalink: /
     <h2>Specialized Services</h2>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">
-            <i class="fab fa-laravel"></i>
-          </div>
-          <h3>Laravel Development</h3>
+        <div class="service-icon">
+          <i class="fab fa-laravel"></i>
         </div>
+        <h3>Laravel Development</h3>
         <ul>
           <li>Custom backend systems</li>
           <li>REST API development</li>
@@ -37,12 +35,10 @@ permalink: /
         </ul>
       </div>
       <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">
-            <i class="fas fa-server"></i>
-          </div>
-          <h3>DevOps Solutions</h3>
+        <div class="service-icon">
+          <i class="fas fa-server"></i>
         </div>
+        <h3>DevOps Solutions</h3>
         <ul>
           <li>CI/CD pipeline setup</li>
           <li>Server optimization</li>
@@ -51,12 +47,10 @@ permalink: /
         </ul>
       </div>
       <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">
-            <i class="fas fa-cogs"></i>
-          </div>
-          <h3>Technical Consulting</h3>
+        <div class="service-icon">
+          <i class="fas fa-cogs"></i>
         </div>
+        <h3>Technical Consulting</h3>
         <ul>
           <li>Architecture reviews</li>
           <li>Performance audits</li>
