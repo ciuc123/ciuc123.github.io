@@ -41,12 +41,24 @@ menuItems.forEach(item => {
   }
 });
 
-// Header background on scroll
+// Header background on scroll and hide/show on scroll direction
+let lastScrollTop = 0;
+const header = document.querySelector('.site-header');
 window.addEventListener('scroll', function() {
-  const header = document.querySelector('.site-header');
-  if (window.scrollY > 100) {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  // Background opacity
+  if (scrollTop > 100) {
     header.style.background = 'rgba(10, 25, 47, 0.98)';
   } else {
     header.style.background = 'rgba(10, 25, 47, 0.95)';
   }
+  // Hide/show on scroll direction
+  if (scrollTop > lastScrollTop && scrollTop > 100) {
+    // Scrolling down
+    header.classList.add('header-hidden');
+  } else {
+    // Scrolling up
+    header.classList.remove('header-hidden');
+  }
+  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
 });

@@ -38,6 +38,7 @@ body {
   color: $text-light;
   background-color: $primary-color;
   overflow-x: hidden;
+  padding-top: 60px; // Prevent content from being hidden under fixed header
 }
 
 // Container
@@ -186,16 +187,18 @@ p {
 
 // Header
 .site-header {
-  background: rgba($primary-color, 0.95);
-  backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   z-index: 1000;
+  transition: transform 0.3s ease, background 0.3s ease;
+  will-change: transform, background;
+
+  background: rgba($primary-color, 0.95);
+  backdrop-filter: blur(10px);
   padding: 1rem 0;
   border-bottom: 1px solid $border-color;
-  transition: background 0.3s ease;
 
   .wrapper {
     max-width: 1200px;
@@ -205,8 +208,9 @@ p {
 
   .site-nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
 
     @media (max-width: $breakpoint-md) {
       flex-direction: column;
@@ -227,10 +231,10 @@ p {
 
   .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
 
     @media (max-width: $breakpoint-md) {
-      gap: 1.5rem;
+      gap: 1rem;
     }
   }
 
@@ -238,7 +242,7 @@ p {
     color: $text-light;
     text-decoration: none;
     font-weight: $font-weight-medium;
-    transition: color 0.3s ease;
+    transition: color 0.2s;
     position: relative;
 
     &:hover {
@@ -256,14 +260,18 @@ p {
   }
 
   .social-link {
-    color: $text-muted;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
+    color: $text-light;
+    font-size: 1.3rem;
+    transition: color 0.2s;
 
     &:hover {
       color: $secondary-color;
     }
   }
+}
+
+.header-hidden {
+  transform: translateY(-100%);
 }
 
 // Main content adjustment for fixed header
@@ -842,4 +850,3 @@ nav {
     padding-top: 100px; /* More padding for mobile if needed */
   }
 }
-
