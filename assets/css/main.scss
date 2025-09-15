@@ -31,10 +31,28 @@ $breakpoint-xl: 1200px;
 body {
   font-family: $font-family-base;
   font-weight: $font-weight-normal;
-  line-height: 1.6;
+  line-height: 1.65; // slightly increased for readability on small screens
   color: $text-light;
   background-color: $primary-color;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Base responsive typography (improves mobile text rendering)
+html {
+  font-size: 16px; // baseline for rem calculations
+}
+
+// Constrain readable line length for long text blocks
+.prose,
+.entry-content,
+.post-content {
+  max-width: 65ch; // optimal measure for comfortable reading
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 // Container
@@ -43,6 +61,10 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 0 16px;
+  }
 
   @media (min-width: $breakpoint-lg) {
     padding: 0 40px;
@@ -63,8 +85,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: $font-weight-bold;
+  line-height: 1.12;
 
   @media (max-width: $breakpoint-md) {
     font-size: 2.5rem;
@@ -72,7 +95,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 4.2vw, 2.5rem);
   margin: 3rem 0 2rem;
   position: relative;
 
@@ -93,7 +116,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: clamp(1.125rem, 2.3vw, 1.8rem);
   color: $secondary-color;
   margin-bottom: 1rem;
 }
@@ -105,22 +128,23 @@ h4 {
 }
 
 p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   color: $text-muted;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  line-height: 1.8; // ensure comfortable spacing on small screens
 }
 
 .lead {
-  font-size: 1.3rem;
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
   font-weight: $font-weight-medium;
   color: $text-light;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 // Buttons
 .btn {
   display: inline-block;
-  padding: 12px 30px;
+  padding: 12px 20px;
   font-size: 1rem;
   font-weight: $font-weight-semibold;
   text-decoration: none;
@@ -408,7 +432,7 @@ p {
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4.2vw, 2.5rem);
     color: $secondary-color;
     margin: 0 0 1rem 0;
     font-weight: $font-weight-medium;
@@ -511,6 +535,64 @@ p {
         }
       }
     }
+  }
+
+  // Services - inline header and improved bullets
+  .service-card {
+  }
+
+  .service-card .service-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-card .service-icon {
+    font-size: 2.2rem;
+    color: $secondary-color;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .service-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: $text-light;
+  }
+
+  // Make bullet lists look cleaner and justified
+  .service-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .service-card li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.6rem;
+    color: $text-muted;
+    text-align: justify; /* improve multi-line alignment */
+  }
+
+  .service-card li::before {
+    content: "▸";
+    color: $secondary-color;
+    position: absolute;
+    left: 0;
+    top: 0.12rem;
+    font-weight: bold;
+  }
+
+  /* Force justification to apply to last line as well */
+  .service-card li::after {
+    content: '';
+    display: inline-block;
+    width: 100%;
   }
 }
 
@@ -890,6 +972,30 @@ p {
   }
 }
 
+// Small screen contrast adjustment for muted text
+@media (max-width: $breakpoint-md) {
+  p,
+  .service-card li,
+  .principle p,
+  .approach-item p {
+    color: lighten($text-muted, 8%);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .page-content { padding-top: 72px; }
+}
+
+// Ensure headings in hero are readable on small screens
+.hero {
+  .hero-content {
+    h1 { margin-bottom: 0.5rem; }
+    h2 { margin-bottom: 0.75rem; }
+  }
+}
+
 // Smooth scrolling
 html {
   scroll-behavior: smooth;
@@ -922,4 +1028,3 @@ html {
     padding-top: 100px; /* More padding for mobile if needed */
   }
 }
-
