@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AC favicon">
+  <!-- Square background to avoid visible rounded white corners in some browsers -->
+  <rect width="100%" height="100%" fill="#0a192f"/>
+  <text x="50%" y="50%" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="32" fill="#64ffda" text-anchor="middle" dominant-baseline="middle">AC</text>
+</svg>

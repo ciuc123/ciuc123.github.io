@@ -55,9 +55,22 @@ body {
 
 .wrapper {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px; // Increased from 800px for a more modern look
   margin: 0 auto;
   padding: 0 20px;
+}
+
+// Make content much wider when .wide-content is used
+.wrapper.wide-content,
+.container.wide-content {
+  max-width: 1600px;
+}
+
+@media (min-width: 1800px) {
+  .wrapper.wide-content,
+  .container.wide-content {
+    max-width: 1900px;
+  }
 }
 
 // Typography

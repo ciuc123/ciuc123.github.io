@@ -24,7 +24,6 @@ if (contactForm) {
       this.submit();
       return;
     }
-    const originalText = button.textContent;
 
     // Add loading state
     button.classList.add('loading');
