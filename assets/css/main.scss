@@ -1084,3 +1084,22 @@ nav {
     padding-top: 100px; /* More padding for mobile if needed */
   }
 }
+
+// Fix for code blocks and long text overflow on small screens
+pre, code {
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+  background: #112240;
+  padding: 1em;
+  border-radius: 6px;
+}
+
+article {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
