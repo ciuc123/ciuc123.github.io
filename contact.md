@@ -6,13 +6,6 @@ permalink: /contact/
 
 <section class="contact-hero section--full">
   <div class="inner">
-    <h1>Contact</h1>
-    <p class="lead">Ready to discuss your project? Let's connect and explore how I can help achieve your technical goals.</p>
-  </div>
-</section>
-
-<section class="contact-section section--full">
-  <div class="inner">
     <div class="footer-content">
       <div class="contact-section">
         <h3>Get in Touch</h3>
@@ -34,7 +27,7 @@ permalink: /contact/
         </form>
       </div>
       <div class="info-section">
-        <h4>Professional Info</h4>
+        <h3>Professional Info</h3>
         <div class="info-grid">
           <div class="info-item">
             <strong>Location:</strong>
