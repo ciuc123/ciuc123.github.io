@@ -2,6 +2,7 @@
 layout: post
 title: "Supercharge Your Laravel Development: PhpStorm 2025.1 with Seamless Xdebug Docker Integration"
 date: 2025-09-15
+tags: [welcome-email]
 ---
 
 # PhpStorm 2025.1 + Laravel Docker Debugging Made Simple

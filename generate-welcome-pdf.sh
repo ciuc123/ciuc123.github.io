@@ -39,20 +39,26 @@ else
   printf '## Table of Contents\n' >> "$MD_FILE"
   i=1
   for post in $(ls $POSTS_DIR/*.md | sort); do
-    title=$(grep '^title:' "$post" | sed 's/title: //;s/"//g')
-    anchor=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g;s/[^a-z0-9-]//g')
-    printf '%d. [%s](#%s)\n' "$i" "$title" "$anchor" >> "$MD_FILE"
-    i=$((i+1))
+    # Check if the post has the 'welcome-email' tag
+    if grep -q '^tags:.*welcome-email' "$post"; then
+      title=$(grep '^title:' "$post" | sed 's/title: //;s/"//g')
+      anchor=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g;s/[^a-z0-9-]//g')
+      printf '%d. [%s](#%s)\n' "$i" "$title" "$anchor" >> "$MD_FILE"
+      i=$((i+1))
+    fi
   done
   printf '\n' >> "$MD_FILE"
   for post in $(ls $POSTS_DIR/*.md | sort); do
-    title=$(grep '^title:' "$post" | sed 's/title: //;s/"//g')
-    date=$(grep '^date:' "$post" | sed 's/date: //')
-    printf '\n# %s\n\n' "$title" >> "$MD_FILE"
-    printf '*%s*\n\n' "$date" >> "$MD_FILE"
-    # Extract content after the second --- (skip YAML front matter), remove leading spaces from headers
-    awk 'BEGIN{c=0} /^---/{c++} c==2{print}' "$post" | tail -n +2 | sed '/^---$/d;s/^ *##/##/' >> "$MD_FILE"
-    printf '\n' >> "$MD_FILE"
+    # Check if the post has the 'welcome-email' tag
+    if grep -q '^tags:.*welcome-email' "$post"; then
+      title=$(grep '^title:' "$post" | sed 's/title: //;s/"//g')
+      date=$(grep '^date:' "$post" | sed 's/date: //')
+      printf '\n# %s\n\n' "$title" >> "$MD_FILE"
+      printf '*%s*\n\n' "$date" >> "$MD_FILE"
+      # Extract content after the second --- (skip YAML front matter), remove leading spaces from headers
+      awk 'BEGIN{c=0} /^---/{c++} c==2{print}' "$post" | tail -n +2 | sed '/^---$/d;s/^ *##/##/' >> "$MD_FILE"
+      printf '\n' >> "$MD_FILE"
+    fi
   done
   # Ensure Unix line endings
   if command -v dos2unix >/dev/null 2>&1; then

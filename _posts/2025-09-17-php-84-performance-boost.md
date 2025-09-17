@@ -2,6 +2,7 @@
 layout: post
 title: "PHP 8.4 Performance Boost: Why Upgrade Now"
 date: 2025-09-17
+tags: [welcome-email]
 ---
 
 # Why Your Development Team Should Upgrade Now

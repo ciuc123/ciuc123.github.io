@@ -26,3 +26,11 @@ Visit http://localhost:4000 to view the site locally.
 ## Contact
 
 For inquiries, please use the contact form on the website or connect via LinkedIn.
+
+
+## Tags
+welcome-email - Include in the welcome email pdf generation
+
+## Generate email from blog posts
+All blog posts with the tag welcome-email will be included in the welcome email pdf.
+To generate the email, run: ./generate-welcome-pdf.sh
