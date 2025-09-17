@@ -4,8 +4,7 @@ title: Posts
 permalink: /posts/
 ---
 
-
-<div class="container">
+<div class="container wide-content">
     <div class="posts-list">
       {% for post in site.posts %}
         <div class="post-item">

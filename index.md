@@ -4,22 +4,20 @@ title: Home
 permalink: /
 ---
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-content">
-      <h1>Andrei Ciuculescu</h1>
-      <h2>Laravel Backend & DevOps Specialist</h2>
-      <p class="hero-subtitle">Building robust web solutions for SMBs since 2010</p>
-      <div class="hero-buttons">
-        <a href="#services" class="btn btn-primary">View Services</a>
-        <a href="/about" class="btn btn-secondary">About Me</a>
-      </div>
+<section class="hero section--full">
+  <div class="hero-content inner">
+    <h1>Andrei Ciuculescu</h1>
+    <h2>Laravel Backend & DevOps Specialist</h2>
+    <p class="hero-subtitle">Building robust web solutions for SMBs since 2010</p>
+    <div class="hero-buttons">
+      <a href="#services" class="btn btn-primary">View Services</a>
+      <a href="/about" class="btn btn-secondary">About Me</a>
     </div>
   </div>
 </section>
 
-<section id="services" class="services">
-  <div class="container">
+<section id="services" class="services section--full">
+  <div class="inner">
     <h2>Specialized Services</h2>
     <div class="services-grid">
       <div class="service-card">
@@ -62,8 +60,8 @@ permalink: /
   </div>
 </section>
 
-<section class="skills">
-  <div class="container">
+<section class="skills section--full">
+  <div class="inner">
     <h2>Technical Expertise</h2>
     <div class="skills-grid">
       <div class="skill-category">
@@ -97,8 +95,8 @@ permalink: /
   </div>
 </section>
 
-<section class="availability">
-  <div class="container">
+<section class="availability section--full">
+  <div class="inner">
     <div class="availability-content">
       <h2>Currently Available</h2>
       <p>Accepting select projects with 20+ hour/week commitment</p>

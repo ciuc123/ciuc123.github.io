@@ -4,15 +4,15 @@ title: About
 permalink: /about/
 ---
 
-<section class="about-hero">
-  <div class="container">
+<section class="about-hero section--full">
+  <div class="inner">
     <h1>Professional Background</h1>
     <p class="lead">13+ years developing scalable web solutions for businesses across Europe</p>
   </div>
 </section>
 
-<section class="experience">
-  <div class="container">
+<section class="experience section--full">
+  <div class="inner">
     <h2>Core Expertise</h2>
     <div class="expertise-grid">
       <div class="expertise-item">
@@ -31,8 +31,8 @@ permalink: /about/
   </div>
 </section>
 
-<section class="philosophy">
-  <div class="container">
+<section class="philosophy section--full">
+  <div class="inner">
     <h2>Technical Philosophy</h2>
     <div class="philosophy-content">
       <blockquote>
@@ -56,8 +56,8 @@ permalink: /about/
   </div>
 </section>
 
-<section class="work-approach">
-  <div class="container">
+<section class="work-approach section--full">
+  <div class="inner">
     <h2>Working Together</h2>
     <div class="approach-grid">
       <div class="approach-item">
@@ -76,8 +76,8 @@ permalink: /about/
   </div>
 </section>
 
-<section class="personal">
-  <div class="container">
+<section class="personal section--full">
+  <div class="inner">
     <h2>Beyond Code</h2>
     <p>Based in Bucharest, Romania. When not coding, I enjoy exploring new technologies, contributing to open source projects, and mentoring junior developers. Passionate about creating technology solutions that make real business impact.</p>
   </div>

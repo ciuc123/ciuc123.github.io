@@ -18,7 +18,7 @@ This site is configured for GitHub Pages deployment at ciuculescu.com.
 
 ```bash
 bundle install
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
 
 Visit http://localhost:4000 to view the site locally.

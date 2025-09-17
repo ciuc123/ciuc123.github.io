@@ -13,24 +13,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Contact form handling
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-  const button = this.querySelector('button[type="submit"]');
-  const originalText = button.textContent;
+    const button = this.querySelector('button[type="submit"]');
+    if (!button) {
+      // No submit button found, just submit the form normally
+      this.submit();
+      return;
+    }
 
-  // Add loading state
-  button.classList.add('loading');
-  button.disabled = true;
+    // Add loading state
+    button.classList.add('loading');
+    button.disabled = true;
 
-  // Simulate form submission (replace with actual form handler)
-  setTimeout(() => {
-    alert('Thank you for your inquiry! I will get back to you within 24 hours.');
-    this.reset();
-    button.classList.remove('loading');
-    button.disabled = false;
-  }, 2000);
-});
+    // Simulate form submission (replace with actual form handler)
+    setTimeout(() => {
+      alert('Thank you for your inquiry! I will get back to you within 24 hours.');
+      this.reset();
+      button.classList.remove('loading');
+      button.disabled = false;
+    }, 2000);
+  });
+}
 
 // Add active state to navigation links
 const currentLocation = location.pathname;
@@ -41,12 +48,26 @@ menuItems.forEach(item => {
   }
 });
 
-// Header background on scroll
-window.addEventListener('scroll', function() {
-  const header = document.querySelector('.site-header');
-  if (window.scrollY > 100) {
-    header.style.background = 'rgba(10, 25, 47, 0.98)';
-  } else {
-    header.style.background = 'rgba(10, 25, 47, 0.95)';
-  }
-});
+// Header background on scroll and hide/show on scroll direction
+let lastScrollTop = 0;
+const header = document.querySelector('.site-header');
+if (header) {
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    // Background opacity
+    if (scrollTop > 100) {
+      header.style.background = 'rgba(10, 25, 47, 0.98)';
+    } else {
+      header.style.background = 'rgba(10, 25, 47, 0.95)';
+    }
+    // Hide/show on scroll direction
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      // Scrolling down
+      header.classList.add('header-hidden');
+    } else {
+      // Scrolling up
+      header.classList.remove('header-hidden');
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+  });
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AC favicon">
+  <!-- Square background to avoid visible rounded white corners in some browsers -->
+  <rect width="100%" height="100%" fill="#0a192f"/>
+  <!-- Translate group to exact center (32,32) and center the text using baseline 'central' -->
+  <g transform="translate(32 32)">
+    <text x="0" y="0" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="32" fill="#64ffda" text-anchor="middle" dominant-baseline="central">AC</text>
+  </g>
+</svg>
