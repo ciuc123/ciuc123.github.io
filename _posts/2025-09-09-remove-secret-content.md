@@ -2,6 +2,7 @@
 layout: post
 title: "How to remove git secrets from commits"
 date: 2025-08-09
+tags: []
 ---
 
 Assume you have a git repository with sensitive information in it.
