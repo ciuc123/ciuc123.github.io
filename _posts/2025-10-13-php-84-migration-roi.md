@@ -158,4 +158,4 @@ For enterprises running PHP 7.x or early PHP 8.x versions, the migration ROI cal
 
 The question isn't whether to migrate to PHP 8.4--it's how quickly you can execute the migration while maintaining business continuity.
 
-**Need help planning your PHP 8.4 migration strategy?** I provide comprehensive migration assessments that identify risks, timeline, and expected ROI for your specific application portfolio. [Let's discuss your migration plan](mailto:hello@ciuculescu.com).
+**Need help planning your PHP 8.4 migration strategy?** I provide comprehensive migration assessments that identify risks, timeline, and expected ROI for your specific application portfolio. [Let's discuss your migration plan](mailto:andrei@ciuculescu.com).
