@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Scaling Laravel: Optimizing Queues for High-Volume Email & Notifications"
-date: 2024-11-30
+date: 2025-11-03
 ---
 
 High-volume email and notification delivery can make or break your application's user experience. When your Laravel app starts processing thousands of messages per hour, the default database queue quickly becomes a bottleneck, leading to delayed notifications, frustrated users, and overwhelmed servers.
