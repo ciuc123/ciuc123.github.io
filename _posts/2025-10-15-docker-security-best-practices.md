@@ -264,7 +264,7 @@ echo "=== Docker Security Audit ==="
 
 # Check for running privileged containers
 echo "Checking for privileged containers..."
-docker ps --format "table {{.Names}}\t{{.Status}}" \
+docker ps --format "table {% raw %}{{.Names}}\t{{.Status}}{% endraw %}" \
   --filter "label=privileged=true"
 
 # Verify user namespaces
@@ -274,11 +274,11 @@ docker info | grep "Security Options"
 # Check for containers running as root
 echo "Checking containers running as root..."
 docker ps -q | xargs docker inspect \
-  --format='{{.Name}}: {{.Config.User}}' | grep -E ':(root|$)'
+  --format='{% raw %}{{.Name}}: {{.Config.User}}{% endraw %}' | grep -E ':(root|$)'
 
 # Verify network isolation
 echo "Checking network configurations..."
-docker network ls --format "table {{.Name}}\t{{.Driver}}\t{{.Scope}}"
+docker network ls --format "table {% raw %}{{.Name}}\t{{.Driver}}\t{{.Scope}}{% endraw %}"
 ```
 
 ## Impact on Development Workflow

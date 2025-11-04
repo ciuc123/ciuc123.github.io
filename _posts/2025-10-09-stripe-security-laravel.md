@@ -36,7 +36,7 @@ The most secure approach combines client-side tokenization, server-side validati
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Secure Checkout</title>
     <script src="https://js.stripe.com/v3/"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{% raw %}{{ csrf_token() }}{% endraw %}">
 </head>
 <body>
     <form id="payment-form">
@@ -55,7 +55,7 @@ The most secure approach combines client-side tokenization, server-side validati
 
     <script>
         // Initialize Stripe with publishable key (never secret key)
-        const stripe = Stripe('{{ config("cashier.key") }}');
+        const stripe = Stripe('{% raw %}{{ config("cashier.key") }}{% endraw %}');
         const elements = stripe.elements();
 
         // Create secure card element
