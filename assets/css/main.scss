@@ -304,11 +304,12 @@ p {
 
 // Hero section
 .hero {
-  min-height: 90vh;
+  min-height: 100vh; // ensure full viewport height
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 15%) 100%);
   position: relative;
+  padding-top: 0; // let content center visually
 
   &::before {
     content: '';
@@ -1115,4 +1116,16 @@ pre {
 article {
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.page-content--home {
+  padding-top: 0; // remove global top padding so hero can truly be full height
+}
+.page-content--home .hero {
+  min-height: calc(100vh - 60px); // subtract fixed header height
+}
+@media (max-width: $breakpoint-md) {
+  .page-content--home .hero {
+    min-height: calc(100vh - 80px); // header may wrap taller on mobile
+  }
 }
