@@ -4,8 +4,6 @@ title: "Scaling LinkedIn Outreach: A Backend Developer's Automation Workflow"
 date: 2025-09-27
 ---
 
-# Scaling LinkedIn Outreach: A Backend Developer's Automation Workflow
-
 As a freelance Laravel developer, I've discovered that consistent content creation and strategic networking are crucial for growing my client base. After months of manual LinkedIn outreach and sporadic blog posting, I developed a comprehensive automation workflow that has transformed my professional visibility and lead generation efforts. This system now generates 2-3 LinkedIn posts per week, manages hundreds of connection requests monthly, and maintains a steady pipeline of potential clients.
 
 ## The Challenge: Time vs. Visibility Trade-off
