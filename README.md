@@ -9,6 +9,7 @@ A clean, professional Jekyll portfolio website showcasing Laravel backend develo
 - Integrated contact form
 - SEO optimized
 - Fast loading and accessible
+- Automated front matter validation
 
 ## Deployment
 
@@ -22,6 +23,24 @@ bundle exec jekyll serve --livereload
 ```
 
 Visit http://localhost:4000 to view the site locally.
+
+## Creating New Posts
+
+All blog posts must have required front matter fields. See [FRONT_MATTER_VALIDATION.md](FRONT_MATTER_VALIDATION.md) for details.
+
+**Required fields:**
+```markdown
+---
+layout: post
+title: "Your Post Title"
+date: YYYY-MM-DD
+---
+```
+
+Before committing, validate your posts:
+```bash
+ruby validate_posts.rb
+```
 
 ## Contact
 
