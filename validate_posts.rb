@@ -36,7 +36,9 @@ post_files.each do |post_path|
     front_matter_text = $1
     
     begin
-      front_matter = YAML.safe_load(front_matter_text, permitted_classes: [Date, Time])
+      # Use safe_load with Date class for Jekyll compatibility
+      # Date is a standard library class and safe to permit
+      front_matter = YAML.safe_load(front_matter_text, permitted_classes: [Date, Symbol])
       
       # Check for required fields
       missing_fields = REQUIRED_FIELDS.select do |field|
@@ -52,6 +54,8 @@ post_files.each do |post_path|
         errors << "#{File.basename(post_path)}: Title field is empty or whitespace"
       end
       
+    rescue Psych::SyntaxError => e
+      errors << "#{File.basename(post_path)}: Invalid YAML syntax - #{e.message}"
     rescue => e
       errors << "#{File.basename(post_path)}: Failed to parse front matter - #{e.message}"
     end
