@@ -4,8 +4,6 @@ title: "Laravel 11 + PHP 8.3: The Performance Revolution Your Team Needs"
 date: 2025-09-25
 ---
 
-# Laravel 11 + PHP 8.3: The Performance Revolution Your Team Needs
-
 **Why This Matters:** Application performance isn't just a technical metric--it directly impacts user retention, conversion rates, and ultimately your bottom line. Recent benchmarks show Laravel applications running on PHP 8.3 see 20-50% performance improvements, while Laravel 11's new features can reduce development time by 30%.
 
 ## The Business Case for Modern Laravel Stack

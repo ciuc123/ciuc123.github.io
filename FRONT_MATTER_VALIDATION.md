@@ -2,41 +2,58 @@
 
 ## Why This Is Important
 
-All Jekyll blog posts require specific front matter fields to render correctly. When these fields are missing, several issues can occur:
+All Jekyll blog posts require specific front matter fields to render correctly. Additionally, posts must not have duplicate H1 headings.
 
-### The Problem with Missing Titles
+### The Problem with Duplicate H1 Tags
 
-When you remove the `title` field from a post's front matter, Jekyll doesn't fail to build. Instead:
+The most common issue is when posts include BOTH a `title` in the front matter AND a redundant `# heading` in the content that repeats the same title.
 
-1. **Jekyll SEO Plugin** auto-generates a title from the filename
-   - Example: `2025-09-27-linkedin-automation-workflow.md` becomes "Linkedin Automation Workflow"
-
-2. **Post Layout** displays this auto-generated title in an `<h1>` tag
-
-3. **Post Content** typically has its own `<h1>` heading
-
-4. **Result**: You end up with **duplicate H1 tags**, which causes:
-   - Poor SEO (search engines see conflicting page titles)
-   - Accessibility issues (screen readers get confused)
-   - Unpredictable social media sharing (wrong title in previews)
-   - Malformed HTML structure
-
-### Example of the Issue
-
-**Front matter without title:**
+**Incorrect structure:**
 ```markdown
 ---
 layout: post
+title: "My Post Title"
 date: 2025-09-27
 ---
 
-# My Actual Post Title
+# My Post Title  <!-- DON'T DO THIS -->
+
+Content starts here...
 ```
+
+**Why this is wrong:**
+
+1. **Post Layout** displays the title from front matter as an `<h1>` tag
+2. **Markdown # heading** gets converted to another `<h1>` tag
+3. **Result**: You end up with **duplicate H1 tags**
 
 **Results in HTML:**
 ```html
-<h1>Linkedin Automation Workflow</h1>  <!-- Auto-generated from filename -->
-<h1>My Actual Post Title</h1>          <!-- From markdown content -->
+<h1>My Post Title</h1>  <!-- From page.title in layout -->
+<h1>My Post Title</h1>  <!-- From # markdown heading -->
+```
+
+This causes:
+- **SEO Issues**: Search engines see duplicate titles and may penalize the page
+- **Accessibility Problems**: Screen readers announce the same heading twice
+- **Poor User Experience**: Visual redundancy at the top of the page
+- **HTML Standards Violation**: Pages should have exactly one H1 tag
+
+### The Correct Structure
+
+**✅ Do this:**
+```markdown
+---
+layout: post
+title: "My Post Title"
+date: 2025-09-27
+---
+
+Content starts here without a # heading.
+
+## First Section
+
+More content...
 ```
 
 ## Solution: Validation

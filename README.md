@@ -28,14 +28,20 @@ Visit http://localhost:4000 to view the site locally.
 
 All blog posts must have required front matter fields. See [FRONT_MATTER_VALIDATION.md](FRONT_MATTER_VALIDATION.md) for details.
 
-**Required fields:**
+**Required structure:**
 ```markdown
 ---
 layout: post
 title: "Your Post Title"
 date: YYYY-MM-DD
 ---
+
+Start your content here without a # heading.
+
+## First Section
 ```
+
+**Important:** Do NOT start your post content with a `# heading` that duplicates the title. The post layout automatically displays the title as an H1.
 
 Before committing, validate your posts:
 ```bash
