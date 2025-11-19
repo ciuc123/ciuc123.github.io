@@ -3,3 +3,5 @@ _site
 /assets/welcome-email-full.html
 /assets/welcome-email-full.md
 /assets/welcome-email-full.pdf
+vendor/
+.bundle/
