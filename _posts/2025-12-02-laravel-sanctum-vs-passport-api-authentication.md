@@ -211,8 +211,10 @@ class OrderController extends Controller
 
     private function calculateTotal(array $items): int
     {
-        // Implementation details
-        return 0;
+        // Simplified for brevity - real implementation would fetch product prices
+        return collect($items)->sum(fn($item) => 
+            \App\Models\Product::find($item['product_id'])->price * $item['quantity']
+        );
     }
 }
 ```
@@ -238,8 +240,8 @@ use Laravel\Passport\RefreshTokenRepository;
 class PassportAuthController extends Controller
 {
     /**
-     * OAuth2 Password Grant - For first-party applications.
-     * Note: Password grant is considered legacy; use authorization code with PKCE instead.
+     * Personal Access Token approach - For first-party applications.
+     * For third-party apps, use authorization code with PKCE (shown below).
      */
     public function login(Request $request)
     {
@@ -268,7 +270,8 @@ class PassportAuthController extends Controller
             'access_token' => $token->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => $token->token->expires_at,
-            'refresh_token' => null, // Available with password grant client
+            // Personal access tokens don't have refresh tokens
+            // Use authorization code grant with PKCE for refresh token support
         ]);
     }
 
