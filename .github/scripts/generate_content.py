@@ -16,6 +16,12 @@ from pathlib import Path
 import requests
 
 
+# Configuration constants
+API_TIMEOUT_SECONDS = 120  # Timeout for API calls (generous for content generation)
+API_ENDPOINT = "https://models.inference.ai.azure.com/chat/completions"  # GitHub Models API via Azure
+API_MODEL = "gpt-4o"  # Model to use for content generation
+
+
 def load_prompt():
     """Load the content creation prompt from file."""
     prompt_path = Path(__file__).parent.parent.parent / "prompts" / "new-blog-linkedin-post.md"
@@ -32,7 +38,10 @@ def generate_content_with_github_models(prompt, topic=None):
     """
     Generate content using GitHub Models API.
     
-    GitHub Models API provides access to various AI models including GPT-4.
+    GitHub Models API provides access to various AI models including GPT-4o.
+    The API is accessed through Azure's inference endpoint which provides
+    GitHub-authenticated access to AI models.
+    
     Docs: https://docs.github.com/en/github-models
     """
     github_token = os.environ.get('GITHUB_TOKEN')
@@ -48,17 +57,13 @@ def generate_content_with_github_models(prompt, topic=None):
     else:
         full_prompt += "\n\n### Selected Topic\nChoose an interesting and timely topic from the suggested areas."
     
-    # GitHub Models API endpoint
-    # Using GPT-4o which is available through GitHub Models
-    api_url = "https://models.inference.ai.azure.com/chat/completions"
-    
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {github_token}"
     }
     
     payload = {
-        "model": "gpt-4o",
+        "model": API_MODEL,
         "messages": [
             {
                 "role": "system",
@@ -77,7 +82,7 @@ def generate_content_with_github_models(prompt, topic=None):
     print("Calling GitHub Models API...", file=sys.stderr)
     
     try:
-        response = requests.post(api_url, headers=headers, json=payload, timeout=120)
+        response = requests.post(API_ENDPOINT, headers=headers, json=payload, timeout=API_TIMEOUT_SECONDS)
         response.raise_for_status()
         
         result = response.json()
@@ -105,32 +110,31 @@ def parse_generated_content(content):
     ## LINKEDIN POST
     [linkedin content]
     """
-    # Split content by the separator
-    parts = re.split(r'\n---+\n', content)
-    
     blog_post = ""
     linkedin_post = ""
     
-    for part in parts:
-        if "## BLOG POST" in part or "## Blog Post" in part:
-            # Extract everything after the header
-            blog_post = re.sub(r'^.*?## BLOG POST.*?\n', '', part, flags=re.DOTALL | re.IGNORECASE)
-            blog_post = blog_post.strip()
-        elif "## LINKEDIN POST" in part or "## LinkedIn Post" in part:
-            # Extract everything after the header
-            linkedin_post = re.sub(r'^.*?## LINKEDIN POST.*?\n', '', part, flags=re.DOTALL | re.IGNORECASE)
-            linkedin_post = linkedin_post.strip()
+    # Use regex to find sections by headers, not by --- separators
+    # This avoids issues with YAML front matter which also uses ---
+    blog_match = re.search(
+        r'##\s*BLOG\s*POST\s*\n(.*?)(?=##\s*LINKEDIN\s*POST|$)', 
+        content, 
+        re.DOTALL | re.IGNORECASE
+    )
+    linkedin_match = re.search(
+        r'##\s*LINKEDIN\s*POST\s*\n(.*?)$', 
+        content, 
+        re.DOTALL | re.IGNORECASE
+    )
     
-    # If the split didn't work, try alternative parsing
-    if not blog_post and not linkedin_post:
-        # Try to find the sections differently
-        blog_match = re.search(r'## BLOG POST\s*\n(.*?)(?=## LINKEDIN POST|$)', content, re.DOTALL | re.IGNORECASE)
-        linkedin_match = re.search(r'## LINKEDIN POST\s*\n(.*)', content, re.DOTALL | re.IGNORECASE)
-        
-        if blog_match:
-            blog_post = blog_match.group(1).strip()
-        if linkedin_match:
-            linkedin_post = linkedin_match.group(1).strip()
+    if blog_match:
+        blog_post = blog_match.group(1).strip()
+        # Remove any leading --- separators that might be present
+        blog_post = re.sub(r'^---+\s*\n', '', blog_post)
+    
+    if linkedin_match:
+        linkedin_post = linkedin_match.group(1).strip()
+        # Remove any leading --- separators that might be present
+        linkedin_post = re.sub(r'^---+\s*\n', '', linkedin_post)
     
     return blog_post, linkedin_post
 

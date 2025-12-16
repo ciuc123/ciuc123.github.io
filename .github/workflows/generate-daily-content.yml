@@ -35,6 +35,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
+          # Using minor version for automatic patch updates
+          # The script has no breaking dependencies that would require a specific patch version
           python-version: '3.11'
       
       - name: Install dependencies
