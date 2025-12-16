@@ -5,3 +5,6 @@ _site
 /assets/welcome-email-full.pdf
 vendor/
 .bundle/
+__pycache__/
+*.py[cod]
+*$py.class
