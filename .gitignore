@@ -5,3 +5,21 @@ _site
 /assets/welcome-email-full.pdf
 vendor/
 .bundle/
+
+# Temporary content generation files
+new_blog_post.md
+new_linkedin_post.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+venv/
+
+# Jekyll
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.DS_Store
