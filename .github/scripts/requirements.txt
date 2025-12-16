@@ -1,0 +1,2 @@
+# Python dependencies for content generation script
+requests>=2.31.0
