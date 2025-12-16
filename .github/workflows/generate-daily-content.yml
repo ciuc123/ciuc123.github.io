@@ -1,0 +1,133 @@
+name: Generate Daily Blog & LinkedIn Post
+
+on:
+  # Run daily at 9:00 AM UTC (can be adjusted to your timezone)
+  schedule:
+    - cron: '0 9 * * *'
+  
+  # Allow manual triggering with optional topic input
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Specific topic for the blog post (optional)'
+        required: false
+        type: string
+      skip_pr:
+        description: 'Skip PR creation and commit directly (not recommended)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install anthropic python-dotenv
+
+      - name: Generate content with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TOPIC: ${{ github.event.inputs.topic || '' }}
+        run: |
+          python .github/scripts/generate_content.py
+
+      - name: Check if content was generated
+        id: check_files
+        run: |
+          if [ -f "new_blog_post.md" ] && [ -f "new_linkedin_post.txt" ]; then
+            echo "content_generated=true" >> $GITHUB_OUTPUT
+          else
+            echo "content_generated=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Content generation failed - no files created"
+            exit 1
+          fi
+
+      - name: Move generated files
+        if: steps.check_files.outputs.content_generated == 'true'
+        run: |
+          # Get the filename from the blog post
+          FILENAME=$(head -n 20 new_blog_post.md | grep -oP '(?<=^# )\S+' | head -1)
+          if [ -z "$FILENAME" ]; then
+            # Fallback: extract from the file itself
+            FILENAME=$(grep -m 1 "^title:" new_blog_post.md | sed 's/title: //g' | sed 's/[^a-zA-Z0-9]/-/g' | tr '[:upper:]' '[:lower:]' | sed 's/--*/-/g')
+          fi
+          
+          # Get date from the blog post YAML frontmatter
+          POST_DATE=$(grep "^date:" new_blog_post.md | head -1 | sed 's/date: //g' | tr -d ' ')
+          
+          # Create proper filename
+          BLOG_FILENAME="${POST_DATE}-${FILENAME}.md"
+          
+          # Move files to proper locations
+          mv new_blog_post.md "_posts/${BLOG_FILENAME}"
+          mv new_linkedin_post.txt "linkedin_posts/${POST_DATE}-${FILENAME}.txt"
+          
+          echo "BLOG_FILENAME=${BLOG_FILENAME}" >> $GITHUB_ENV
+          echo "POST_DATE=${POST_DATE}" >> $GITHUB_ENV
+
+      - name: Create Pull Request
+        if: steps.check_files.outputs.content_generated == 'true' && github.event.inputs.skip_pr != 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Add new blog post: ${{ env.BLOG_FILENAME }}"
+          branch: automated-content-${{ env.POST_DATE }}
+          delete-branch: true
+          title: "📝 New Blog Post: ${{ env.BLOG_FILENAME }}"
+          body: |
+            ## 🤖 Automated Content Generation
+            
+            This PR contains a new blog post and accompanying LinkedIn promotional post.
+            
+            ### 📄 Files Added
+            - `_posts/${{ env.BLOG_FILENAME }}`
+            - `linkedin_posts/${{ env.POST_DATE }}-*.txt`
+            
+            ### 📋 Review Checklist
+            - [ ] Blog post content is accurate and valuable
+            - [ ] Code examples are correct and follow best practices
+            - [ ] LinkedIn post is compelling and includes correct URL
+            - [ ] No sensitive information or placeholder text remains
+            - [ ] Title is SEO-optimized and under 70 characters
+            - [ ] Tags are relevant
+            
+            ### 📝 Next Steps
+            1. Review the blog post for accuracy and quality
+            2. Review the LinkedIn post
+            3. Make any necessary edits
+            4. Merge when ready to publish
+            
+            **LinkedIn Post Location**: `linkedin_posts/${{ env.POST_DATE }}-*.txt`
+            
+            ---
+            *Generated automatically by GitHub Actions*
+          labels: |
+            automated
+            blog-post
+            needs-review
+
+      - name: Direct commit (if skip_pr is true)
+        if: steps.check_files.outputs.content_generated == 'true' && github.event.inputs.skip_pr == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts/*.md linkedin_posts/*.txt
+          git commit -m "Add new blog post: ${{ env.BLOG_FILENAME }}"
+          git push
