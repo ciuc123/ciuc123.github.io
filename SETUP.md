@@ -147,10 +147,21 @@ TOPIC="Your Topic" python .github/scripts/generate_content.py
 
 ## API Usage & Costs
 
-### Anthropic API Pricing (as of Dec 2024)
-- Claude 3.5 Sonnet: $3 per million input tokens, $15 per million output tokens
-- Each blog post generation: ~$0.15-0.30
+### Anthropic API Pricing
+
+**Note**: Pricing information is subject to change. Check current rates at: https://www.anthropic.com/pricing
+
+**Estimated costs as of December 2024:**
+- Claude 3.5 Sonnet: ~$3 per million input tokens, ~$15 per million output tokens
+- Typical blog post generation: ~$0.15-0.30 per post
 - Daily usage (1 post/day): ~$5-10/month
+- Weekly usage (1 post/week): ~$1-2/month
+
+**Cost will vary based on:**
+- Post length and complexity
+- Number of code examples
+- Topic difficulty
+- API model version used
 
 ### Monitor Usage
 1. Go to https://console.anthropic.com/

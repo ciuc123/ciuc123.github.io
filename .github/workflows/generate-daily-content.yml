@@ -62,15 +62,19 @@ jobs:
       - name: Move generated files
         if: steps.check_files.outputs.content_generated == 'true'
         run: |
-          # Get the filename from the blog post
-          FILENAME=$(head -n 20 new_blog_post.md | grep -oP '(?<=^# )\S+' | head -1)
-          if [ -z "$FILENAME" ]; then
-            # Fallback: extract from the file itself
-            FILENAME=$(grep -m 1 "^title:" new_blog_post.md | sed 's/title: //g' | sed 's/[^a-zA-Z0-9]/-/g' | tr '[:upper:]' '[:lower:]' | sed 's/--*/-/g')
-          fi
-          
-          # Get date from the blog post YAML frontmatter
+          # Extract date from YAML frontmatter
           POST_DATE=$(grep "^date:" new_blog_post.md | head -1 | sed 's/date: //g' | tr -d ' ')
+          
+          # Extract title from YAML frontmatter and create slug
+          # Remove quotes, convert to lowercase, replace non-alphanumeric with dash
+          TITLE=$(grep -m 1 "^title:" new_blog_post.md | sed 's/^title: *//g' | sed 's/"//g' | sed "s/'//g")
+          FILENAME=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//g' | sed 's/-$//g')
+          
+          # Ensure filename is not empty
+          if [ -z "$FILENAME" ]; then
+            echo "Error: Could not extract filename from blog post title"
+            FILENAME="blog-post-${POST_DATE}"
+          fi
           
           # Create proper filename
           BLOG_FILENAME="${POST_DATE}-${FILENAME}.md"

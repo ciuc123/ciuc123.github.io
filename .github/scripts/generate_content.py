@@ -81,6 +81,7 @@ def generate_content_with_claude(prompt_template, topic=None):
 def parse_generated_content(content):
     """
     Parse the generated content to extract blog and LinkedIn posts.
+    Uses multiple fallback strategies for robustness.
     
     Args:
         content: Raw content from Claude
@@ -88,32 +89,40 @@ def parse_generated_content(content):
     Returns:
         tuple: (blog_content, linkedin_content)
     """
-    # Look for the blog post section
+    # Strategy 1: Look for the blog post section with standard markers
     blog_match = re.search(
         r'## 📝 BLOG POST.*?\n\n(---\nlayout: post.*?)(?=\n---\n\n## 💼 LINKEDIN POST|$)',
         content,
         re.DOTALL
     )
     
+    # Strategy 2: Try alternative pattern without emojis
     if not blog_match:
-        # Try alternative pattern
         blog_match = re.search(
             r'(?:BLOG POST|Blog Post).*?\n\n(---\nlayout: post.*?)(?=\n---?\n\n.*?(?:LINKEDIN POST|LinkedIn Post)|$)',
             content,
             re.DOTALL | re.IGNORECASE
         )
     
+    # Strategy 3: Find anything that looks like a Jekyll post
     if not blog_match:
-        print("⚠️ Warning: Could not find blog post with standard pattern")
-        print("Attempting to extract any content with YAML frontmatter...")
-        # Last resort: find anything that looks like a Jekyll post
+        print("⚠️ Using fallback strategy for blog post extraction")
         blog_match = re.search(
             r'(---\nlayout: post.*?)(?=\n---?\n\n|$)',
             content,
             re.DOTALL
         )
     
-    # Look for LinkedIn post section
+    # Strategy 4: Find content between first and second --- markers
+    if not blog_match:
+        print("⚠️ Using final fallback for blog post")
+        parts = content.split('---')
+        if len(parts) >= 3:
+            # Reconstruct YAML frontmatter and content
+            blog_content = f"---{parts[1]}---{parts[2]}"
+            blog_match = type('obj', (object,), {'group': lambda self, n: blog_content.strip()})()
+    
+    # LinkedIn post extraction with multiple strategies
     linkedin_match = re.search(
         r'## 💼 LINKEDIN POST.*?\n\n(.*?)(?:\n\n---|\Z)',
         content,
@@ -121,23 +130,25 @@ def parse_generated_content(content):
     )
     
     if not linkedin_match:
-        # Try alternative pattern
         linkedin_match = re.search(
             r'(?:LINKEDIN POST|LinkedIn Post).*?\n\n(.*?)(?:\n\n---|\Z)',
             content,
             re.DOTALL | re.IGNORECASE
         )
     
+    # Final validation
     if not blog_match:
         print("❌ Error: Could not parse blog post from generated content")
-        print("\nFirst 500 characters of content:")
+        print("\nContent preview (first 500 characters):")
         print(content[:500])
+        print("\n\nPlease check that Claude returned the expected format.")
         sys.exit(1)
     
     if not linkedin_match:
         print("❌ Error: Could not parse LinkedIn post from generated content")
-        print("\nLast 500 characters of content:")
+        print("\nContent preview (last 500 characters):")
         print(content[-500:])
+        print("\n\nPlease check that Claude returned the expected format.")
         sys.exit(1)
     
     blog_content = blog_match.group(1).strip()
