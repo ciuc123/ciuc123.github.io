@@ -23,4 +23,3 @@ Principles
 - Entitlements-first model: “who owns what” is the core.
 - Avoid leaking paid content via static generation or client-side JSON.
 - Paid value is curated materials; videos are optional.
-
