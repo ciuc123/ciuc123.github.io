@@ -5,3 +5,5 @@ _site
 /assets/welcome-email-full.pdf
 vendor/
 .bundle/
+/app-next/.next/
+/app-next/node_modules/

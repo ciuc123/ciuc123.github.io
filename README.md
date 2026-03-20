@@ -34,3 +34,25 @@ welcome-email - Include in the welcome email pdf generation
 ## Generate email from blog posts
 All blog posts with the tag welcome-email will be included in the welcome email pdf.
 To generate the email, run: ./generate-welcome-pdf.sh
+
+## Next.js Foundation (Migration Track)
+
+A minimal Next.js App Router app lives in `app-next/` so it can coexist with the current Jekyll site during migration.
+
+### Run Next.js locally
+
+```bash
+cd app-next
+npm install
+npm run dev
+```
+
+Visit http://localhost:3000 to view the Next.js app locally.
+
+### Build Next.js
+
+```bash
+cd app-next
+npm run build
+npm run start
+```
