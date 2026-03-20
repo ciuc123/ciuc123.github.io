@@ -43,10 +43,39 @@ Use Node.js `20.9.0` or newer for `app-next/`.
 
 If `nvm` is not installed in WSL, install Node.js 20+ using your preferred manager (for example NodeSource packages, `fnm`, or `volta`) before running the commands below.
 
+### `app-next/bootstrap.sh`
+
+`app-next/bootstrap.sh` is the preferred way to work with the Next.js app locally.
+It helps avoid accidentally using the system Node 18 runtime.
+
+What it does:
+- loads `nvm` from `~/.nvm/nvm.sh`
+- switches to the Node version in `app-next/.nvmrc`
+- runs commands from inside `app-next/`
+- in `dev` mode, clears stale `.next` output and restarts the dev server cleanly
+
+Supported modes:
+- `./bootstrap.sh dev` — install dependencies, clear stale dev state, and start the dev server
+- `./bootstrap.sh build` — install dependencies and run a production build
+- `./bootstrap.sh start` — start the production server
+- `./bootstrap.sh install` — install dependencies only
+
 ### Run Next.js locally
+
+Preferred helper:
 
 ```bash
 cd app-next
+./bootstrap.sh dev
+```
+
+Manual equivalent:
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+. "$NVM_DIR/nvm.sh"
+cd app-next
+nvm use 20.9.0
 npm install
 npm run dev
 ```
@@ -55,10 +84,36 @@ Visit http://localhost:3000 to view the Next.js app locally.
 
 ### Build Next.js
 
+Preferred helper:
+
 ```bash
 cd app-next
+./bootstrap.sh build
+```
+
+Manual equivalent:
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+. "$NVM_DIR/nvm.sh"
+cd app-next
+nvm use 20.9.0
 npm run build
 npm run start
+```
+
+### Install dependencies only
+
+```bash
+cd app-next
+./bootstrap.sh install
+```
+
+### Start the production server
+
+```bash
+cd app-next
+./bootstrap.sh start
 ```
 
 ### Clerk auth setup
