@@ -14,11 +14,12 @@
 
 ## Task execution order
 1. 010-repo-migrate-to-next-vercel
-2. 020-auth-clerk
-3. 030-db-supabase-schema-rls
-4. 040-stripe-checkout
-5. 050-stripe-webhooks-entitlements
-6. 060-gated-content-library
-7. 070-emails-resend (optional)
-8. 080-analytics-ga4-utms (optional)
-9. 090-secure-assets-cloudfront-s3 (phase 2, optional)
+2. 015-upgrade-app-next-to-nextjs-16
+3. 020-auth-clerk
+4. 030-db-supabase-schema-rls
+5. 040-stripe-checkout
+6. 050-stripe-webhooks-entitlements
+7. 060-gated-content-library
+8. 070-emails-resend (optional)
+9. 080-analytics-ga4-utms (optional)
+10. 090-secure-assets-cloudfront-s3 (phase 2, optional)
