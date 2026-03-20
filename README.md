@@ -60,3 +60,18 @@ cd app-next
 npm run build
 npm run start
 ```
+
+### Clerk auth setup
+
+Before running authenticated routes in `app-next/`, configure these environment variables in your shell or a local env file:
+
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- `CLERK_SECRET_KEY`
+
+Optional Clerk URL overrides if you want explicit route configuration:
+- `NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in`
+- `NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up`
+- `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/library`
+- `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/library`
+
+Without valid Clerk keys, `/sign-in`, `/sign-up`, and the protected `/library` flow cannot be fully smoke-tested locally.
