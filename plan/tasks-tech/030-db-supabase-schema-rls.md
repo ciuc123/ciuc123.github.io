@@ -15,3 +15,14 @@ Create database tables to support entitlements-first access checks.
 - Schema exists in Supabase
 - Uniqueness constraints in place for idempotency
 - Basic RLS policies defined where appropriate
+
+## Repo artifacts
+- `app-next/supabase/migrations/0001_entitlements_schema.sql`
+- `app-next/supabase/README.md`
+- `app-next/.env.example` (Supabase variables added)
+
+## Status Notes
+- The initial SQL migration has been created in the repo.
+- The migration includes catalog/content tables in addition to the minimum entitlement tables to reduce churn for later tasks.
+- RLS is enabled with initial select policies based on `public.users.clerk_user_id` and an expected JWT claim `request.jwt.claims.clerk_user_id`.
+- Final manual verification still needs to happen in a real Supabase project via the SQL editor.

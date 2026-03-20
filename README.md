@@ -151,3 +151,22 @@ Optional Clerk URL overrides if you want explicit route configuration:
 
 Without valid Clerk keys, the app now falls back to non-crashing setup messages on `/sign-in`, `/sign-up`, and `/library` so local builds and prerendering still succeed.
 With valid Clerk keys, the full auth flow is enabled automatically.
+
+### Supabase schema setup
+
+The initial SQL-first schema for products, purchases, entitlements, and gated content lives in:
+- `app-next/supabase/migrations/0001_entitlements_schema.sql`
+- `app-next/supabase/README.md`
+
+Additional environment variables are documented in `app-next/.env.example`:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Recommended next step for task `030`:
+1. Copy `app-next/.env.example` to `app-next/.env.local`
+2. Fill in your Supabase values
+3. Open the Supabase SQL editor
+4. Run `app-next/supabase/migrations/0001_entitlements_schema.sql`
+5. Seed one `products` row using the commented example in the migration
+
