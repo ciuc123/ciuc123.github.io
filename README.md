@@ -116,6 +116,25 @@ cd app-next
 ./bootstrap.sh start
 ```
 
+### `bootstrap.sh` troubleshooting
+
+If `./bootstrap.sh` says `nvm was not found`, make sure `nvm` is installed in `~/.nvm`.
+
+If `./bootstrap.sh` says `Node.js 20.9.0 is not installed in nvm`, run:
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+. "$NVM_DIR/nvm.sh"
+nvm install 20.9.0
+```
+
+If your shell still reports Node 18, avoid running `npm` directly and use the helper instead:
+
+```bash
+cd app-next
+./bootstrap.sh dev
+```
+
 ### Clerk auth setup
 
 Before running authenticated routes in `app-next/`, configure these environment variables in your shell or a local env file.
