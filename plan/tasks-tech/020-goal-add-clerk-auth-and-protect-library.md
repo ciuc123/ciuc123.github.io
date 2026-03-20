@@ -1,6 +1,6 @@
 # Goal: Add Clerk auth and protect /library
 
-- [ ] Add Clerk SDK to `app-next` and document required environment variables.
+- [x] Add Clerk SDK to `app-next` and document required environment variables.
 - [x] Wrap the App Router layout with Clerk provider setup.
 - [x] Create sign-in and sign-up routes/pages under `app-next/app/`.
 - [x] Add middleware or server-side auth protection so `/library` redirects to sign-in when logged out.
@@ -10,6 +10,7 @@
 
 Notes:
 - Current app foundation lives in `app-next/` on Next.js 16.2.0.
-- Auth route code is scaffolded.
-- The Clerk install failure was caused by a React patch mismatch (`react@~19.2.3` with `react-dom@19.2.0`). `package.json` has been corrected so both `react` and `react-dom` use `~19.2.3`.
-- Full runtime verification still requires a successful `npm install` plus valid Clerk environment variables (`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`).
+- Auth route code is scaffolded and now degrades gracefully when Clerk env vars are missing, so local builds and prerendering do not crash.
+- Clerk install issues were caused by a React patch mismatch (`react@~19.2.3` with `react-dom@19.2.0`). `package.json` has been corrected so both `react` and `react-dom` use `~19.2.3`.
+- Local Clerk setup now uses `app-next/.env.example` copied to `app-next/.env.local`, and `app-next/.env.local` is gitignored.
+- Full runtime verification still requires valid Clerk environment variables (`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`).
