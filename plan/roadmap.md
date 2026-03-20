@@ -37,3 +37,5 @@
 
 ## Phase 8 — Optional Phase 2 secure assets
 - CloudFront/S3 signed URLs for private downloads/video
+
+Last updated: 2026-03-20
