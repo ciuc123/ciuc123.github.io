@@ -39,6 +39,10 @@ To generate the email, run: ./generate-welcome-pdf.sh
 
 A minimal Next.js App Router app lives in `app-next/` so it can coexist with the current Jekyll site during migration.
 
+Use Node.js `20.9.0` or newer for `app-next/`.
+
+If `nvm` is not installed in WSL, install Node.js 20+ using your preferred manager (for example NodeSource packages, `fnm`, or `volta`) before running the commands below.
+
 ### Run Next.js locally
 
 ```bash
