@@ -4,49 +4,68 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+          DEFAULT_NVM_DIR="$HOME/.nvm"
+ALT_NVM_DIR="$HOME/.config/nvm"
+if [[ -n "${NVM_DIR:-}" && -s "${NVM_DIR}/nvm.sh" ]]; then
+  RESOLVED_NVM_DIR="$NVM_DIR"
+elif [[ -s "$DEFAULT_NVM_DIR/nvm.sh" ]]; then
+  RESOLVED_NVM_DIR="$DEFAULT_NVM_DIR"
+elif [[ -s "$ALT_NVM_DIR/nvm.sh" ]]; then
+  RESOLVED_NVM_DIR="$ALT_NVM_DIR"
+else
+  RESOLVED_NVM_DIR="${NVM_DIR:-$DEFAULT_NVM_DIR}"
+fi
+
 REQUIRED_NODE_VERSION="$(tr -d '[:space:]' < .nvmrc)"
 MODE="${1:-dev}"
+LOG_FILE="$SCRIPT_DIR/bootstrap.log"
 
-if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
-  echo "nvm was not found at $NVM_DIR/nvm.sh" >&2
-  echo "Install nvm or load a Node.js runtime >= $REQUIRED_NODE_VERSION before running bootstrap.sh." >&2
+: > "$LOG_FILE"
+log() {
+  printf '%s\n' "$1" | tee -a "$LOG_FILE"
+}
+
+if [[ ! -s "$RESOLVED_NVM_DIR/nvm.sh" ]]; then
+  log "nvm was not found at $RESOLVED_NVM_DIR/nvm.sh"
+  log "Install nvm or load a Node.js runtime >= $REQUIRED_NODE_VERSION before running bootstrap.sh."
   exit 1
 fi
 
+export NVM_DIR="$RESOLVED_NVM_DIR"
 # shellcheck disable=SC1090
-. "$NVM_DIR/nvm.sh"
+. "$RESOLVED_NVM_DIR/nvm.sh"
 
-if ! nvm use "$REQUIRED_NODE_VERSION" >/dev/null 2>&1; then
-  echo "Node.js $REQUIRED_NODE_VERSION is not installed in nvm." >&2
-  echo "Run: nvm install $REQUIRED_NODE_VERSION" >&2
+if ! nvm use "$REQUIRED_NODE_VERSION" >/dev/null; then
+  log "Node.js $REQUIRED_NODE_VERSION is not installed in nvm."
+  log "Run: nvm install $REQUIRED_NODE_VERSION"
   exit 1
 fi
 
-echo "Using node $(node -v)"
-echo "Using npm $(npm -v)"
+log "Loading nvm from $RESOLVED_NVM_DIR/nvm.sh"
+log "Using node $(node -v)"
+log "Using npm $(npm -v)"
+log "Running mode: $MODE"
 
 case "$MODE" in
   dev)
     pkill -f "next dev" >/dev/null 2>&1 || true
     rm -rf .next
-    npm install
-    exec npm run dev
+    npm install 2>&1 | tee -a "$LOG_FILE"
+    npm run dev 2>&1 | tee -a "$LOG_FILE"
     ;;
   build)
-    npm install
-    exec npm run build
+    npm install 2>&1 | tee -a "$LOG_FILE"
+    npm run build 2>&1 | tee -a "$LOG_FILE"
     ;;
   start)
-    exec npm run start
+    npm run start 2>&1 | tee -a "$LOG_FILE"
     ;;
   install)
-    exec npm install
+    npm install 2>&1 | tee -a "$LOG_FILE"
     ;;
   *)
-    echo "Unknown mode: $MODE" >&2
-    echo "Usage: ./bootstrap.sh [dev|build|start|install]" >&2
+    log "Unknown mode: $MODE"
+    log "Usage: ./bootstrap.sh [dev|build|start|install]"
     exit 1
     ;;
 esac
-
