@@ -31,6 +31,11 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - README.md
+  - AGENT_PROMPTS.md
+  - PLAN.md
+  - docs/
+  - generate-welcome-pdf.sh
 
 # Collections
 collections:
