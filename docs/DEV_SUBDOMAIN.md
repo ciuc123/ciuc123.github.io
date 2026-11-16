@@ -6,7 +6,9 @@
 - **job-radar repository**: no reference either. Its environments are `jobs.ciuculescu.com` (production, Vercel) and Vercel preview URLs for `development` and `preview`; none is mapped to `dev.`.
 - **Live DNS / HTTP**: not checked. The cloud session that did this survey could not reach `ciuculescu.com` or `dev.ciuculescu.com` (blocked by the session's network policy). The checks below are for the owner, or for a later session with those hosts allowed.
 
-So `dev.ciuculescu.com` is not served by anything in these two repositories. Either it has no DNS record, or it points somewhere set up by hand.
+- **This repository's `dev` branch** (14 commits, 2026-03-20 to 2026-03-21, not merged): a Next.js 16 App Router app in `app-next/` with Clerk sign-in and a protected `/library`, plus a `plan/` folder for turning the site into a paid "curated materials" product (Clerk, Supabase, Stripe, Resend; Vercel hosting). Its roadmap says "Decide whether to keep GitHub Pages or switch to Vercel". Nothing in it names `dev.ciuculescu.com`, but a Vercel project on that branch mapped to `dev.` is the most likely meaning of the subdomain.
+
+So `dev.ciuculescu.com` is most likely the intended (or existing) home of the `dev` branch's Next.js app on Vercel. If the DNS check below shows a Vercel CNAME, check in Vercel which project and branch it serves.
 
 ## Checks to run (5 minutes)
 
@@ -32,4 +34,5 @@ GitHub Pages serves one custom domain per repository, so the blog cannot have bo
 1. **Recommended: no dev subdomain; local preview + PR previews.** `bundle exec jekyll serve` locally, and if a shareable preview is needed, Cloudflare Pages or Netlify building PRs on their own `*.pages.dev` / `*.netlify.app` URLs (free, nothing to index, no DNS to maintain).
 2. **dev.ciuculescu.com as staging of the blog**: a Cloudflare Pages / Netlify / Vercel project on a `develop` branch, mapped to `dev.`, with `robots: noindex` (an `X-Robots-Tag: noindex` header or a `_config.dev.yml` that adds the meta tag) and a canonical pointing at `ciuculescu.com`. Without noindex it competes with the real site as duplicate content.
 3. **dev.ciuculescu.com as a developer hub** (projects, open source, tools, a link to Job Radar). Only worth it with content that does not belong on the main site; otherwise a `/projects/` page on `ciuculescu.com` ranks better (one domain gathers all links).
-4. **Map it to Job Radar's development environment** (Vercel domain on the `development` branch). Needs Clerk development allowed origins updated and `noindex`; the Vercel preview URL already does this job, so little gain.
+4. **Staging for the Next.js rebuild** (the `dev` branch): a Vercel project with root directory `app-next/`, production branch `dev`, domain `dev.ciuculescu.com`, Clerk development keys, `noindex`. This fits the `dev` branch's roadmap; when the rebuild replaces the Jekyll site, `ciuculescu.com` moves to Vercel and `dev.` stays as its staging. Recommended if the paid-library plan goes ahead; option 1 otherwise.
+5. **Map it to Job Radar's development environment** (Vercel domain on the `development` branch). Needs Clerk development allowed origins updated and `noindex`; the Vercel preview URL already does this job, so little gain.

@@ -7,9 +7,30 @@ Background: `docs/SEO.md` (audit findings, numbered; tasks below cite them as SE
 ## Now
 
 1. [Owner] Check how Pages deploys and what dev.ciuculescu.com resolves to (first two tasks under **Site health**).
-2. [AI] Fix the deploy workflow and the contact form.
-3. [AI] SEO quick wins (duplicate H1s, descriptions, titles, social image).
-4. [Owner] Search Console set up, baseline numbers written down.
+2. [Owner] Decide the site's direction: keep Jekyll, or continue the Next.js paid-library rebuild on the `dev` branch (**Next.js rebuild**).
+3. [AI] Fix the deploy workflow and the contact form.
+4. [AI] SEO quick wins (duplicate H1s, descriptions, titles, social image).
+5. [Owner] Search Console set up, baseline numbers written down.
+
+## Work in flight (unmerged branches, checked 2026-11-16)
+
+None of these is merged into `master`. Decide for each: merge, finish, or delete the branch.
+
+- [ ] [Owner] `dev`: Next.js rebuild, 14 commits, last 2026-03-21 (see **Next.js rebuild**).
+- [ ] [Owner] `copilot/remove-page-title-issue`: removes the duplicate H1s (SEO-4) and adds `validate_posts.rb` plus a workflow; 2025-11-06. Merging it covers the H1 task below; check its workflow first.
+- [ ] [Owner] `copilot/execute-agents-md`: finished post "Laravel Sanctum vs Passport API Authentication"; 2025-12-02. Review and publish.
+- [ ] [Owner] `ideas/2026-07-06-from-monolith-to-microservices-solo-devs-guide-to-scaling-laravel`: draft post (114 lines). Review and publish.
+- [ ] [Owner] `posts/advance`: draft post "Laravel Forge VPS zero-downtime" (file name says "downtine"); 2025-09-30.
+- [ ] [Owner] `copilot/create-prompts-folder` and `copilot/remove-anthropic-api-key`: two overlapping content-generation systems (prompts, LinkedIn posts, GitHub Models); 2025-12-16. Keep at most one; `AGENT_PROMPTS.md` on `master` already covers the prompts.
+- [ ] [Owner] Delete branches already merged into `master`: `add-laravel-queue-optimization-post`, `backup`, `copilot/create-blog-posts-with-php-laravel`, `copilot/find-wordpress-scheduling-themes`.
+
+## Next.js rebuild (`dev` branch)
+
+The `dev` branch's `plan/` folder holds the detailed tasks (`plan/tasks-tech/`, `plan/tasks-product/`, `plan/tasks-first-sale/`): turn the site into a paid "curated materials" library with Next.js on Vercel, Clerk, Supabase, Stripe and optional Resend / GA4 / S3. Done there: 010 Next.js skeleton, 015 upgrade to Next.js 16; 020 Clerk mostly done (SDK env docs and the manual sign-in test still open). Next: 030 Supabase schema, 040 Stripe checkout.
+
+- [ ] [Owner] Decide: go on with the rebuild, or keep the Jekyll blog and drop it. If the rebuild goes ahead, prefer the Postgres/Drizzle + Clerk setup already running in Job Radar over adding Supabase.
+- [ ] [Owner] If it goes ahead: create the Vercel project for `app-next/` on `dev` and map `dev.ciuculescu.com` with `noindex` (option 4 in `docs/DEV_SUBDOMAIN.md`).
+- [ ] [AI] If it goes ahead: before switching `ciuculescu.com` to Next.js, keep every post URL (`/posts/:year-:month-:day-:title/`) or add 301 redirects, and carry over sitemap, RSS, canonical and structured data. Until then, keep Jekyll SEO work to the quick wins.
 
 ## Site health (do first)
 
@@ -24,7 +45,7 @@ Background: `docs/SEO.md` (audit findings, numbered; tasks below cite them as SE
 
 ## SEO quick wins
 
-- [ ] [AI] Remove the in-body `# ` H1 from the 5 posts that have one (SEO-4).
+- [ ] [AI] Remove the in-body `# ` H1 from the 5 posts that have one, or merge `copilot/remove-page-title-issue` which does it (SEO-4).
 - [ ] [AI] Draft a 140 to 160 character `description:` for each post; [Owner] reviews (SEO-5).
 - [ ] [AI] Shorten post titles to ≤ 60 characters (keep URLs unchanged) and the site `title` to "Andrei Ciuculescu" (SEO-6).
 - [ ] [Owner] Provide or approve a default 1200×630 social image; [AI] wires `image:` in `_config.yml` (SEO-7).
