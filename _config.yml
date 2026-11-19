@@ -21,6 +21,8 @@ plugins:
 
 # Exclude from processing
 exclude:
+  - app-next/
+  - plan/
   - .sass-cache/
   - .jekyll-cache/
   - gemfiles/
