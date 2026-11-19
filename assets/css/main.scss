@@ -1225,3 +1225,53 @@ article {
     min-height: calc(100vh - 80px); // header may wrap taller on mobile
   }
 }
+
+// Contact form: honeypot, status messages, email fallback
+.form-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 5px;
+  border: 1px solid;
+  &.form-status--success {
+    color: $secondary-color;
+    border-color: $secondary-color;
+    background: rgba($secondary-color, 0.08);
+  }
+  &.form-status--error {
+    color: #ff8a8a;
+    border-color: #ff8a8a;
+    background: rgba(#ff8a8a, 0.08);
+  }
+}
+
+.contact-email {
+  margin-top: 1.5rem;
+  color: $text-muted;
+  a { color: $secondary-color; }
+}
+
+// Call to action at the end of every post
+.post-cta {
+  margin: 3rem 0 2rem;
+  padding: 1.75rem;
+  border: 1px solid $secondary-color;
+  border-radius: 8px;
+  background: rgba($secondary-color, 0.06);
+  .post-cta__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: $font-weight-semibold;
+    color: $secondary-color;
+  }
+  .post-cta__text {
+    margin: 0 0 1.25rem;
+  }
+}

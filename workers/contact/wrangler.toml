@@ -1,0 +1,14 @@
+name = "ciuculescu-contact"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Same-origin endpoint: the site is proxied through Cloudflare, so the Worker can own this path.
+routes = [{ pattern = "ciuculescu.com/api/contact", zone_name = "ciuculescu.com" }]
+
+[vars]
+MAIL_FROM = "ciuculescu.com <contact@ciuculescu.com>"
+MAIL_TO = "contact@ciuculescu.com"
+SUBJECT_PREFIX = "New inquiry from ciuculescu.com"
+ALLOWED_ORIGINS = "https://ciuculescu.com,http://localhost:4000"
+
+# Secret, never committed: wrangler secret put RESEND_API_KEY

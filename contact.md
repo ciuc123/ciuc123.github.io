@@ -10,21 +10,32 @@ permalink: /contact/
       <div class="contact-section">
         <h3>Get in Touch</h3>
         <p>Ready to discuss your project? Let's connect and explore how I can help achieve your technical goals.</p>
-        <form id="contactForm" class="contact-form">
+        {%- assign cf = site.contact_form -%}
+        {%- if cf.action and cf.action != "" %}
+        <form id="contactForm" class="contact-form" action="{{ cf.action }}" method="POST" accept-charset="UTF-8">
+          <input type="hidden" name="source_page" value="">
+          <div class="form-hp" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off">
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" autocomplete="name" required>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" autocomplete="email" required>
           </div>
           <div class="form-group">
             <label for="project">Project Details</label>
-            <textarea id="project" name="project" rows="4" placeholder="Brief description of your project requirements, timeline, and budget range" required></textarea>
+            <textarea id="project" name="message" rows="4" placeholder="Brief description of your project requirements, timeline, and budget range" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Send Inquiry</button>
+          <div class="form-status" role="status" aria-live="polite" hidden></div>
         </form>
+        {%- endif %}
+        <p class="contact-email">Prefer email? Write to <a href="mailto:{{ site.email }}" data-cta="contact-mailto">{{ site.email }}</a>.</p>
       </div>
       <div class="info-section">
         <h3>Professional Info</h3>

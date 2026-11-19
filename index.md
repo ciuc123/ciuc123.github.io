@@ -10,8 +10,8 @@ permalink: /
     <h2>Laravel Backend & DevOps Specialist</h2>
     <p class="hero-subtitle">Building robust web solutions for SMBs since 2010</p>
     <div class="hero-buttons">
-      <a href="#services" class="btn btn-primary">View Services</a>
-      <a href="/about" class="btn btn-secondary">About Me</a>
+      <a href="/contact/" class="btn btn-primary" data-cta="home-hero">Get in Touch</a>
+      <a href="#services" class="btn btn-secondary">View Services</a>
     </div>
   </div>
 </section>

@@ -11,6 +11,12 @@ linkedin_username: andrei-ciuculescu
 author: Andrei Ciuculescu
 permalink: /posts/:year-:month-:day-:title/
 
+# Contact form endpoint: a Cloudflare Worker that sends the inquiry through Resend
+# (source and setup: workers/contact/README.md). With no action set, the contact page
+# shows only the email address, never a dead form.
+contact_form:
+  action: "/api/contact"
+
 # Build settings
 markdown: kramdown
 theme: minima
@@ -31,6 +37,7 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - workers/
 
 # Collections
 collections:
