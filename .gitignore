@@ -9,3 +9,5 @@ vendor/
 /app-next/node_modules/
 /app-next/.env.local
 app-next/.env.local
+
+app-next/bootstrap.log
