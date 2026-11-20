@@ -50,6 +50,10 @@ collections:
     output: true
     permalink: /:name/
 
+# Tags that don't describe a topic, ignored when picking related posts (_includes/related.html).
+related_skip_tags: [welcome-email, meta, client-zero]
+related_fallback_tags: [laravel]
+
 # Default share image (og:image / twitter:card) for pages without their own `image:`.
 default_image: /assets/og-default.png
 
