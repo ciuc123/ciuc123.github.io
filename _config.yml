@@ -38,6 +38,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - workers/
+  - tools/
 
 # Collections
 collections:

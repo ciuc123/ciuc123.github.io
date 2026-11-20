@@ -6,3 +6,5 @@ _site
 vendor/
 .bundle/
 .wrangler/
+__pycache__/
+seo-report.*
