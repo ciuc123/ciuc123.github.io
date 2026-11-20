@@ -17,8 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Audit tool unit tests
-        run: python3 -m unittest discover -s tools/seo_audit/tests -v
+      # The audit tool lives in ciuc123/homelab (tested there). Pinned to a tag: bump it to pick up new rules.
+      - name: Get the audit tool
+        uses: actions/checkout@v4
+        with:
+          repository: ciuc123/homelab
+          ref: seo-audit-v0.2.0
+          path: .homelab
+          sparse-checkout: seo_audit
 
       - uses: actions/cache@v4
         with:
@@ -38,7 +44,7 @@ jobs:
 
       - name: SEO audit of _site and _posts
         # Fails on rules at "error" severity. Rules still being fixed are "warning" in .seo-audit.json.
-        run: python3 tools/seo_audit audit-site _site --posts _posts --json seo-report.json --markdown seo-report.md
+        run: python3 .homelab/seo_audit audit-site _site --posts _posts --json seo-report.json --markdown seo-report.md
 
       - name: Report in the job summary
         if: always()

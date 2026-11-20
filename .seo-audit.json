@@ -1,5 +1,5 @@
 {
-  "_comment": "Ratchet: rules that failed on the 2026-11-20 baseline start as warnings. When a task fixes a rule, delete its line here so it becomes an error and CI blocks regressions. Rule ids: python3 tools/seo_audit --help, tools/seo_audit/model.py.",
+  "_comment": "Ratchet: rules that failed on the 2026-11-20 baseline start as warnings. When a task fixes a rule, delete its line here so it becomes an error and CI blocks regressions. Rule ids and docs: github.com/ciuc123/homelab/tree/main/seo_audit (model.py, README.md).",
   "base_url": "https://ciuculescu.com",
   "min_words": 300,
   "severity": {
