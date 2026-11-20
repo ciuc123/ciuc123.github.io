@@ -59,11 +59,11 @@ permalink: /contact/
         </div>
         <div class="social-links">
           <a href="https://github.com/ciuc123" target="_blank" class="social-link">
-            <i class="fab fa-github"></i>
+            {% include icon.html name="github" %}
             <span>GitHub</span>
           </a>
           <a href="https://www.linkedin.com/in/andrei-ciuculescu/" target="_blank" class="social-link">
-            <i class="fab fa-linkedin"></i>
+            {% include icon.html name="linkedin" %}
             <span>LinkedIn</span>
           </a>
         </div>

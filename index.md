@@ -22,7 +22,7 @@ permalink: /
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">
-          <i class="fab fa-laravel"></i>
+          {% include icon.html name="laravel" %}
         </div>
         <h3>Laravel Development</h3>
         <ul>
@@ -34,7 +34,7 @@ permalink: /
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-server"></i>
+          {% include icon.html name="server" %}
         </div>
         <h3>DevOps Solutions</h3>
         <ul>
@@ -46,7 +46,7 @@ permalink: /
       </div>
       <div class="service-card">
         <div class="service-icon">
-          <i class="fas fa-cogs"></i>
+          {% include icon.html name="cogs" %}
         </div>
         <h3>Technical Consulting</h3>
         <ul>
