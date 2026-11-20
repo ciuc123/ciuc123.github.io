@@ -81,6 +81,7 @@ The audit checks this in two ways. On the built site, there must be a 404 page t
 | Check | Before | After |
 |---|---|---|
 | Audit score (same rules as part 2) | 78/100 | 84/100 |
+| Live audit of ciuculescu.com (current rules, from a homelab issue) | 85/100 | 93/100 |
 | Pages with a share image | 0 of 29 | all |
 | Structured data about the person and business | name only | Person + ProfessionalService with profiles, services, location |
 | Posts whose author is a linked entity | 0 | all |
