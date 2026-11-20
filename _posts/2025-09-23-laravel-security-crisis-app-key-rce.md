@@ -169,7 +169,7 @@ This security crisis highlights what to look for when building your development 
 - Developers who commit `.env` files
 - Teams without security-focused code reviews
 - Applications without proper secret management
-- Missing security testing in CI/CD pipelines
+- Missing security testing in [CI/CD pipelines](/posts/2025-09-29-laravel-testing-docker-optimization/)
 
 **Green Flags**:
 - Experience with AWS Secrets Manager or similar tools

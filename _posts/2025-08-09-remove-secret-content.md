@@ -56,7 +56,7 @@ git filter-repo --sensitive-data-removal --replace-text ../replacements.txt
 
 `--sensitive-data-removal` fetches every ref first, not only branches and tags, so nothing on the server is missed. It also keeps the `origin` remote. Without the flag, filter-repo removes `origin` to stop you pushing by accident, and you'd have to add it back. When it finishes, it prints the first changed commits and the next steps.
 
-If the secret is a whole file, like a committed `.env`, remove the file from every commit instead:
+If the secret is a whole file, like [a committed `.env`](/posts/2025-09-23-laravel-security-crisis-app-key-rce/), remove the file from every commit instead:
 
 ```bash
 git filter-repo --sensitive-data-removal --invert-paths --path config/.env
@@ -85,7 +85,7 @@ To see if your repository has pull request refs, run `git ls-remote origin 'refs
 
 ## What else do collaborators need to do?
 
-Re-clone. An old clone still has the secret, and a single `git pull` followed by `git push` can bring it back. If someone has a branch they can't lose, they should rebase it onto the new history, not merge. Also look at copies outside git: CI logs, built Docker images, release archives and backups can all contain the old value.
+Re-clone. An old clone still has the secret, and a single `git pull` followed by `git push` can bring it back. If someone has a branch they can't lose, they should rebase it onto the new history, not merge. Also look at copies outside git: CI logs, [built Docker images](/posts/2025-10-15-docker-security-best-practices/), release archives and backups can all contain the old value.
 
 ## How do you stop it happening again?
 

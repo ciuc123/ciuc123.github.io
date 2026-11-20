@@ -175,10 +175,10 @@ For applications with variable traffic patterns, serverless Laravel deployment c
 **Week 1-2: Foundation**
 - Upgrade to PHP 8.3 (immediate 20-50% performance boost)
 - Set up Laravel Debugbar and Telescope for monitoring
-- Implement basic automated testing pipeline
+- Implement basic [automated testing pipeline](/posts/2025-09-29-laravel-testing-docker-optimization/)
 
 **Week 3-4: Advanced Features**
-- Migrate to Laravel 11 with enhanced job batching
+- [Migrate to Laravel 11](/posts/2025-10-16-laravel-11-migration-guide-for-php-teams/) with enhanced job batching
 - Optimize database queries using new query builder features
 - Configure Docker development environment
 

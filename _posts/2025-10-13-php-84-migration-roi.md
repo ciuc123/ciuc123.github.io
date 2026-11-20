@@ -6,7 +6,7 @@ date: 2025-10-13
 tags: [php, php-8.4]
 ---
 
-When your CTO asks "Should we upgrade to PHP 8.4?", the answer isn't just technical--it's financial. After conducting PHP 8.4 migrations for multiple enterprise clients, I've documented the real-world business impact that makes this upgrade a strategic necessity, not just a technical nice-to-have.
+When your CTO asks "Should we upgrade to PHP 8.4?", the answer isn't just technical--it's financial. After conducting [PHP 8.4](/posts/2025-09-17-php-84-performance-boost/) migrations for multiple enterprise clients, I've documented the real-world business impact that makes this upgrade a strategic necessity, not just a technical nice-to-have.
 
 ## Why PHP 8.4 Matters Beyond Performance Numbers
 

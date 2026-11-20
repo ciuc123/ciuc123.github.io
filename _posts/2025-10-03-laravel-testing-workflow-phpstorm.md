@@ -33,7 +33,7 @@ These inefficiencies compound over time, leading to:
 
 ### 1. Enhanced PHPUnit Integration with Automatic Xdebug Installation
 
-PhpStorm 2025.1 now automatically detects missing Xdebug installations and offers one-click installation directly from the CLI Interpreters dialog[5]. This eliminates the traditional setup friction that often delayed new team members from becoming productive.
+PhpStorm 2025.1 now automatically detects [missing Xdebug installations](/posts/2025-09-15-phpstorm-laravel-xdebug/) and offers one-click installation directly from the CLI Interpreters dialog[5]. This eliminates the traditional setup friction that often delayed new team members from becoming productive.
 
 ```php
 <?php

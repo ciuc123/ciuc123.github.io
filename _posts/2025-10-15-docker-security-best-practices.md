@@ -342,4 +342,4 @@ Docker security isn't just about preventing breaches--it's about building reliab
 
 The practices outlined here have been tested across multiple production environments and provide a solid foundation for secure container deployment. Start with the fundamentals--non-root users, trusted images, and proper secrets management--then gradually implement more advanced techniques as your team's security maturity grows.
 
-**Ready to secure your container infrastructure?** Begin with a security audit of your current Docker configurations using the checklist provided, then systematically implement these practices across your deployment pipeline.
+**Ready to secure your container infrastructure?** Begin with a [security audit](/posts/2025-09-12-php-security-audit-lessons-laravel-developers/) of your current Docker configurations using the checklist provided, then systematically implement these practices across your deployment pipeline.

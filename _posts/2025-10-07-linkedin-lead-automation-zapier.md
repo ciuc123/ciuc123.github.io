@@ -6,7 +6,7 @@ date: 2025-10-07
 tags: [linkedin, automation, zapier]
 ---
 
-As a freelance Laravel developer, I constantly balance growth with budget constraints. When my Dripify LinkedIn outreach campaigns started generating meaningful responses, I faced a common dilemma: how to manage follow-ups efficiently without breaking the bank on premium CRM upgrades.
+As a freelance Laravel developer, I constantly balance growth with budget constraints. When my [Dripify LinkedIn outreach campaigns](/posts/2025-09-27-linkedin-automation-workflow/) started generating meaningful responses, I faced a common dilemma: how to manage follow-ups efficiently without breaking the bank on premium CRM upgrades.
 
 ## Why This Matters for Your Development Team
 
