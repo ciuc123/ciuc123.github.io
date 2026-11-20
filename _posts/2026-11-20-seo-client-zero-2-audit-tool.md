@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "My Site Scored 78/100 on the SEO Audit I Wrote"
-description: "Part 2 of fixing my own site's SEO: a small Python audit that runs on every push, what it found on 29 pages, and the ratchet that stops things getting worse."
+description: "Part 2 of fixing my own site's SEO: a small Python audit that runs on every push and on any site from a GitHub issue, what it found, and the ratchet."
 date: 2026-11-20
 tags: [seo, python, github-actions, ci, client-zero]
 series: seo-client-zero
@@ -110,6 +110,19 @@ A GitHub Actions workflow runs on every pull request and every push: unit tests,
 
 The snag: the first run failed before the audit even started. GitHub's `ubuntu-latest` runner had moved to a newer Ubuntu, and its C compiler can't build `commonmarker` 0.23, an old dependency of the `github-pages` gem. I already built the site locally in the official `ruby:3.2` Docker image, so the job now runs in that same container. CI and my machine build the same way, which is what you want anyway.
 
+## Auditing any site from a GitHub issue
+
+The client mode needed a front door. I already run my client-site setup from a small control repo (`homelab`): open an issue with a form, a GitHub Actions workflow does the work and reports back on the issue. The audit now lives there too, with its own form:
+
+1. Open an issue with the **SEO audit** form and the target site.
+2. The workflow checks the request (only a public website; no IP addresses, internal names or anything that resolves to a private address), then runs the live-site audit over the pages in the site's sitemap.
+3. A comment lands on the issue with the score and **what to fix first**: each problem with why it matters and how to fix it, in plain language, ordered by impact. Lost leads and broken links come before missing images.
+4. The full report is committed to the repo, one file per site per day. The next audit of the same site shows the score change and, for each problem, how many pages were failing last time. That before/after is exactly the evidence a case study needs.
+
+This site's CI uses the same tool, pinned to a tagged version of it, so the checks that gate my deploys are the ones I'd run for a client.
+
+For ciuculescu.com the issue version gives **84/100**, higher than the 78 above, because a live audit sees only the rendered pages. It can't read the posts' source front matter, where most of the missing descriptions and tags show up.
+
 ## Check this on your own site
 
 You don't need my tool for the most useful checks. Ten minutes in a browser:
@@ -121,7 +134,7 @@ You don't need my tool for the most useful checks. Ten minutes in a browser:
 5. **Try `/README.md`, `/.env` and `/composer.json`** on your domain. Each should be a 404.
 6. **Click the links in your three most-read articles.** Especially the ones to your own pages.
 
-If you have a developer, ask them to put checks like these into the build. The point isn't the score, it's that a regression shows up as a failed build instead of a lost visitor. The source of this audit is public in [this site's repository](https://github.com/ciuc123/ciuc123.github.io/tree/master/tools/seo_audit).
+If you have a developer, ask them to put checks like these into the build. The point isn't the score, it's that a regression shows up as a failed build instead of a lost visitor. The source of this audit is public in [my homelab repository](https://github.com/ciuc123/homelab/tree/main/seo_audit).
 
 ## Next
 
