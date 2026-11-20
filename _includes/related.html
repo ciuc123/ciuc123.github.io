@@ -38,5 +38,6 @@ are ignored. Posts in the same series are skipped: the series box already links 
     <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% if p.description %}<span>{{ p.description }}</span>{% endif %}</li>
     {%- endfor %}
   </ul>
+  <a class="related-posts__all" href="{{ '/posts/' | relative_url }}">Browse all posts →</a>
 </aside>
 {%- endif %}

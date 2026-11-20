@@ -6,7 +6,7 @@ redirect_from:
   - /posts/2024-06-10-hello-world/
 ---
 
-<div class="container wide-content">
+<div class="posts-page">
     <h1 class="posts-title">Posts</h1>
     <div class="posts-list">
       {% for post in site.posts %}
