@@ -1,0 +1,42 @@
+{%- comment -%}
+Up to 3 related posts, ranked by how many topic tags they share with this post (3+, then 2, then 1;
+newest first within each level), then the newest posts on the core topics (site.related_fallback_tags), then any, to fill up. Tags in site.related_skip_tags
+are ignored. Posts in the same series are skipped: the series box already links them.
+{%- endcomment -%}
+{%- assign my_tags = "" | split: "" -%}
+{%- for t in page.tags -%}{%- unless site.related_skip_tags contains t -%}{%- assign my_tags = my_tags | push: t -%}{%- endunless -%}{%- endfor -%}
+{%- assign related = "" | split: "" -%}
+{%- for level in (1..3) reversed -%}
+  {%- for p in site.posts -%}
+    {%- if related.size >= 3 -%}{%- break -%}{%- endif -%}
+    {%- if p.url == page.url or related contains p -%}{%- continue -%}{%- endif -%}
+    {%- if page.series and p.series == page.series -%}{%- continue -%}{%- endif -%}
+    {%- assign shared = 0 -%}
+    {%- for t in p.tags -%}{%- if my_tags contains t -%}{%- assign shared = shared | plus: 1 -%}{%- endif -%}{%- endfor -%}
+    {%- if shared >= level -%}{%- assign related = related | push: p -%}{%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- comment -%} Fill up: newest posts on the site's core topics (site.related_fallback_tags) first, then any. {%- endcomment -%}
+{%- for pass in (1..2) -%}
+  {%- for p in site.posts -%}
+    {%- if related.size >= 3 -%}{%- break -%}{%- endif -%}
+    {%- if p.url == page.url or related contains p -%}{%- continue -%}{%- endif -%}
+    {%- if page.series and p.series == page.series -%}{%- continue -%}{%- endif -%}
+    {%- if pass == 1 -%}
+      {%- assign core = false -%}
+      {%- for t in p.tags -%}{%- if site.related_fallback_tags contains t -%}{%- assign core = true -%}{%- endif -%}{%- endfor -%}
+      {%- unless core -%}{%- continue -%}{%- endunless -%}
+    {%- endif -%}
+    {%- assign related = related | push: p -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- if related.size > 0 %}
+<aside class="related-posts" aria-label="Related posts">
+  <h2>Related posts</h2>
+  <ul>
+    {%- for p in related %}
+    <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% if p.description %}<span>{{ p.description }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</aside>
+{%- endif %}

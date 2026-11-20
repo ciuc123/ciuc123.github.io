@@ -1395,3 +1395,13 @@ article {
     }
   }
 }
+
+// Related posts at the end of each post (_includes/related.html)
+.related-posts {
+  margin-top: 3rem;
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { margin: 0 0 1rem; }
+  a { color: $secondary-color; font-weight: $font-weight-semibold; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  span { display: block; color: $text-muted; font-size: 0.95rem; margin-top: 0.2rem; }
+}
