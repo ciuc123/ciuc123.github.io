@@ -6,6 +6,12 @@ date: 2026-11-20
 tags: [seo, conversion, cloudflare-workers, resend, client-zero]
 series: seo-client-zero
 series_part: 1
+tldr:
+  - "The contact form showed a thank-you message after 2 seconds and sent nothing, so every inquiry since launch was lost."
+  - "It now posts to a Cloudflare Worker on /api/contact that sends the email through Resend; the API key never reaches the browser."
+  - "A honeypot field filters bots without a CAPTCHA, and replies go straight to the visitor through reply_to."
+  - "PostHog events (cta_clicked, lead_submitted with source_page) show which pages produce leads."
+  - "Checked with 8 Worker unit tests, a 12-check browser test and real emails from the live site."
 ---
 
 I'm starting an SEO, answer-engine (AEO) and AI-search (GEO) program on this site before I offer it to anyone else. ciuculescu.com is client zero: every task gets done here first, checked, and measured against a baseline, and this series documents each one.
@@ -14,9 +20,9 @@ The first audit turned up something worse than a missing meta tag. **The contact
 
 So before chasing rankings, the first task was making sure the site can turn a visitor into a conversation.
 
-## Why lead capture comes first
+## Why fix lead capture before rankings?
 
-The whole plan has ten areas: measurement, technical foundation, identity and trust, positioning and keywords, on-page, answer engines, AI assistants, conversion, authority, and content operations. They're roughly in dependency order, with one exception I pulled to the front: **conversion**.
+Because traffic that can't convert is wasted, and the fix is cheap. The whole plan has ten areas: measurement, technical foundation, identity and trust, positioning and keywords, on-page, answer engines, AI assistants, conversion, authority, and content operations. They're roughly in dependency order, with one exception I pulled to the front: **conversion**.
 
 Traffic that can't convert is wasted. If the only way to reach me is broken, every improvement in rankings or AI citations just sends more people into a dead end. It's also the cheapest win: one afternoon of work against an unknown number of lost leads.
 
@@ -134,3 +140,10 @@ Then put a reminder in your calendar to repeat step 1 every month.
 Part 2 is the audit tool: a small dependency-free Python script that checks every page on every build (titles, descriptions, structured data, broken links, and, yes, that the contact form has a real endpoint and every post has a call to action) so this kind of bug can't quietly come back.
 
 *The most expensive SEO bug on my site wasn't about search at all. It was a two-second timer that said "thank you" and threw the message away.*
+
+## Sources
+
+- [Resend: send email API](https://resend.com/docs/api-reference/emails/send-email)
+- [Cloudflare Workers: routes](https://developers.cloudflare.com/workers/configuration/routing/routes/)
+- [Cloudflare: email address obfuscation](https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/)
+- [PostHog: capturing events](https://posthog.com/docs/product-analytics/capture-events)

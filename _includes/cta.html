@@ -1,5 +1,9 @@
 <aside class="post-cta" aria-label="Work with me">
   <p class="post-cta__title">Need a hand with your Laravel app?</p>
   <p class="post-cta__text">I help small and mid-sized teams upgrade, speed up and ship Laravel apps with clean CI/CD. Tell me what you're dealing with and I'll reply within 24 business hours.</p>
+  {%- if page.service %}
+  <a href="{{ page.service | relative_url }}" class="btn btn-primary" data-cta="{{ include.cta | default: 'post-footer' }}-service">{{ page.service_label | default: "See how I can help" }}</a>
+  {%- else %}
   <a href="{{ '/contact/' | relative_url }}" class="btn btn-primary" data-cta="{{ include.cta | default: 'post-footer' }}">Get in touch</a>
+  {%- endif %}
 </aside>

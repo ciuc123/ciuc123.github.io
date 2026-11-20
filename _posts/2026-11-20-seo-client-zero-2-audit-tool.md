@@ -6,6 +6,12 @@ date: 2026-11-20
 tags: [seo, python, github-actions, ci, client-zero]
 series: seo-client-zero
 series_part: 2
+tldr:
+  - "First score: 78/100, from 541 checks over 24 posts and 29 rendered pages; 119 failed."
+  - "The audit is dependency-free Python and runs on every push and pull request, before anything is deployed."
+  - "The same checks audit any live site from a GitHub issue, with a plain-language list of what to fix first."
+  - "A ratchet keeps CI green on day one: failing rules start as warnings and become errors once fixed."
+  - "Its tests caught two bugs in the live-site mode before it ever ran in CI."
 ---
 
 In [part 1](/posts/2026-11-20-seo-client-zero-1-contact-form/) I found that my contact form had been faking success since launch. It survived because nothing ever checked it: it *looked* fine, so nobody looked closer.
@@ -14,9 +20,9 @@ That's the real lesson, and it applies to SEO as a whole. Titles creep past 60 c
 
 Its first verdict on ciuculescu.com: **78 out of 100.**
 
-## Why write one instead of using a crawler
+## Why write an audit instead of using a crawler?
 
-There are excellent SEO crawlers, and for a one-off audit of a big site I'd still use one. I wanted something different:
+Because it runs before deploy, on every push, and checks rules specific to this site. There are excellent SEO crawlers, and for a one-off audit of a big site I'd still use one. I wanted something different:
 
 - **It runs before deploy, not after.** It checks the built site in CI, so a broken link or a missing description is caught in the pull request, not by a visitor.
 - **It checks the source too.** Front matter rules (title length, description, tags, dates) run on the Markdown, where the fix actually happens.
@@ -141,3 +147,11 @@ If you have a developer, ask them to put checks like these into the build. The p
 Part 3 is the technical and identity foundation: a proper `robots.txt` and `llms.txt`, structured data that says who I am and what I do, an `og:image` for every page, and keeping private files out of the build. It also covers the two minutes this site was completely down while I was publishing part 1, and why.
 
 *The audit doesn't make the site better. It makes it impossible to make it worse without noticing.*
+
+## Sources
+
+- [Google: control your snippets in search results (meta descriptions)](https://developers.google.com/search/docs/appearance/snippet)
+- [Google: influencing your title links](https://developers.google.com/search/docs/appearance/title-link)
+- [The Open Graph protocol (og:image)](https://ogp.me/)
+- [Python: html.parser](https://docs.python.org/3/library/html.parser.html)
+- [seo_audit source](https://github.com/ciuc123/homelab/tree/main/seo_audit)

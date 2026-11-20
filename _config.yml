@@ -42,6 +42,7 @@ exclude:
   - AGENT_PROMPTS.md
   - generate-welcome-pdf.sh
   - tests/
+  - content/
 
 # Collections
 collections:
