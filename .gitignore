@@ -5,3 +5,4 @@ _site
 /assets/welcome-email-full.pdf
 vendor/
 .bundle/
+.wrangler/
