@@ -12,9 +12,10 @@ on failure, the email fallback.
 
 ## Setup (once)
 
-1. Resend: add and verify the domain `ciuculescu.com` (the DNS records go in Cloudflare), then
-   create an API key with "Sending access" restricted to that domain.
-2. Check `MAIL_FROM` / `MAIL_TO` in `wrangler.toml`. `MAIL_FROM` must be on the verified domain.
+1. Resend: the sending domain is `email.content.ciuculescu.com` (verified, DNS records in
+   Cloudflare). Use an API key with "Sending access".
+2. `MAIL_FROM` must be on that domain; `MAIL_TO` is the inbox that receives inquiries. Both are in
+   `wrangler.toml`.
 3. Deploy:
    ```sh
    cd workers/contact
