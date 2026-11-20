@@ -6,15 +6,20 @@ date: 2026-11-20
 tags: [seo, geo, structured-data, github-pages, client-zero]
 series: seo-client-zero
 series_part: 3
+tldr:
+  - "Two deploy paths raced; when the raw-repository upload finished last, every page returned 404 for about two minutes."
+  - "Every page now carries one JSON-LD graph naming the person and the business, and each post points to its author by @id."
+  - "Added llms.txt, a robots.txt that explicitly welcomes AI search crawlers, a share image on every page and a real 404 page."
+  - "Live audit score with the same rules: 85 to 93 out of 100."
 ---
 
 While I was publishing [part 1](/posts/2026-11-20-seo-client-zero-1-contact-form/) of this series, ciuculescu.com went down. Not slow: every page, the home page included, returned GitHub's "404 File not found" for about two minutes, then came back on its own.
 
 The cause had been sitting in the repository for months, and my baseline audit had even flagged it as a risk. This part is about that, and about the rest of the foundation: the things search engines and AI assistants read before they read a single word of content.
 
-## The deploy race
+## What caused the outage?
 
-The site is built by GitHub Pages from the `master` branch. In June 2025 I had also added a GitHub Actions workflow that deployed **the raw repository** to Pages on every push. Two deploys ran for every push, and whichever finished last won.
+Two deploy paths raced each other, and the wrong one finished last. The site is built by GitHub Pages from the `master` branch. In June 2025 I had also added a GitHub Actions workflow that deployed **the raw repository** to Pages on every push. Two deploys ran for every push, and whichever finished last won.
 
 Usually that was the real Jekyll build. That time it was the raw upload. The raw repository has `index.md`, not `index.html`, so every URL returned 404 until the next build replaced it. The same raw upload also served files that were never meant to be public, like the repo's README and a tool's cache file.
 
@@ -106,3 +111,12 @@ The last row is the ratchet: five rules fixed in this task moved from warning to
 Part 4 is about content: an intake pipeline for ideas and drafts, and a post standard built for answer engines (a short summary up top, questions as headings, FAQ markup), shown on the first post that goes through it.
 
 *Most of this work is invisible to readers. That's the point: it's what lets the visible part be found.*
+
+## Sources
+
+- [GitHub Pages: creating a custom 404 page](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site)
+- [Google: introduction to structured data](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)
+- [schema.org: Person](https://schema.org/Person) and [ProfessionalService](https://schema.org/ProfessionalService)
+- [Google: soft 404 errors](https://developers.google.com/search/docs/crawling-indexing/http-network-errors)
+- [llms.txt proposal](https://llmstxt.org/)
+- [OpenAI crawlers](https://platform.openai.com/docs/bots), [Anthropic crawlers](https://docs.anthropic.com/en/docs/resources/crawlers), [Google crawlers](https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers)
