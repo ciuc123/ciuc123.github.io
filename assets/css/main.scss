@@ -51,6 +51,19 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
+// Fixed header height and page side gutter (mobile values first, see body below)
+:root {
+  --header-h: 56px;
+  --gutter: 16px;
+  @media (min-width: $breakpoint-md) {
+    --header-h: 64px;
+    --gutter: 20px;
+  }
+  @media (min-width: $breakpoint-lg) {
+    --gutter: 40px;
+  }
+}
+
 // Reset and base styles
 * {
   margin: 0;
@@ -65,7 +78,7 @@ body {
   color: $text-light;
   background-color: $primary-color;
   overflow-x: hidden;
-  padding-top: 60px; // Prevent content from being hidden under fixed header
+  padding-top: var(--header-h); // content starts right under the fixed header
 }
 
 // Container
@@ -73,18 +86,14 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
-
-  @media (min-width: $breakpoint-lg) {
-    padding: 0 40px;
-  }
+  padding: 0 var(--gutter);
 }
 
 .wrapper {
   width: 100%;
   max-width: 1000px; // Increased from 800px for a more modern look
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--gutter);
 }
 
 // Make content much wider when .wide-content is used
@@ -112,7 +121,7 @@ h1 {
   font-weight: $font-weight-bold;
 
   @media (max-width: $breakpoint-md) {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }
 
@@ -132,8 +141,12 @@ h2 {
   }
 
   @media (max-width: $breakpoint-md) {
-    font-size: 2rem;
-    margin: 2rem 0 1.5rem;
+    font-size: 1.6rem;
+    margin: 2rem 0 1.25rem;
+
+    &::after {
+      margin-top: 10px;
+    }
   }
 }
 
@@ -141,6 +154,10 @@ h3 {
   font-size: 1.8rem;
   color: $secondary-color;
   margin-bottom: 1rem;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 1.35rem;
+  }
 }
 
 h4 {
@@ -153,6 +170,11 @@ p {
   margin-bottom: 1.5rem;
   color: $text-muted;
   font-size: 1.1rem;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+  }
 }
 
 .lead {
@@ -238,7 +260,7 @@ p {
 
   background: rgba($primary-color, 0.95);
   backdrop-filter: blur(10px);
-  padding: 1rem 0;
+  padding: 0;
   border-bottom: 1px solid $border-color;
 
   .site-nav {
@@ -260,7 +282,7 @@ p {
     text-decoration: none;
 
     @media (max-width: $breakpoint-md) {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
   }
 
@@ -269,7 +291,8 @@ p {
     gap: 1.5rem;
 
     @media (max-width: $breakpoint-md) {
-      gap: 1rem;
+      gap: 0.9rem;
+      font-size: 0.95rem;
     }
   }
 
@@ -292,12 +315,26 @@ p {
   .nav-social {
     display: flex;
     gap: 1rem;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 0.75rem;
+    }
+
+    // Narrower than an iPhone 14: the footer has the same links
+    @media (max-width: 370px) {
+      display: none;
+    }
   }
 
   .social-link {
+    display: flex;
     color: $text-light;
     font-size: 1.3rem;
     transition: color 0.2s;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.15rem;
+    }
 
     &:hover {
       color: $secondary-color;
@@ -313,7 +350,7 @@ p {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--gutter);
 }
 
 .unified-nav {
@@ -321,22 +358,46 @@ p {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: calc(var(--header-h) - 1px); // minus the bottom border
   gap: 2rem;
+
+  @media (max-width: $breakpoint-md) {
+    gap: 0.75rem;
+  }
 }
 
-// Main content adjustment for fixed header
+// Space between the header and the page's first block. Pages that open with a
+// full-bleed band (home, about, contact) start flush under the header instead.
 .page-content {
-  padding-top: 80px;
+  padding-top: 2.5rem;
+
+  @media (max-width: $breakpoint-md) {
+    padding-top: 1.25rem;
+  }
+
+  > .wrapper > .section--full:first-child {
+    margin-top: -2.5rem;
+
+    @media (max-width: $breakpoint-md) {
+      margin-top: -1.25rem;
+    }
+  }
 }
 
 // Hero section
 .hero {
-  min-height: 100vh; // ensure full viewport height
+  min-height: calc(100vh - var(--header-h)); // fills the first screen on desktop
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 15%) 100%);
   position: relative;
-  padding-top: 0; // let content center visually
+  padding: 3rem 0;
+
+  @media (max-width: $breakpoint-md) {
+    min-height: 0; // phones: size to content, no empty band above the name
+    padding: 3rem 0 3.5rem;
+    text-align: center;
+  }
 
   &::before {
     content: '';
@@ -381,89 +442,51 @@ p {
     font-size: 1.3rem;
     margin-bottom: 2.5rem;
     color: $text-muted;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.1rem;
+      margin-bottom: 1.75rem;
+    }
   }
 
   .hero-buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
 
-    @media (max-width: $breakpoint-sm) {
-      flex-direction: column;
-      align-items: flex-start;
+    @media (max-width: $breakpoint-md) {
+      justify-content: center;
+      gap: 0.75rem;
+
+      .btn {
+        padding: 12px 20px;
+      }
     }
   }
 }
 
-// Full-width hero section for laptop/desktop
-.hero--full {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  background: $primary-color;
-  box-shadow: none;
-  padding-left: 0;
-  padding-right: 0;
-  z-index: 1;
-
-  .container {
-    max-width: none;
-    width: 100vw;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  @media (max-width: $breakpoint-lg) {
-    left: 0;
-    right: 0;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    .container {
-      max-width: 1200px;
-      width: 100%;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
-}
-
-// Full-bleed section for home and about pages
+// Full-bleed band (home, about, contact): edge to edge at every width, content in .inner
 .section--full {
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
   width: 100vw;
-  background: inherit;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   box-shadow: none;
-  padding-left: 0;
-  padding-right: 0;
   z-index: 1;
-
-  @media (max-width: $breakpoint-lg) {
-    left: 0;
-    right: 0;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-  }
 }
 
 // Centered content wrapper for full-bleed sections
 .inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 var(--gutter);
   width: 100%;
 
-  @media (max-width: $breakpoint-md) {
-    padding: 0 15px;
+  > h2:first-child {
+    margin-top: 0;
   }
 }
+
 
 // Services section
 .services {
@@ -475,14 +498,23 @@ p {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
     margin-top: 3rem;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 1rem;
+      margin-top: 0;
+    }
   }
 
   .service-card {
     background: $background-overlay;
     border: 1px solid $border-color;
     border-radius: 10px;
-    padding: 2.5rem;
+    padding: 2rem;
     transition: all 0.3s ease;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 1.25rem 1.25rem 0.75rem;
+    }
     position: relative;
     overflow: hidden;
 
@@ -509,13 +541,23 @@ p {
     }
 
     .service-icon {
-      font-size: 3rem;
+      font-size: 2.25rem;
+      line-height: 1;
       color: $secondary-color;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
+
+      @media (max-width: $breakpoint-md) {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+      }
     }
 
     h3 {
       margin-bottom: 1.5rem;
+
+      @media (max-width: $breakpoint-md) {
+        margin-bottom: 0.75rem;
+      }
     }
 
     ul {
@@ -549,6 +591,11 @@ p {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 1.5rem;
+      margin-top: 0;
+    }
   }
 
   .skill-category {
@@ -556,23 +603,39 @@ p {
 
     h4 {
       color: $secondary-color;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       font-size: 1.2rem;
+
+      @media (max-width: $breakpoint-md) {
+        margin-bottom: 0.6rem;
+        font-size: 1.1rem;
+      }
     }
 
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 0.5rem;
+
+      @media (max-width: $breakpoint-md) {
+        gap: 0.4rem;
+      }
     }
 
     .skill-tag {
       background: rgba($secondary-color, 0.1);
       color: $secondary-color;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.85rem;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
+      white-space: nowrap;
+
+      @media (max-width: $breakpoint-md) {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.85rem;
+      }
+
       font-weight: $font-weight-medium;
       border: 1px solid rgba($secondary-color, 0.3);
       transition: all 0.3s ease;
@@ -606,6 +669,11 @@ p {
       font-size: 1.2rem;
       margin-bottom: 2.5rem;
       color: $text-light;
+
+      @media (max-width: $breakpoint-md) {
+        font-size: 1.05rem;
+        margin-bottom: 1.25rem;
+      }
     }
   }
 
@@ -615,11 +683,19 @@ p {
     gap: 2rem;
     max-width: 800px;
     margin: 0 auto;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 0.75rem;
+    }
   }
 
   .detail {
     text-align: center;
     padding: 1.5rem;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 0.9rem 1rem;
+    }
     background: rgba($secondary-color, 0.05);
     border-radius: 8px;
     border: 1px solid $border-color;
@@ -635,7 +711,17 @@ p {
 
 // About page styles
 .about-hero {
-  padding: 5rem 0 3rem;
+  padding: 4rem 0 3rem;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 2.5rem 0 1.5rem;
+
+    .lead {
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+  }
+
   background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 10%) 100%);
   text-align: center;
 }
@@ -648,6 +734,11 @@ p {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2.5rem;
     margin-top: 2rem;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 0.5rem;
+      margin-top: 0;
+    }
   }
 
   .expertise-item {
@@ -680,6 +771,12 @@ p {
       padding: 0 2rem;
       position: relative;
 
+      @media (max-width: $breakpoint-md) {
+        font-size: 1.15rem;
+        margin: 0 0 1.5rem;
+        padding: 0 1.25rem;
+      }
+
       &::before {
         content: '"';
         font-size: 4rem;
@@ -696,6 +793,11 @@ p {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 3rem;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 0.5rem;
+      margin-top: 0;
+    }
   }
 
   .principle {
@@ -721,10 +823,19 @@ p {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+
+    @media (max-width: $breakpoint-md) {
+      gap: 0.75rem;
+      margin-top: 0;
+    }
   }
 
   .approach-item {
     padding: 2rem;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 1rem 1.25rem;
+    }
     background: rgba($secondary-color, 0.05);
     border-radius: 8px;
     border-left: 4px solid $secondary-color;
@@ -752,6 +863,20 @@ p {
     font-size: 1.2rem;
     line-height: 1.8;
     color: $text-light;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+  }
+}
+
+// Contact page band
+.contact-hero {
+  padding: 1rem 0 3rem;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 1.5rem 0 1rem;
   }
 }
 
@@ -764,7 +889,8 @@ p {
 
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
+    margin-bottom: 0;
   }
 }
 
@@ -857,9 +983,9 @@ p {
     &:hover {
       color: $secondary-color;
     }
-    i {
-      font-size: 1.2rem;
-      width: 20px;
+    .icon {
+      flex: 0 0 auto;
+      font-size: 1.1rem;
     }
   }
 }
@@ -933,6 +1059,11 @@ p {
   padding: 2.5rem 0 1.5rem;
   border-top: 1px solid $border-color;
   margin-top: 4rem;
+
+  @media (max-width: $breakpoint-md) {
+    margin-top: 2.5rem;
+    padding: 1.5rem 0 1.25rem;
+  }
 
   .footer-main {
     display: flex;
@@ -1052,19 +1183,6 @@ p {
 
 // Responsive utilities
 @media (max-width: $breakpoint-md) {
-  .container {
-    padding: 0 15px;
-  }
-
-  .hero {
-    min-height: 70vh;
-    text-align: center;
-
-    .hero-buttons {
-      justify-content: center;
-    }
-  }
-
   .services-grid,
   .skills-grid,
   .expertise-grid,
@@ -1101,54 +1219,29 @@ html {
   animation: fadeInUp 0.6s ease forwards;
 }
 
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #0a192f;
-  z-index: 1000;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.hero {
-  padding-top: 80px; /* Add padding to avoid overlap with fixed header */
-}
-
-@media (max-width: 768px) {
-  header {
-    padding: 0.5rem 1rem;
-  }
-  .hero {
-    padding-top: 100px; /* More padding for mobile if needed */
-  }
-}
-
-// Fix for code blocks and long text overflow on small screens
-pre, code {
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-
+// Code blocks keep their lines and scroll sideways; breaking code mid-word made it unreadable
 pre {
   overflow-x: auto;
   max-width: 100%;
   background: #112240;
   padding: 1em;
   border-radius: 6px;
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+
+  code {
+    white-space: inherit;
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
 }
 
 // Article / post content styles — keep content readable on the dark theme
 article {
+  // break-word (not word-break / anywhere): only breaks a word that can't fit a line on its own,
+  // without shrinking table columns to one letter.
   overflow-wrap: break-word;
-  word-break: break-word;
 
   // Body text within posts should be brighter for readability
   color: $text-light;
@@ -1211,9 +1304,13 @@ article {
     border-radius: 6px;
   }
 
-  // Tables
+  // Tables: scroll sideways when wider than the screen instead of squeezing columns
   table {
-    width: 100%;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     border-collapse: collapse;
     margin: 1rem 0;
   }
@@ -1221,15 +1318,31 @@ article {
   th,
   td {
     padding: 0.6rem 0.8rem;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
     color: $text-light;
     text-align: left;
+    vertical-align: top;
+    min-width: 7rem;
+    max-width: 22rem;
+  }
+
+  th {
+    border-bottom-color: rgba($secondary-color, 0.3);
+  }
+
+  @media (max-width: $breakpoint-md) {
+    th,
+    td {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
   }
 
   // Inline code
   code {
-    background: rgba(255,255,255,0.03);
-    padding: 0.15rem 0.35rem;
+    background: rgba(255,255,255,0.06);
+    padding: 0.1rem 0.3rem;
     border-radius: 4px;
     color: $text-light;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
@@ -1243,18 +1356,65 @@ article {
     padding: 1rem;
     border-radius: 6px;
     overflow: auto;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 0.75rem;
+      font-size: 0.875rem;
+      margin-left: calc(-1 * var(--gutter) / 2);
+      margin-right: calc(-1 * var(--gutter) / 2);
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    font-size: 1rem;
+    line-height: 1.7;
+
+    ul, ol {
+      margin-left: 1.1rem;
+    }
+  }
+}
+
+// Post page
+.post {
+  > h1 {
+    margin-bottom: 0.5rem;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.85rem;
+    }
+  }
+
+  // Small link back to the listing, above the title
+  .post-back {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    color: $text-muted;
+    font-size: 0.9rem;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  // Desktop: justified body text (long lines); phones keep ragged-right, justify leaves gaps on narrow lines
+  @media (min-width: $breakpoint-lg) {
+    .post-body > p,
+    .post-body > ul > li,
+    .post-body > ol > li {
+      text-align: justify;
+      hyphens: auto;
+    }
   }
 }
 
 .page-content--home {
-  padding-top: 0; // remove global top padding so hero can truly be full height
-}
-.page-content--home .hero {
-  min-height: calc(100vh - 60px); // subtract fixed header height
-}
-@media (max-width: $breakpoint-md) {
-  .page-content--home .hero {
-    min-height: calc(100vh - 80px); // header may wrap taller on mobile
+  padding-top: 0;
+
+  > .wrapper > .section--full:first-child {
+    margin-top: 0;
   }
 }
 
@@ -1290,10 +1450,42 @@ article {
   a { color: $secondary-color; }
 }
 
+// End of post: author and call to action share one card (.post-end)
+.post-end {
+  margin: 3rem 0 0;
+  border: 1px solid rgba($secondary-color, 0.35);
+  border-radius: 10px;
+  background: rgba($secondary-color, 0.04);
+  overflow: hidden;
+
+  .author-box {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .post-cta {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    margin-top: 2rem;
+
+    .author-box,
+    .post-cta {
+      padding: 1rem;
+    }
+  }
+}
+
 // Call to action at the end of every post
 .post-cta {
   margin: 3rem 0 2rem;
-  padding: 1.75rem;
+  padding: 1.5rem;
   border: 1px solid $secondary-color;
   border-radius: 8px;
   background: rgba($secondary-color, 0.06);
@@ -1305,6 +1497,7 @@ article {
   }
   .post-cta__text {
     margin: 0 0 1.25rem;
+    color: $text-muted;
   }
 }
 
@@ -1312,6 +1505,11 @@ article {
 .series-box {
   margin: 1.5rem 0 2rem;
   padding: 1.25rem 1.5rem;
+
+  @media (max-width: $breakpoint-md) {
+    margin: 1rem 0 1.5rem;
+    padding: 0.9rem 1rem;
+  }
   border-left: 3px solid $secondary-color;
   background: rgba($secondary-color, 0.05);
   border-radius: 0 6px 6px 0;
@@ -1342,10 +1540,14 @@ article {
   border: 1px solid $border-color;
   border-radius: 8px;
   p { margin: 0.15rem 0; }
+  @media (max-width: $breakpoint-md) {
+    gap: 0.9rem;
+    p { font-size: 0.95rem; }
+  }
   .author-box__photo {
-    flex: 0 0 72px;
-    width: 72px;
-    height: 72px;
+    flex: 0 0 56px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -1381,6 +1583,11 @@ article {
 .key-takeaways {
   margin: 1.5rem 0 2rem;
   padding: 1.25rem 1.5rem;
+
+  @media (max-width: $breakpoint-md) {
+    margin: 1rem 0 1.5rem;
+    padding: 0.9rem 1rem;
+  }
   border: 1px solid rgba($secondary-color, 0.35);
   border-radius: 8px;
   background: rgba($secondary-color, 0.04);
@@ -1401,13 +1608,29 @@ article {
 // Heading of the posts listing page
 .posts-title {
   margin: 0 0 2rem;
+
+  @media (max-width: $breakpoint-md) {
+    margin-bottom: 1.25rem;
+  }
 }
 
 // Posts listing: titles in the heading color, accent on hover (were unstyled browser-default links)
 .posts-list {
   .post-item {
     margin-bottom: 2.5rem;
-    h2 { margin-bottom: 0.25rem; }
+    h2 {
+      font-size: 1.6rem;
+      margin: 0 0 0.25rem;
+      &::after { display: none; }
+    }
+    .post-date { margin-bottom: 0.5rem; }
+    .post-excerpt { margin-bottom: 0.5rem; }
+    @media (max-width: $breakpoint-md) {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid $border-color;
+      h2 { font-size: 1.25rem; }
+    }
     h2 a {
       color: $text-light;
       text-decoration: none;
@@ -1431,4 +1654,18 @@ article {
   a { color: $secondary-color; font-weight: $font-weight-semibold; text-decoration: none; }
   a:hover { text-decoration: underline; }
   span { display: block; color: $text-muted; font-size: 0.95rem; margin-top: 0.2rem; }
+  .related-posts__all { display: inline-block; margin-top: 0.5rem; font-weight: $font-weight-medium; }
+}
+
+// Vertical rhythm of the bands on phones (last, so it wins over each band's own padding)
+@media (max-width: $breakpoint-md) {
+  .services,
+  .skills,
+  .availability,
+  .experience,
+  .philosophy,
+  .work-approach,
+  .personal {
+    padding: 2.5rem 0;
+  }
 }
