@@ -19,10 +19,10 @@ The recent performance improvements in PHPUnit 12 and Pest 4's unified browser t
 Laravel 11 introduced several game-changing improvements that directly impact testing efficiency:
 
 ### Streamlined Application Structure
-The new minimal structure eliminates unused middleware and service providers, reducing test bootstrap time. The consolidated `bootstrap/app.php` file centralizes configuration, making test environment setup more predictable.
+The new minimal structure eliminates unused middleware and service providers, reducing test bootstrap time. The [consolidated `bootstrap/app.php` file](/posts/2025-11-05-laravel-11-slim-architecture/) centralizes configuration, making test environment setup more predictable.
 
 ### Enhanced Queue Testing
-Laravel 11's improved queue testing capabilities allow for better integration testing of background jobs, crucial for modern applications using Redis queues and job processing.
+Laravel 11's improved queue testing capabilities allow for better integration testing of background jobs, crucial for modern applications using [Redis queues](/posts/2025-11-03-laravel-queue-performance-optimization/) and job processing.
 
 ### Per-Second Rate Limiting
 This new feature enables more granular testing of API endpoints under various load conditions, providing better confidence in production behavior.
@@ -299,6 +299,6 @@ This optimized setup delivers measurable improvements:
 
 Laravel 11's architectural improvements create a unique opportunity to modernize your testing strategy. Combined with optimized Docker practices, teams can achieve faster deployments, better code quality, and improved developer experience. The investment in proper containerization pays dividends in reduced debugging time and increased deployment confidence.
 
-The key is leveraging Laravel 11's simplified structure alongside proven Docker security practices like non-root users, health checks, and multi-stage builds. This combination positions your team for scalable growth while maintaining code quality standards that satisfy both technical leadership and business requirements.
+The key is leveraging Laravel 11's simplified structure alongside proven [Docker security practices](/posts/2025-10-15-docker-security-best-practices/) like non-root users, health checks, and multi-stage builds. This combination positions your team for scalable growth while maintaining code quality standards that satisfy both technical leadership and business requirements.
 
 Start with the Docker setup above, gradually introduce the testing patterns, and measure the improvements in your CI/CD pipeline times. Your future deployments will thank you.

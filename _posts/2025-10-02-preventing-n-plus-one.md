@@ -219,7 +219,7 @@ class UserQueryTest extends TestCase
 
 ### Integration with CI/CD Pipeline
 
-For continuous monitoring, integrate these tests into your CI/CD pipeline:
+For continuous monitoring, integrate these tests into your [CI/CD pipeline](/posts/2025-09-29-laravel-testing-docker-optimization/):
 
 ```php
 // tests/Feature/DatabasePerformanceTest.php

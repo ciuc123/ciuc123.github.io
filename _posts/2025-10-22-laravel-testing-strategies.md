@@ -109,7 +109,7 @@ class UserTest extends TestCase
 
 ### Strategy 3: Prevent External API Calls with HTTP Fakes
 
-Nothing kills CI/CD speed like tests making real HTTP requests. They're slow, flaky, and can rack up API costs. Laravel's HTTP fake is the solution[25].
+Nothing kills [CI/CD speed](/posts/2025-09-29-laravel-testing-docker-optimization/) like tests making real HTTP requests. They're slow, flaky, and can rack up API costs. Laravel's HTTP fake is the solution[25].
 
 **Problem: Real API calls in tests**
 ```php

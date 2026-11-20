@@ -19,7 +19,7 @@ Development teams using PHP applications are constantly balancing performance, s
 - **Enhanced JIT compiler** providing better memory utilization
 - **Streamlined array operations** with new native functions
 
-These improvements translate to real business value: reduced server costs, faster application response times, and developers who can focus on features rather than performance bottlenecks.
+These improvements translate to [real business value](/posts/2025-10-13-php-84-migration-roi/): reduced server costs, faster application response times, and developers who can focus on features rather than performance bottlenecks.
 
 ### The Migration Solution: Gradual Upgrade Strategy
 
@@ -66,7 +66,7 @@ $allVerified = array_all($allUsers, fn($user) => $user->isVerified());
 
 #### Phase 3: Implement Property Hooks for Cleaner Code
 
-Property hooks eliminate boilerplate getter/setter code while improving maintainability:
+[Property hooks](/posts/2025-09-14-php-property-hooks-game-changer/) eliminate boilerplate getter/setter code while improving maintainability:
 
 ```php
 // Traditional approach with getters/setters

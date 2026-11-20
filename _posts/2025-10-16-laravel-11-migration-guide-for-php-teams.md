@@ -10,7 +10,7 @@ Laravel 11 represents a significant evolution in the PHP framework landscape, in
 
 ## Why Laravel 11 Matters for Your Team
 
-The latest Laravel release isn't just another incremental update--it's a fundamental reimagining of how PHP applications should be structured. With a 40% reduction in boilerplate code and improved performance characteristics, Laravel 11 addresses many pain points that have historically slowed down development teams.
+The latest Laravel release isn't just another incremental update--it's a fundamental reimagining of how PHP applications should be structured. With a 40% reduction in boilerplate code and [improved performance characteristics](/posts/2025-09-25-laravel-11-php-8-3-performance-revolution/), Laravel 11 addresses many pain points that have historically slowed down development teams.
 
 ### Key Performance Improvements
 
@@ -78,7 +78,7 @@ The new Blade component system supports dynamic rendering and scoped slots, maki
 
 ### Native Eager Loading Limits
 
-Finally, Laravel natively supports limiting eager-loaded relationships without external packages:
+Finally, Laravel natively supports limiting [eager-loaded relationships](/posts/2025-10-02-preventing-n-plus-one/) without external packages:
 
 ```php
 $users = User::with(['posts' => function ($query) {

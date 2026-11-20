@@ -160,7 +160,7 @@ Configure Horizon for your environment:
 
 ## Testing the Optimization
 
-To validate your queue optimization, create a comprehensive test that simulates high-volume conditions:
+To validate your queue optimization, create a [comprehensive test](/posts/2025-10-22-laravel-testing-strategies/) that simulates high-volume conditions:
 
 ```php
 // tests/Feature/QueueOptimizationTest.php

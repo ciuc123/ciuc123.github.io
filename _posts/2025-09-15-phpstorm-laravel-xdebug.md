@@ -202,7 +202,7 @@ This unlocks:
 
 ### Conclusion: Investment in Developer Experience Pays Off
 
-Modern development teams cannot afford to waste time on tooling friction. By combining PhpStorm 2025.1's intelligent features with a rock-solid Docker debugging setup, you're investing in:
+Modern development teams cannot afford to waste time on tooling friction. By combining [PhpStorm 2025.1's intelligent features](/posts/2025-10-03-laravel-testing-workflow-phpstorm/) with a rock-solid Docker debugging setup, you're investing in:
 
 - **Faster feature delivery**
 - **Higher code quality**
