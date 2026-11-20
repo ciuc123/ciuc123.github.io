@@ -1,0 +1,43 @@
+name: SEO checks
+
+on:
+  pull_request:
+  push:
+    branches: [dev, master]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit tool unit tests
+        run: python3 -m unittest discover -s tools/seo_audit/tests -v
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build site (Jekyll, as GitHub Pages does)
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: SEO audit of _site and _posts
+        # Fails on rules at "error" severity. Rules still being fixed are "warning" in .seo-audit.json.
+        run: python3 tools/seo_audit audit-site _site --posts _posts --json seo-report.json --markdown seo-report.md
+
+      - name: Report in the job summary
+        if: always()
+        run: test -f seo-report.md && cat seo-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-report
+          path: seo-report.*
+          if-no-files-found: ignore
