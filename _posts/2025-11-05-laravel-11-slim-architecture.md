@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Laravel 11 Slim Architecture: Why Less Is More for Large Teams"
+title: "Laravel 11 Slim Architecture: Less Boilerplate for Teams"
+description: "How Laravel 11's slimmer app structure and bootstrap/app.php replace boilerplate, how to migrate an existing app to it, and how to test the move."
 date: 2025-11-05
+tags: [laravel, laravel-11]
 ---
 
 

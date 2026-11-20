@@ -8,7 +8,7 @@ permalink: /contact/
   <div class="inner">
     <div class="footer-content">
       <div class="contact-section">
-        <h3>Get in Touch</h3>
+        <h1 class="contact-title">Get in Touch</h1>
         <p>Ready to discuss your project? Let's connect and explore how I can help achieve your technical goals.</p>
         {%- assign cf = site.contact_form -%}
         {%- if cf.action and cf.action != "" %}

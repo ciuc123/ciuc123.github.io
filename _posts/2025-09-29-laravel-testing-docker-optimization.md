@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Laravel 11 Testing Revolution: How Streamlined Architecture Accelerates Docker-Based CI/CD Pipelines"
+title: "Laravel 11 Testing in Docker-Based CI/CD Pipelines"
+description: "Use Laravel 11's streamlined structure and testing features with a multi-stage Dockerfile and Docker Compose to run fast, repeatable tests in CI."
 date: 2025-09-29
+tags: [laravel, testing, docker, ci-cd]
 ---
 
 Modern development teams face mounting pressure to deliver faster while maintaining quality. Laravel 11's streamlined architecture and improved testing capabilities offer a compelling solution, especially when combined with optimized Docker workflows. This breakthrough combination can transform your development velocity and code quality simultaneously.

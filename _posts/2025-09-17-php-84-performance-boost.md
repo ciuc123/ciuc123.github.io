@@ -1,15 +1,16 @@
 ---
 layout: post
 title: "PHP 8.4 Performance Boost: Why Upgrade Now"
+description: "A phased plan for moving Laravel apps to PHP 8.4: preparing the environment, the new array functions, property hooks and testing the migration."
 date: 2025-09-17
-tags: [welcome-email]
+tags: [welcome-email, php, php-8.4, performance]
 ---
 
-# Why Your Development Team Should Upgrade Now
+## Why Your Development Team Should Upgrade Now
 
 PHP 8.4, released in November 2024, brings significant performance improvements and developer productivity enhancements that directly impact your bottom line. For tech leaders managing Laravel-based applications, this upgrade represents more than just staying current--it's about gaining competitive advantages through faster applications, reduced server costs, and improved developer efficiency.
 
-## Why This Matters for Your Team
+### Why This Matters for Your Team
 
 Development teams using PHP applications are constantly balancing performance, security, and feature delivery. PHP 8.4 addresses these concerns with measurable improvements:
 
@@ -20,11 +21,11 @@ Development teams using PHP applications are constantly balancing performance, s
 
 These improvements translate to real business value: reduced server costs, faster application response times, and developers who can focus on features rather than performance bottlenecks.
 
-## The Migration Solution: Gradual Upgrade Strategy
+### The Migration Solution: Gradual Upgrade Strategy
 
 Rather than forcing a disruptive complete migration, PHP 8.4 allows for strategic, incremental adoption. Here's the practical approach your team should consider:
 
-### Phase 1: Environment Preparation
+#### Phase 1: Environment Preparation
 
 Start by updating your development environment to support PHP 8.4 while maintaining backward compatibility:
 
@@ -41,7 +42,7 @@ Start by updating your development environment to support PHP 8.4 while maintain
 }
 ```
 
-### Phase 2: Leverage New Array Functions
+#### Phase 2: Leverage New Array Functions
 
 PHP 8.4 introduces efficient array handling functions that reduce code complexity and improve performance:
 
@@ -63,7 +64,7 @@ $hasPremiumUsers = array_any($allUsers, fn($user) => $user->hasRole('premium'));
 $allVerified = array_all($allUsers, fn($user) => $user->isVerified());
 ```
 
-### Phase 3: Implement Property Hooks for Cleaner Code
+#### Phase 3: Implement Property Hooks for Cleaner Code
 
 Property hooks eliminate boilerplate getter/setter code while improving maintainability:
 
@@ -110,7 +111,7 @@ class UserAccount
 }
 ```
 
-## Testing: Ensuring Reliability During Migration
+### Testing: Ensuring Reliability During Migration
 
 Comprehensive testing validates the upgrade without disrupting production:
 
@@ -159,7 +160,7 @@ class UserAccountTest extends TestCase
 }
 ```
 
-## Implementation Results: Measurable Business Impact
+### Implementation Results: Measurable Business Impact
 
 Organizations implementing PHP 8.4 report significant improvements:
 
@@ -178,7 +179,7 @@ Organizations implementing PHP 8.4 report significant improvements:
 - Reduced maintenance overhead
 - Faster feature delivery cycles
 
-## Conclusion: The Strategic Advantage
+### Conclusion: The Strategic Advantage
 
 PHP 8.4 isn't just a technical upgrade--it's a strategic business decision. Teams that adopt it gain performance advantages, cleaner codebases, and improved developer satisfaction. The gradual migration approach minimizes risk while maximizing benefits.
 

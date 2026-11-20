@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Getting Alt+Left / Alt+Right Back in the PhpStorm Terminal with a 15-Line Plugin"
+title: "Alt+Left/Right Tab Switching in the PhpStorm 2026.3 Terminal"
 description: "PhpStorm 2026.3's new terminal swallows Alt+Left/Right on Windows and Linux. A free 2 KB plugin brings terminal tab switching back, or build it from 15 lines."
 date: 2026-11-19
 last_modified_at: 2026-11-20

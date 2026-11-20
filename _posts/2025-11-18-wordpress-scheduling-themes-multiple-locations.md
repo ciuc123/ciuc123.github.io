@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Top ThemeForest WordPress Themes for Multi-Location Scheduling"
+title: "WordPress Themes for Multi-Location Scheduling"
+description: "Seven WordPress themes and booking plugins for scheduling across several locations, from LatePoint and Amelia to Listeo, and what to check first."
 date: 2025-11-18
+tags: [wordpress, scheduling]
 ---
 
 When building a WordPress site that needs to handle scheduling across multiple locations—whether you're managing appointments for a chain of medical clinics, booking services for salon franchises, or coordinating events across different venues—choosing the right theme is crucial. The theme needs robust booking functionality, location management, and seamless user experience.

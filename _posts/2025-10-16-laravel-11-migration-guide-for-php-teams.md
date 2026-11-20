@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Laravel 11 Migration Guide: What Your Development Team Needs to Know"
+title: "Laravel 11 Migration Guide for Development Teams"
+description: "A step-by-step plan for moving a team's app to Laravel 11: preparing the environment, slimming the configuration, testing the upgrade, new features."
 date: 2025-10-16
+tags: [laravel, laravel-11]
 ---
 
 Laravel 11 represents a significant evolution in the PHP framework landscape, introducing streamlined architecture and powerful new features that can dramatically improve your team's productivity. As a backend developer who has guided multiple teams through framework upgrades, I've seen firsthand how the right migration strategy can transform development workflows and reduce technical debt.

@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "PHP Security Audit 2025: Critical Lessons for Laravel Developers"
+title: "PHP Security Audit 2025: Lessons for Laravel Developers"
+description: "What the PHP Foundation's security audit found, with 27 issues and 4 CVEs, and the database and PHP-FPM hardening Laravel developers can apply now."
 date: 2025-09-12
-tags: [welcome-email]
+tags: [welcome-email, php, security, laravel]
 ---
 
 The PHP Foundation's first comprehensive security audit in over a decade has revealed crucial insights that every Laravel developer should understand. With 27 issues identified and 4 CVEs assigned, this audit doesn't just validate PHP's security evolution—it provides a roadmap for building more secure applications.

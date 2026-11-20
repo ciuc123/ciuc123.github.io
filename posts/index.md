@@ -5,6 +5,7 @@ permalink: /posts/
 ---
 
 <div class="container wide-content">
+    <h1 class="posts-title">Posts</h1>
     <div class="posts-list">
       {% for post in site.posts %}
         <div class="post-item">

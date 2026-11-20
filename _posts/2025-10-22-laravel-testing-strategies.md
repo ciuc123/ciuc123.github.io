@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "From Broken Tests to Bulletproof Code: Laravel Testing Strategies That Actually Work"
+title: "Laravel Testing Strategies That Actually Work"
+description: "Three Laravel testing strategies that keep suites fast and stable: feature tests first, database transactions instead of RefreshDatabase, HTTP fakes."
 date: 2025-10-22
+tags: [laravel, testing]
 ---
 
 Testing is the difference between code that works now and code that keeps working. Yet most Laravel projects have either no tests or tests that break every time someone refactors. After managing multiple large Laravel codebases and hiring dozens of developers, I've learned that good testing isn't about coverage percentages--it's about confidence and speed.
