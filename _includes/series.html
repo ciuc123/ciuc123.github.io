@@ -1,0 +1,17 @@
+{%- comment -%}
+Series box for posts with `series: <slug>` and `series_part: <n>` in front matter.
+Series names and intros live in _data/series.yml.
+{%- endcomment -%}
+{%- assign s = site.data.series[page.series] -%}
+{%- if s -%}
+{%- assign parts = site.posts | where: "series", page.series | sort: "series_part" -%}
+<aside class="series-box" aria-label="Series: {{ s.title }}">
+  <p class="series-box__title">Series: {{ s.title }}{% if page.series_part %} · Part {{ page.series_part }} of {{ parts.size }}{% endif %}</p>
+  <p class="series-box__intro">{{ s.intro }}</p>
+  <ol class="series-box__list">
+    {%- for p in parts %}
+    <li>{% if p.url == page.url %}<strong>{{ p.title }}</strong>{% else %}<a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+</aside>
+{%- endif -%}
