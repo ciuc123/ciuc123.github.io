@@ -11,19 +11,28 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    # Debian image with Ruby 3.2 and Python 3: the github-pages gem's commonmarker 0.23 doesn't
+    # compile with the compiler on ubuntu-latest (26.04). Same image as local builds.
+    container: ruby:3.2-trixie
     steps:
       - uses: actions/checkout@v4
 
       - name: Audit tool unit tests
         run: python3 -m unittest discover -s tools/seo_audit/tests -v
 
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/cache@v4
         with:
-          ruby-version: '3.2'
-          bundler-cache: true
+          path: vendor/bundle
+          key: gems-ruby3.2-trixie-${{ hashFiles('Gemfile.lock') }}
+
+      - name: Install gems
+        run: |
+          gem install bundler:2.7.1 --no-document
+          bundle _2.7.1_ config set path vendor/bundle
+          bundle _2.7.1_ install --jobs 4
 
       - name: Build site (Jekyll, as GitHub Pages does)
-        run: bundle exec jekyll build
+        run: bundle _2.7.1_ exec jekyll build
         env:
           JEKYLL_ENV: production
 
