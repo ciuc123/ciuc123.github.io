@@ -1,4 +1,6 @@
 # Posts listed in /llms.txt, with a one-line summary each (what the post covers, no claims beyond it).
+- slug: laravel-php-83-84-85-benchmark
+  summary: Original benchmark of a Laravel 13 app on PHP 8.3, 8.4 and 8.5 on three machines, with the method, raw data and support dates.
 - slug: preventing-n-plus-one
   summary: Finding N+1 queries in Laravel, fixing them with eager loading, and PHPUnit tests that fail when they come back.
 - slug: laravel-queue-performance-optimization
