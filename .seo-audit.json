@@ -3,19 +3,14 @@
   "base_url": "https://ciuculescu.com",
   "min_words": 300,
   "severity": {
-    "description-present": "warning",
     "internal-links": "warning",
-    "meta-description-length": "warning",
-    "min-word-count": "warning",
-    "single-h1": "warning",
-    "stale-year-in-title": "warning",
-    "tags-present": "warning",
-    "title-length": "warning"
+    "min-word-count": "warning"
   },
   "_ratchet_log": [
     "2026-11-20 T2 baseline: 13 rules as warnings",
     "2026-11-20 T3: promoted llms-txt, og-image, private-files, orphan-pages, date-matches-filename",
-    "2026-11-20 T4: answer-first post standard (tldr, question heading, Sources, FAQ) for posts dated 2026-11-20 or later"
+    "2026-11-20 T4: answer-first post standard (tldr, question heading, Sources, FAQ) for posts dated 2026-11-20 or later",
+    "2026-11-20 T9: promoted description-present, meta-description-length, single-h1, stale-year-in-title, tags-present, title-length"
   ],
   "standard_since": "2026-11-20"
 }

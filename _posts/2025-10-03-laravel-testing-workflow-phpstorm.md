@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Optimizing Laravel Testing Workflows with PhpStorm 2025.1: A Developer's Guide to Faster Debug Cycles"
+title: "Faster Laravel Testing and Debugging with PhpStorm 2025.1"
+description: "PhpStorm 2025.1 features that shorten Laravel test cycles: PHPUnit with one-click Xdebug, browser debugging, parallel test runs and PHPStan support."
 date: 2025-10-03
+tags: [laravel, testing, phpstorm]
 ---
 
 In today's competitive development landscape, backend teams face mounting pressure to deliver high-quality applications faster than ever. As a freelance Laravel developer, I've seen firsthand how inefficient testing and debugging workflows can cripple a team's productivity and ultimately cost organizations valuable time and resources.

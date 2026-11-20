@@ -1,8 +1,9 @@
 ---
 layout: post
 title: "How to remove git secrets from commits"
+description: "Remove a leaked secret from every commit of a git repository with git filter-repo and a replace-text mapping, then force-push the rewritten history."
 date: 2025-08-09
-tags: []
+tags: [git, security]
 ---
 
 Assume you have a git repository with sensitive information in it.

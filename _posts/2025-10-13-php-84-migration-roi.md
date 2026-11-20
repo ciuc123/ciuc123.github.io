@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "PHP 8.4 Migration ROI: The Business Case Tech Leaders Need"
+description: "The business case for a PHP 8.4 migration: the performance, security and productivity gains to weigh, and how to test that the upgrade worked."
 date: 2025-10-13
+tags: [php, php-8.4]
 ---
 
 When your CTO asks "Should we upgrade to PHP 8.4?", the answer isn't just technical--it's financial. After conducting PHP 8.4 migrations for multiple enterprise clients, I've documented the real-world business impact that makes this upgrade a strategic necessity, not just a technical nice-to-have.

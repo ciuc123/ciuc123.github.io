@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Docker Security in 2025: Essential Practices Every Development Team Should Implement"
+title: "Docker Security Practices for Development Teams"
+description: "Practical Docker security for development teams: image hygiene, runtime settings, network isolation, secrets management and a locked-down file system."
 date: 2025-10-15
+tags: [docker, security, devops]
 ---
 
 Container security breaches have increased by 200% in the past year, making Docker security not just a DevOps concern, but a critical business priority. As someone who has secured containerized applications across multiple production environments, I've learned that most security vulnerabilities stem from misconfigurations rather than inherent Docker flaws. The good news? These issues are preventable with the right practices.

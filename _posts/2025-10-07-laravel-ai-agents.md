@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Add Powerful AI Agents to Your Laravel Apps (2025 Guide)"
+description: "Build a conversational AI agent inside a Laravel app with LarAgent: a quickstart agent that answers DevOps FAQs, and how to test that it works."
 date: 2025-10-07
+tags: [laravel, ai]
 ---
 
 Unlock the potential of your Laravel app with real conversational AI agents--no complex setup required. AI agents can answer questions, automate workflows, generate content, and much more, right inside your PHP backend. If you’re building for scalability and modern requirements, integrating AI is now a game-changer for teams and hiring managers seeking future-proof solutions.

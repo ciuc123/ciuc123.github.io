@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Scaling Laravel: Optimizing Queues for High-Volume Email & Notifications"
+title: "Optimizing Laravel Queues for High-Volume Email"
+description: "Move high-volume email and notification jobs in Laravel from the database queue to Redis, with smart retries, Horizon monitoring and load tests."
 date: 2025-11-03
+tags: [laravel, queues, redis, performance]
 ---
 
 High-volume email and notification delivery can make or break your application's user experience. When your Laravel app starts processing thousands of messages per hour, the default database queue quickly becomes a bottleneck, leading to delayed notifications, frustrated users, and overwhelmed servers.

@@ -1,23 +1,24 @@
 ---
 layout: post
-title: "Supercharge Your Laravel Development: PhpStorm 2025.1 with Seamless Xdebug Docker Integration"
+title: "PhpStorm 2025.1 + Xdebug in Docker for Laravel"
+description: "Set up Xdebug for a Dockerized Laravel app in PhpStorm 2025.1: the new IDE features that help, a working Dockerfile, the configuration and a test run."
 date: 2025-09-15
-tags: [welcome-email]
+tags: [welcome-email, phpstorm, xdebug, docker, laravel]
 ---
 
-# PhpStorm 2025.1 + Laravel Docker Debugging Made Simple
+## PhpStorm 2025.1 + Laravel Docker Debugging Made Simple
 
 As a freelance Laravel developer who has spent countless hours wrestling with debugging setups, I'm excited to share how PhpStorm 2025.1's latest features transform the development experience--especially when combined with a proper Docker + Xdebug configuration.
 
-## Why This Matters for Your Development Team
+### Why This Matters for Your Development Team
 
 In today's competitive market, **developer productivity directly impacts your bottom line**. Teams that can debug efficiently, navigate codebases faster, and maintain consistent development environments ship features 40% faster than those fighting with tooling issues. 
 
 For hiring managers and tech leads, investing in proper IDE configuration isn't just about developer happiness--it's about reducing time-to-market and preventing production bugs that could cost thousands in downtime.
 
-## The Game-Changing PhpStorm 2025.1 Features
+### The Game-Changing PhpStorm 2025.1 Features
 
-### 1. PHPStan Annotation Code Completion
+#### 1. PHPStan Annotation Code Completion
 
 PhpStorm 2025.1 now provides intelligent code completion for `@phpstan-type` and `@phpstan-import-type` annotations. This means your team can leverage sophisticated type definitions without memorizing complex array shapes.
 
@@ -42,7 +43,7 @@ class UserService
 }
 ```
 
-### 2. Nested Variables in .env Files
+#### 2. Nested Variables in .env Files
 
 Environment configuration just became bulletproof. PhpStorm now supports nested variable syntax with full code completion, navigation, and quick fixes:
 
@@ -55,15 +56,15 @@ DB_NAME=laravel_app
 # PhpStorm now provides autocompletion and navigation for ${DB_HOST}, etc.
 ```
 
-### 3. One-Click Xdebug Installation
+#### 3. One-Click Xdebug Installation
 
 The most frustrating part of PHP development? Setting up Xdebug. PhpStorm 2025.1 detects missing Xdebug installations and offers automatic installation directly from the CLI Interpreters dialog.
 
-## The Complete Docker + Xdebug + Laravel Setup
+### The Complete Docker + Xdebug + Laravel Setup
 
 Here's the production-ready configuration I use for all my Laravel projects:
 
-### Dockerfile Configuration
+#### Dockerfile Configuration
 
 ```dockerfile
 FROM php:8.4-apache as base
@@ -88,7 +89,7 @@ RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY . /srv/app
 ```
 
-### Xdebug Configuration (build/php/conf.d/xdebug.ini)
+#### Xdebug Configuration (build/php/conf.d/xdebug.ini)
 
 ```ini
 [xdebug]
@@ -99,7 +100,7 @@ xdebug.discover_client_host = true
 xdebug.client_port = 9003
 ```
 
-### Docker Compose Setup
+#### Docker Compose Setup
 
 ```yaml
 services:
@@ -146,7 +147,7 @@ networks:
     driver: bridge
 ```
 
-## Testing the Complete Setup
+### Testing the Complete Setup
 
 With this configuration, you can now:
 
@@ -155,7 +156,7 @@ With this configuration, you can now:
 3. **Enable debugging** with the bug icon
 4. **Visit localhost:8080** and watch PhpStorm pause execution
 
-### Verifying Database Connectivity
+#### Verifying Database Connectivity
 
 ```php
 // routes/web.php
@@ -174,7 +175,7 @@ Route::get('/debug-test', function () {
 });
 ```
 
-## The Performance Impact
+### The Performance Impact
 
 Teams using this setup report:
 
@@ -183,7 +184,7 @@ Teams using this setup report:
 - **Consistent development environments** across all team members
 - **Zero "works on my machine" issues**
 
-## Advanced PhpStorm + Laravel Integration
+### Advanced PhpStorm + Laravel Integration
 
 Don't forget to install the Laravel Idea plugin for maximum productivity:
 
@@ -199,7 +200,7 @@ This unlocks:
 - Blade template navigation
 - Form request field validation
 
-## Conclusion: Investment in Developer Experience Pays Off
+### Conclusion: Investment in Developer Experience Pays Off
 
 Modern development teams cannot afford to waste time on tooling friction. By combining PhpStorm 2025.1's intelligent features with a rock-solid Docker debugging setup, you're investing in:
 

@@ -742,6 +742,11 @@ p {
 }
 
 .site-footer .contact-section, .contact-section {
+  h1.contact-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: $secondary-color;
+  }
   h3 {
     margin-bottom: 1rem;
     color: $secondary-color;
@@ -1364,4 +1369,29 @@ article {
 .post-faq {
   margin-top: 3rem;
   h3 { margin-top: 1.5rem; }
+}
+
+// Heading of the posts listing page
+.posts-title {
+  margin: 0 0 2rem;
+}
+
+// Posts listing: titles in the heading color, accent on hover (were unstyled browser-default links)
+.posts-list {
+  .post-item {
+    margin-bottom: 2.5rem;
+    h2 { margin-bottom: 0.25rem; }
+    h2 a {
+      color: $text-light;
+      text-decoration: none;
+      &:hover { color: $secondary-color; }
+    }
+    .post-date { color: $text-muted; font-size: 0.95rem; }
+    .read-more {
+      color: $secondary-color;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      &:hover { text-decoration: underline; }
+    }
+  }
 }

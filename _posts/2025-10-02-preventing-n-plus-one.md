@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Preventing N+1 Query Problems in Laravel with PHPUnit Testing"
+title: "Preventing N+1 Queries in Laravel with PHPUnit Tests"
+description: "Detect N+1 queries in Laravel, fix them with eager loading, and write PHPUnit tests that fail when a page starts running too many queries again."
 date: 2025-10-02
+tags: [laravel, performance, testing]
 ---
 
 Database performance is critical for Laravel applications, yet many teams unknowingly introduce performance killers through N+1 query problems. As a backend developer, I've seen how these issues can cripple application performance and frustrate both users and development teams. The good news? Laravel provides powerful tools to prevent and detect these problems before they reach production.

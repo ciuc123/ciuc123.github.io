@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Building Cost-Effective LinkedIn Lead Management with Zapier and Google Sheets"
+title: "Cheap LinkedIn Lead Tracking with Zapier and Google Sheets"
+description: "A Zapier and Google Sheets workflow that tracks LinkedIn leads from Dripify without paying for a CRM upgrade, with tests and planned improvements."
 date: 2025-10-07
+tags: [linkedin, automation, zapier]
 ---
 
 As a freelance Laravel developer, I constantly balance growth with budget constraints. When my Dripify LinkedIn outreach campaigns started generating meaningful responses, I faced a common dilemma: how to manage follow-ups efficiently without breaking the bank on premium CRM upgrades.
