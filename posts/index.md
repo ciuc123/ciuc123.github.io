@@ -2,6 +2,8 @@
 layout: default
 title: Posts
 permalink: /posts/
+redirect_from:
+  - /posts/2024-06-10-hello-world/
 ---
 
 <div class="container wide-content">
