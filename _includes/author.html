@@ -1,0 +1,17 @@
+{%- assign e = site.data.entity -%}
+<aside class="author-box" aria-label="About the author">
+  {%- if e.image != "" %}
+  <img class="author-box__photo" src="{{ e.image | relative_url }}" alt="{{ e.name }}" width="72" height="72">
+  {%- else %}
+  <span class="author-box__photo author-box__photo--initials" aria-hidden="true">AC</span>
+  {%- endif %}
+  <div>
+    <p class="author-box__name">Written by <a href="{{ '/about/' | relative_url }}" rel="author">{{ e.name }}</a></p>
+    <p class="author-box__credential">{{ e.credential }}.</p>
+    <p class="author-box__links">
+      {%- for url in e.same_as %}
+      <a href="{{ url }}" rel="me noopener" target="_blank">{% if url contains "linkedin" %}LinkedIn{% elsif url contains "github" %}GitHub{% else %}{{ url }}{% endif %}</a>{% unless forloop.last %} · {% endunless %}
+      {%- endfor %}
+    </p>
+  </div>
+</aside>

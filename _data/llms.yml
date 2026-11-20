@@ -1,0 +1,21 @@
+# Posts listed in /llms.txt, with a one-line summary each (what the post covers, no claims beyond it).
+- slug: preventing-n-plus-one
+  summary: Finding N+1 queries in Laravel, fixing them with eager loading, and PHPUnit tests that fail when they come back.
+- slug: laravel-queue-performance-optimization
+  summary: Moving high-volume email and notification jobs to Redis queues, with retry logic, Horizon monitoring and tests.
+- slug: laravel-testing-strategies
+  summary: Three Laravel testing strategies (feature tests first, transactions instead of RefreshDatabase, HTTP fakes) with code.
+- slug: laravel-security-crisis-app-key-rce
+  summary: Why an exposed APP_KEY can lead to remote code execution in Laravel, and how to manage the key in env, AWS Secrets Manager, CI and Docker.
+- slug: laravel-11-migration-guide-for-php-teams
+  summary: A step-by-step plan for moving a team's Laravel app to Laravel 11, including configuration changes and testing the upgrade.
+- slug: php-84-migration-roi
+  summary: The business case for upgrading to PHP 8.4, covering performance, security and productivity, and how to validate the migration.
+- slug: docker-security-best-practices
+  summary: Practical Docker security for development teams covering images, runtime configuration, networks, secrets and file systems.
+- slug: stripe-security-laravel
+  summary: Securing Stripe payments in Laravel across client-side collection, server-side processing, webhooks and environment configuration.
+- slug: phpstorm-terminal-alt-left-right-plugin
+  summary: A 15-line open-source plugin that restores Alt+Left/Right tab switching in the PhpStorm 2026.3 terminal, and how it works.
+- slug: seo-client-zero-1-contact-form
+  summary: How this site's contact form silently dropped every inquiry, and how it was fixed with Resend behind a Cloudflare Worker and tested.

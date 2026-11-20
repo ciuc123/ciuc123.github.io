@@ -1,0 +1,101 @@
+{%- comment -%}
+Structured data for every page, one JSON-LD @graph. Replaces jekyll-seo-tag's JSON-LD (see head.html).
+Person and ProfessionalService have stable @ids so posts can point at their author and publisher.
+Data: _data/entity.yml.
+{%- endcomment -%}
+{%- assign e = site.data.entity -%}
+{%- assign base = site.url | append: site.baseurl -%}
+{%- assign person_id = base | append: "/#person" -%}
+{%- assign business_id = base | append: "/#business" -%}
+{%- assign website_id = base | append: "/#website" -%}
+{%- assign page_url = page.url | replace: "index.html", "" | absolute_url -%}
+{%- assign og_image = page.image | default: site.default_image | absolute_url -%}
+{%- if page.description -%}{%- assign page_desc = page.description | strip -%}{%- else -%}{%- assign page_desc = page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 -%}{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": {{ person_id | jsonify }},
+      "name": {{ e.name | jsonify }},
+      "jobTitle": {{ e.job_title | jsonify }},
+      "description": {{ e.summary | jsonify }},
+      "url": {{ "/about/" | absolute_url | jsonify }},
+      {%- if e.image != "" %}
+      "image": {{ e.image | absolute_url | jsonify }},
+      {%- endif %}
+      "address": { "@type": "PostalAddress", "addressLocality": {{ e.locality | jsonify }}, "addressCountry": {{ e.country | jsonify }} },
+      "knowsAbout": {{ e.knows_about | jsonify }},
+      "sameAs": {{ e.same_as | jsonify }},
+      "worksFor": { "@id": {{ business_id | jsonify }} }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": {{ business_id | jsonify }},
+      "name": {{ e.business_name | jsonify }},
+      "description": {{ e.summary | jsonify }},
+      "url": {{ base | append: "/" | jsonify }},
+      "image": {{ site.default_image | absolute_url | jsonify }},
+      "founder": { "@id": {{ person_id | jsonify }} },
+      "areaServed": {{ e.area_served | jsonify }},
+      "address": { "@type": "PostalAddress", "addressLocality": {{ e.locality | jsonify }}, "addressCountry": {{ e.country | jsonify }} },
+      "knowsAbout": {{ e.knows_about | jsonify }},
+      "sameAs": {{ e.same_as | jsonify }},
+      "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "url": {{ "/contact/" | absolute_url | jsonify }}, "email": {{ site.email | jsonify }} },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services",
+        "itemListElement": [
+          {%- for s in e.services %}
+          { "@type": "OfferCatalog", "name": {{ s.name | jsonify }}, "itemListElement": [
+            {%- for item in s.items %}{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": {{ item | jsonify }} } }{% unless forloop.last %}, {% endunless %}{% endfor -%}
+          ] }{% unless forloop.last %},{% endunless %}
+          {%- endfor %}
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ website_id | jsonify }},
+      "url": {{ base | append: "/" | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "inLanguage": {{ site.lang | default: "en" | jsonify }},
+      "publisher": { "@id": {{ business_id | jsonify }} }
+    },
+    {%- if page.layout == "post" %}
+    {
+      "@type": "BlogPosting",
+      "@id": {{ page_url | append: "#article" | jsonify }},
+      "headline": {{ page.title | jsonify }},
+      "description": {{ page_desc | jsonify }},
+      "url": {{ page_url | jsonify }},
+      "mainEntityOfPage": { "@id": {{ page_url | jsonify }} },
+      "image": {{ og_image | jsonify }},
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
+      "author": { "@id": {{ person_id | jsonify }} },
+      "publisher": { "@id": {{ business_id | jsonify }} },
+      "isPartOf": { "@id": {{ website_id | jsonify }} },
+      {%- if page.tags.size > 0 %}
+      "keywords": {{ page.tags | join: ", " | jsonify }},
+      {%- endif %}
+      "inLanguage": {{ site.lang | default: "en" | jsonify }}
+    }
+    {%- else %}
+    {
+      "@type": "WebPage",
+      "@id": {{ page_url | jsonify }},
+      "url": {{ page_url | jsonify }},
+      "name": {{ page.title | default: site.title | jsonify }},
+      "description": {{ page_desc | jsonify }},
+      "isPartOf": { "@id": {{ website_id | jsonify }} },
+      {%- if page.url == "/" %}
+      "about": { "@id": {{ business_id | jsonify }} },
+      {%- endif %}
+      "inLanguage": {{ site.lang | default: "en" | jsonify }}
+    }
+    {%- endif %}
+  ]
+}
+</script>

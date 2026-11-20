@@ -1,0 +1,20 @@
+# ciuculescu.com: everything public may be crawled, including by AI search and assistant crawlers.
+User-agent: *
+Allow: /
+
+# AI search, answer and assistant crawlers: explicitly welcome (being cited by AI assistants is a goal).
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://ciuculescu.com/sitemap.xml

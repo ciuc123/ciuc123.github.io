@@ -3,18 +3,17 @@
   "base_url": "https://ciuculescu.com",
   "min_words": 300,
   "severity": {
-    "date-matches-filename": "warning",
     "description-present": "warning",
     "internal-links": "warning",
-    "llms-txt": "warning",
     "meta-description-length": "warning",
     "min-word-count": "warning",
-    "og-image": "warning",
-    "orphan-pages": "warning",
-    "private-files": "warning",
     "single-h1": "warning",
     "stale-year-in-title": "warning",
     "tags-present": "warning",
     "title-length": "warning"
-  }
+  },
+  "_ratchet_log": [
+    "2026-11-20 T2 baseline: 13 rules as warnings",
+    "2026-11-20 T3: promoted llms-txt, og-image, private-files, orphan-pages, date-matches-filename"
+  ]
 }

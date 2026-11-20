@@ -1,0 +1,40 @@
+# Who's behind the site: one source for the structured data (_includes/schema.html), the author box
+# (_includes/author.html) and llms.txt. Only facts already stated on the site.
+name: Andrei Ciuculescu
+job_title: Laravel Backend & DevOps Specialist
+summary: >-
+  Laravel backend developer and DevOps specialist in Bucharest, Romania, building and maintaining web
+  applications for small and medium businesses since 2010.
+credential: Laravel backend & DevOps specialist since 2010, based in Bucharest
+image: ""   # a photo of Andrei, e.g. /assets/andrei.jpg (square, at least 400x400). Empty = no photo yet.
+business_name: Andrei Ciuculescu, Laravel & DevOps
+area_served: Europe
+locality: Bucharest
+country: RO
+country_name: Romania
+same_as:
+  - https://www.linkedin.com/in/andrei-ciuculescu/
+  - https://github.com/ciuc123
+knows_about:
+  - Laravel
+  - PHP
+  - DevOps
+  - CI/CD
+  - Docker
+  - AWS
+  - Linux
+  - MySQL
+  - PostgreSQL
+  - Redis
+  - Nginx
+  - Elasticsearch
+  - Database optimization
+  - Application performance
+services:
+  - name: Laravel Development
+    items: [Custom backend systems, REST API development, Legacy app modernization, Database optimization]
+  - name: DevOps Solutions
+    items: [CI/CD pipeline setup, Server optimization, Cloud infrastructure, Deployment automation]
+  - name: Technical Consulting
+    items: [Architecture reviews, Performance audits, Code quality analysis, Team mentoring]
+availability: Accepting projects of 20+ hours/week, 1-6 months preferred; replies within 24 business hours.

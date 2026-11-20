@@ -2,7 +2,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {%- seo -%}
+  {%- comment -%} jekyll-seo-tag for title/meta/OpenGraph; its JSON-LD is replaced by _includes/schema.html {%- endcomment -%}
+  {%- capture seo_tags -%}{% seo %}{%- endcapture -%}
+  {{ seo_tags | split: '<script type="application/ld+json">' | first }}
+  {%- include schema.html -%}
   <!-- Favicon: SVG preferred, with PNG fallbacks and shortcut .ico -->
   <link rel="icon" href="{{ "/assets/favicon.svg" | relative_url }}" type="image/svg+xml">
   <link rel="icon" type="image/png" sizes="64x64" href="{{ "/assets/favicon-64.png" | relative_url }}">

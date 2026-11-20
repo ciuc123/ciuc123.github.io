@@ -38,6 +38,10 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - workers/
+  - README.md
+  - AGENT_PROMPTS.md
+  - generate-welcome-pdf.sh
+  - tests/
 
 # Collections
 collections:
@@ -45,8 +49,15 @@ collections:
     output: true
     permalink: /:name/
 
+# Default share image (og:image / twitter:card) for pages without their own `image:`.
+default_image: /assets/og-default.png
+
 # Defaults
 defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/og-default.png
   - scope:
       path: ""
       type: "pages"
