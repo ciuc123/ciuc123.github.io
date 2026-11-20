@@ -82,6 +82,19 @@ Data: _data/entity.yml.
       {%- endif %}
       "inLanguage": {{ site.lang | default: "en" | jsonify }}
     }
+    {%- if page.faq %},
+    {
+      "@type": "FAQPage",
+      "@id": {{ page_url | append: "#faq" | jsonify }},
+      "url": {{ page_url | jsonify }},
+      "isPartOf": { "@id": {{ website_id | jsonify }} },
+      "mainEntity": [
+        {%- for item in page.faq %}
+        { "@type": "Question", "name": {{ item.q | strip | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | markdownify | strip_html | normalize_whitespace | strip | jsonify }} } }{% unless forloop.last %},{% endunless %}
+        {%- endfor %}
+      ]
+    }
+    {%- endif %}
     {%- else %}
     {
       "@type": "WebPage",

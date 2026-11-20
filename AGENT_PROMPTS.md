@@ -6,124 +6,50 @@ This document contains prompts for AI agents to create blog posts and LinkedIn c
 
 ## 📝 BLOG POST CREATION PROMPT
 
-Use this prompt to generate technical blog posts about PHP, Laravel, and DevOps topics.
+Use this prompt to turn a brief (`content/briefs/<slug>.md`) into a draft (`_drafts/<slug>.md`) that follows the
+site's answer-first standard. The pipeline and the standard are described in `content/README.md`; CI enforces it.
 
 ```
-You are a content creation agent for Andrei Ciuculescu's tech blog at ciuculescu.com. Andrei is a Laravel & DevOps Specialist with 13+ years of experience building scalable web solutions for small and medium businesses, based in Bucharest, Romania.
+You are writing a post for ciuculescu.com, the site of Andrei Ciuculescu, a Laravel backend and DevOps
+specialist in Bucharest, Romania, working with small and medium businesses since 2010.
 
-### TASK
-Create a technical blog post about: [INSERT TOPIC HERE]
+INPUT: the brief below (reader, main question, related questions, unique angle/proof, sources).
+[PASTE THE BRIEF HERE]
 
-### BLOG POST FORMAT
+GOAL: the post is the best direct answer to the main question, written so that a search engine can lift a
+paragraph as a snippet and an AI assistant can quote a section on its own.
 
-The blog post must follow this exact structure:
+FRONT MATTER (exactly these keys, see content/templates/post.md):
+- title: keyword first, 60 characters or fewer, no year unless the post is about that year
+- description: 120-160 characters: the problem, the answer, the proof
+- date: YYYY-MM-DD; tags: 1-4 from the existing tags
+- tldr: 3-5 takeaways, each a concrete fact (a version, a number with a unit, a command)
+- faq: 3-5 entries from the brief's related questions: q ends with "?", a is a 40-60 word answer that
+  stands on its own
+- service: only if the brief names a service page
 
-1. **YAML Front Matter** (required):
-```yaml
----
-layout: post
-title: "[Compelling title with keywords - max 70 characters]"
-date: YYYY-MM-DD
-tags: [relevant, tags, here]
----
+BODY:
+1. Open with 2-3 sentences that answer the main question directly. No scene-setting, no "in today's landscape".
+2. Use ## headings phrased as the questions people ask. The first 40-60 words under each heading answer it
+   completely; detail, code and caveats come after.
+3. Show the real thing: code that ran, commands with their output, config files, versions. Fenced code
+   blocks with a language. Steps as numbered lists, comparisons as tables.
+4. Every number must come from the brief's proof or a cited source. Never invent statistics, benchmarks,
+   percentages, costs or client results. If the brief has no number, write without one.
+5. First person where it's first-hand ("I hit this on...", "I measured..."). Say what you didn't verify.
+6. Link to 1-3 related posts on ciuculescu.com where they genuinely help, and to the service page if set.
+7. End with "## Sources": the docs, release notes, issues or data behind the claims.
+8. No closing sales pitch: the layout adds the author box and the call to action.
+
+LENGTH: as long as the answer needs. Usually 800-1,800 words.
+
+OUTPUT: the complete Markdown file, ready to save as _drafts/<slug>.md.
 ```
 
-2. **Opening Paragraph** (2-3 sentences):
-   - Start with a compelling hook that addresses a pain point or opportunity
-   - Include relevant statistics or trends when possible
-   - Frame the topic in terms of business impact
-
-3. **Business Value Section** (## Why This Matters for Your Team/Business):
-   - Explain the business implications
-   - Address technical leaders, hiring managers, or development teams
-   - Include bullet points with specific impacts (costs, time savings, risks)
-
-4. **Technical Solution Section** (## The Solution / Implementation):
-   - Provide detailed code examples in PHP/Laravel
-   - Use proper syntax highlighting with language identifiers
-   - Include comments explaining key concepts
-   - Show both problematic patterns and solutions when relevant
-
-5. **Code Examples Requirements**:
-   - Always use fenced code blocks with language identifier (```php, ```bash, ```yaml, etc.)
-   - Include realistic, production-ready code
-   - Add inline comments for complex logic
-   - Show configuration files when relevant (config/database.php, .env examples, etc.)
-   - Include namespaces, use statements, and full class structure when showing classes
-
-6. **Testing Section** (## Testing the Implementation):
-   - Provide PHPUnit or Pest test examples
-   - Show how to validate the implementation
-   - Include both positive and negative test cases
-
-7. **Conclusion Section** (## Conclusion):
-   - Summarize the key benefits
-   - Include a "positive impact" summary using bullet points
-   - End with a soft CTA inviting consultation or contact
-
-### WRITING STYLE GUIDELINES
-
-- **Tone**: Professional, authoritative, but approachable
-- **Voice**: First person occasionally ("I've seen", "As a developer"), but primarily instructional
-- **Audience**: Technical leads, hiring managers, senior developers, CTOs of SMBs
-- **Length**: 1,500-3,000 words
-- **Perspective**: Business-aware technical writing - always tie technical decisions to business outcomes
-
-### KEY PHRASES TO INCORPORATE (naturally, not forced):
-- "For tech leaders..."
-- "Your development team..."
-- "Business impact..."
-- "Measurable results..."
-- "The investment pays dividends..."
-- "Reduced technical debt..."
-- "Scalability confidence..."
-
-### TOPICS THAT WORK WELL:
-- PHP 8.x new features (Property Hooks, JIT, etc.)
-- Laravel best practices and patterns
-- Security implementations (Stripe, authentication, API security)
-- Performance optimization (N+1 queries, caching, queues)
-- Testing strategies (PHPUnit, Pest, TDD)
-- DevOps practices (Docker, CI/CD, deployment)
-- Database optimization
-- API development
-- Queue systems and background jobs
-
-### EXAMPLE STRUCTURE FOR CODE:
-
-```php
-<?php
-
-namespace App\Services;
-
-use App\Models\User;
-use Illuminate\Support\Facades\Log;
-
-class ExampleService
-{
-    /**
-     * Brief description of what this method does.
-     */
-    public function exampleMethod(array $data): bool
-    {
-        // Implementation with comments explaining key decisions
-        try {
-            // Business logic here
-            return true;
-        } catch (\Exception $e) {
-            Log::error('Descriptive error message', [
-                'error' => $e->getMessage(),
-                'context' => $data
-            ]);
-            return false;
-        }
-    }
-}
-```
-
-### OUTPUT FORMAT
-Return the complete blog post in Markdown format, ready to be saved as a Jekyll post file (e.g., `2025-MM-DD-topic-slug.md`).
-```
+### Before publishing (checklist)
+- [ ] Every claim is either first-hand or in `## Sources`.
+- [ ] `python3 .homelab/seo_audit lint-content _drafts` (or the CI run on the PR) reports no errors for the post.
+- [ ] Move to `_posts/YYYY-MM-DD-<slug>.md` on a branch, open a PR, merge when CI is green.
 
 ---
 
@@ -270,7 +196,7 @@ Topic: [INSERT TOPIC HERE]
 
 ### REQUIREMENTS
 
-- The blog post should be comprehensive (1,500-3,000 words) with code examples
+- The blog post follows the answer-first standard above (front matter with tldr and faq, question headings, Sources, no invented numbers)
 - The LinkedIn post should extract the most compelling insights for a hook
 - Both pieces should be cohesive but optimized for their respective platforms
 - The LinkedIn post URL should follow the format: https://ciuculescu.com/posts/YYYY-MM-DD-slug/
@@ -279,7 +205,7 @@ Topic: [INSERT TOPIC HERE]
 
 Return two clearly separated sections:
 
-## BLOG POST (save as: _posts/YYYY-MM-DD-slug.md)
+## BLOG POST (save as: _drafts/<slug>.md, then publish via content/README.md)
 [Full blog post content]
 
 ---

@@ -1344,3 +1344,24 @@ article {
     a { color: $secondary-color; }
   }
 }
+
+// Key takeaways (front matter `tldr`) and FAQ (front matter `faq`) on posts
+.key-takeaways {
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba($secondary-color, 0.35);
+  border-radius: 8px;
+  background: rgba($secondary-color, 0.04);
+  .key-takeaways__title {
+    margin: 0 0 0.5rem;
+    font-weight: $font-weight-semibold;
+    color: $secondary-color;
+  }
+  ul { margin: 0; padding-left: 1.25rem; }
+  li { margin: 0.3rem 0; }
+}
+
+.post-faq {
+  margin-top: 3rem;
+  h3 { margin-top: 1.5rem; }
+}

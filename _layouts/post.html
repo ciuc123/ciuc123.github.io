@@ -5,11 +5,30 @@ layout: default
   <div class="wrapper wide-content">
     <article>
       <h1>{{ page.title }}</h1>
-      <small>{{ page.date | date: "%Y-%m-%d" }}</small>
+      <small>{{ page.date | date: "%Y-%m-%d" }}{% if page.last_modified_at %}{% assign mod = page.last_modified_at | date: "%Y-%m-%d" %}{% assign pub = page.date | date: "%Y-%m-%d" %}{% if mod != pub %} · Updated {{ mod }}{% endif %}{% endif %}</small>
       {% if page.series %}{% include series.html %}{% endif %}
+      {% if page.tldr %}
+      <aside class="key-takeaways" aria-label="Key takeaways">
+        <p class="key-takeaways__title">Key takeaways</p>
+        <ul>
+          {%- for item in page.tldr %}
+          <li>{{ item | markdownify | remove: "<p>" | remove: "</p>" | strip }}</li>
+          {%- endfor %}
+        </ul>
+      </aside>
+      {% endif %}
       <div>
         {{ content }}
       </div>
+      {% if page.faq %}
+      <section class="post-faq" aria-label="Frequently asked questions">
+        <h2>FAQ</h2>
+        {%- for item in page.faq %}
+        <h3>{{ item.q }}</h3>
+        {{ item.a | markdownify }}
+        {%- endfor %}
+      </section>
+      {% endif %}
       {% include author.html %}
       {% include cta.html cta="post-footer" %}
       <p><a href="/posts/" class="btn btn-secondary">← Back to Posts</a></p>
