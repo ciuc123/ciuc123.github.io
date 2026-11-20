@@ -1,0 +1,37 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+{%- assign e = site.data.entity -%}
+# {{ e.name }}
+
+> {{ e.summary }}
+
+{{ e.name }} is a freelance {{ e.job_title | downcase | replace: "laravel", "Laravel" | replace: "devops", "DevOps" }} working with companies in {{ e.area_served }}. {{ e.availability }}
+
+## Services
+{% for s in e.services %}
+- [{{ s.name }}]({{ "/#services" | absolute_url }}): {{ s.items | join: ", " }}
+{%- endfor %}
+
+## Contact
+
+- [Contact form]({{ "/contact/" | absolute_url }}): or email {{ site.email }}
+- [About]({{ "/about/" | absolute_url }}): background, expertise and how projects run
+{%- for url in e.same_as %}
+- [{% if url contains "linkedin" %}LinkedIn{% elsif url contains "github" %}GitHub{% else %}Profile{% endif %}]({{ url }})
+{%- endfor %}
+
+## Articles
+{% for item in site.data.llms %}
+{%- assign post = site.posts | where_exp: "p", "p.slug == item.slug" | first %}
+{%- if post %}
+- [{{ post.title }}]({{ post.url | absolute_url }}): {{ item.summary }}
+{%- endif %}
+{%- endfor %}
+
+## Optional
+
+- [All posts]({{ "/posts/" | absolute_url }})
+- [Client Zero series]({{ "/posts/2026-11-20-seo-client-zero-1-contact-form/" | absolute_url }}): this site's own SEO and AI-search program, documented task by task

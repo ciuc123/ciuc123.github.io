@@ -1299,3 +1299,48 @@ article {
     li { margin: 0.2rem 0; }
   }
 }
+
+// Author box at the end of posts (data: _data/entity.yml)
+.author-box {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  margin: 3rem 0 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  p { margin: 0.15rem 0; }
+  .author-box__photo {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .author-box__photo--initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($secondary-color, 0.12);
+    color: $secondary-color;
+    font-weight: $font-weight-semibold;
+    font-size: 1.4rem;
+  }
+  .author-box__name { font-weight: $font-weight-semibold; }
+  .author-box__credential, .author-box__links { color: $text-muted; font-size: 0.95rem; }
+  a { color: $secondary-color; }
+}
+
+// 404 page
+.not-found {
+  text-align: center;
+  padding: 4rem 0;
+  .not-found__links { margin: 2rem 0; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .not-found__recent {
+    text-align: left;
+    max-width: 640px;
+    margin: 2rem auto 0;
+    li { margin: 0.4rem 0; }
+    a { color: $secondary-color; }
+  }
+}
