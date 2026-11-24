@@ -19,6 +19,7 @@ sitemap: false
 
 - [Contact form]({{ "/contact/" | absolute_url }}): or email {{ site.email }}
 - [About]({{ "/about/" | absolute_url }}): background, expertise and how projects run
+- [Projects]({{ "/projects/" | absolute_url }}): Job Radar (remote developer job dashboard), the Orient Optics website (client) and an open-source JetBrains terminal plugin
 {%- for url in e.same_as %}
 - [{% if url contains "linkedin" %}LinkedIn{% elsif url contains "github" %}GitHub{% else %}Profile{% endif %}]({{ url }})
 {%- endfor %}

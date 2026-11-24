@@ -1,13 +1,14 @@
 ---
 layout: default
 title: About
+description: "Andrei Ciuculescu, Laravel backend and DevOps specialist in Bucharest since 2010: core expertise, technical philosophy and how projects run."
 permalink: /about/
 ---
 
 <section class="about-hero section--full">
   <div class="inner">
     <h1>Professional Background</h1>
-    <p class="lead">13+ years developing scalable web solutions for businesses across Europe</p>
+    <p class="lead">Building scalable web solutions for businesses across Europe since 2010</p>
   </div>
 </section>
 
@@ -36,7 +37,7 @@ permalink: /about/
     <h2>Technical Philosophy</h2>
     <div class="philosophy-content">
       <blockquote>
-        "Build simple solutions to complex problems. Focus on maintainability, performance, and clear documentation."
+        Build simple solutions to complex problems. Focus on maintainability, performance, and clear documentation.
       </blockquote>
       <div class="principles">
         <div class="principle">
@@ -79,6 +80,11 @@ permalink: /about/
 <section class="personal section--full">
   <div class="inner">
     <h2>Beyond Code</h2>
-    <p>Based in Bucharest, Romania. When not coding, I enjoy exploring new technologies, contributing to open source projects, and mentoring junior developers. Passionate about creating technology solutions that make real business impact.</p>
+    <p>Based in Bucharest, Romania. When not coding, I enjoy exploring new technologies, building open source tools, and mentoring junior developers. Passionate about creating technology solutions that make real business impact.</p>
+    <p>Some of what I build for myself is on the <a href="{{ '/projects/' | relative_url }}">Projects</a> page: a JetBrains plugin and Job Radar, a dashboard for remote developer jobs.</p>
+    <div class="about-cta">
+      <p>Have a project in mind? I reply within 24 business hours.</p>
+      <a href="{{ '/contact/' | relative_url }}" class="btn btn-primary" data-cta="about-footer">Get in touch</a>
+    </div>
   </div>
 </section>
