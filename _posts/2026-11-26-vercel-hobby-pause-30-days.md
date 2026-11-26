@@ -19,13 +19,13 @@ faq:
     a: "Once. The support agent at vercel.com/help can grant a one-time unblock per Hobby team. I explained the cause, the fix and the current usage, and the team was serving again the same day. Other users report that a second unblock is refused, so treat it as a single spare."
 ---
 
-When a Vercel Hobby team goes over a limit, Vercel pauses **every project in the team for 30 days**, counted from the day the limit was crossed, and fixing the cause doesn't shorten it. Mine was paused on 2026-11-25, a day after I found and removed what used the CPU. One message to Vercel's support agent got it lifted on 11-26. Here is what the pause looked like, the message that worked and the backup host I'm preparing, because that unblock only works once.
+When a Vercel Hobby team goes over a limit, Vercel pauses **every project in the team for 30 days**, counted from the day the limit was crossed, and fixing the cause doesn't shorten it. Mine was paused on November 25, 2026, a day after I found and removed what used the CPU. One message to Vercel's support agent got it lifted on November 26. Here is what the pause looked like, the message that worked and the backup host I'm preparing, because that unblock only works once.
 
 This follows [A Sentry Uptime Monitor Ate My Vercel Hobby CPU](/posts/2026-11-24-sentry-uptime-vercel-hobby-cpu/): an uptime monitor Sentry created by itself loaded the dashboard of my side project, [Job Radar](https://jobs.ciuculescu.com), every 60 seconds for nine days.
 
 ## Does the Vercel Hobby usage window reset on a fixed date?
 
-No. The Hobby allowance for Fluid Active CPU is 4 hours over a **rolling 30 days**, so each day you are judged on the last 30. In the first post I wrote that the window reset the next day. It didn't. A day in the window drops out after 30 days, not on a set date. The days that crossed the line came after the fix. Reading the usage chart, 11-24 used about 1h05m and 11-25 about 27m. 11-24 still had the monitor until I repointed it, plus a production release with its smoke tests. Those two days took the total past 4 hours.
+No. The Hobby allowance for Fluid Active CPU is 4 hours over a **rolling 30 days**, so each day you are judged on the last 30. In the first post I wrote that the window reset the next day. It didn't. A day in the window drops out after 30 days, not on a set date. The days that crossed the line came after the fix. Reading the usage chart, November 24 used about 1h05m and November 25 about 27m. November 24 still had the monitor until I repointed it, plus a production release with its smoke tests. Those two days took the total past 4 hours.
 
 ## What does a paused Vercel Hobby team look like?
 

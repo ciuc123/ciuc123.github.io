@@ -20,7 +20,7 @@ inbox: none (follow-up to sentry-uptime-vercel-hobby-cpu, Job Radar, 2026-11-26)
 
 **Service it supports:** none. The default CTA (contact) applies.
 
-**Unique angle / proof:** the real sequence on one account: fixed the cause on 11-24, paused anyway on 11-25 until 12-25, every URL of every project returned `402 DEPLOYMENT_DISABLED`, the one-time unblock through the support agent restored it on 11-26. The five backup hosts compared against a real Next 16 app, and why Cloud Run.
+**Unique angle / proof:** the real sequence on one account: fixed the cause on November 24, paused anyway on November 25 until December 25, every URL of every project returned `402 DEPLOYMENT_DISABLED`, the one-time unblock through the support agent restored it on November 26. The five backup hosts compared against a real Next 16 app, and why Cloud Run.
 
 **Answer in one paragraph:** Vercel Hobby counts usage over a rolling 30 days. When a team crosses a limit, Vercel pauses all its projects for 30 days from that day, and every URL answers 402. The pause doesn't lift when usage falls. The support agent at vercel.com/help can grant one unblock per team; after that, only Pro or waiting.
 
