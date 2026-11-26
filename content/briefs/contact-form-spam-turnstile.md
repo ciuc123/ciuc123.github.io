@@ -1,6 +1,6 @@
 ---
 slug: contact-form-spam-turnstile
-status: drafting
+status: published
 inbox: none (three bot inquiries on ciuculescu.com, November 24 to 26, 2026)
 ---
 
