@@ -99,11 +99,11 @@ export function requestSummary(request, outcome, fields = {}, extra = {}) {
 }
 ```
 
-This is the line my own test post produced, sent with `curl` and no source page, after the deploy:
+This is the line my own test post produced, sent with `curl` and no source page, after the deploy (I swapped my provider for a documentation ASN and a made-up name):
 
 ```json
-{"event":"contact","outcome":"no_source_page","country":"RO","asn":8708,
- "as_org":"RCS & RDS Residential CGN","user_agent":"curl/8.5.0","origin":"",
+{"event":"contact","outcome":"no_source_page","country":"RO","asn":64500,
+ "as_org":"Example Residential ISP","user_agent":"curl/8.5.0","origin":"",
  "referer":"","source_page":null,"email_domain":"example.com","message_length":2}
 ```
 
@@ -166,7 +166,7 @@ routes = [{ pattern = "ciuculescu.com/api/contact", zone_name = "ciuculescu.com"
 
 In TOML, every key after a `[table]` header belongs to that table until the next header. So `routes` became `observability.routes`, and wrangler said so: `Unexpected fields found in observability field: "routes"`. I missed the warning in the deploy output. The existing route kept working, but the deploy no longer listed it, and with no routes in the config, wrangler turned on the `workers.dev` address by default. The fix is to put tables after all the top-level keys. After that, the deploy listed `ciuculescu.com/api/contact` again and `workers.dev` was off.
 
-**The secret was saved under the wrong name.** `wrangler secret put` takes the name as an argument and asks for the value at a prompt. The key ended up as the name, so the Worker never found `TURNSTILE_SECRET`, the check stayed off, and the key itself was in plain sight in the secret listing. `npx wrangler secret list` showed it right away. I deleted that secret and set it again under the right name. A key that has been on screen is worth rotating too: the Turnstile dashboard does it in one click. The takeaway: after setting a secret, list the secrets and send one request that should now fail.
+**The secret was saved under the wrong name.** `wrangler secret put` takes the name as an argument and asks for the value at a prompt. The key ended up as the name, so the Worker never found `TURNSTILE_SECRET`, the check stayed off, and the key itself was in plain sight in the secret listing. `npx wrangler secret list` showed it right away. I deleted that secret, rotated the key in the Turnstile dashboard (one click, since the old one had been on screen), and set the new one under the right name. The takeaway: after setting a secret, list the secrets and send one request that should now fail.
 
 ## What does it cost?
 
