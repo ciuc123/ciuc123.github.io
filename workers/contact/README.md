@@ -2,7 +2,8 @@
 
 `/contact/` posts to `/api/contact`. This Cloudflare Worker owns that path on the
 `ciuculescu.com` zone. It checks the honeypot (`_gotcha`, `botcheck`), validates the fields and
-sends the inquiry through [Resend](https://resend.com), with `reply_to` set to the visitor so
+drops posts with an empty `source_page` (the page's script always fills it, so an empty one
+means a bot posted straight to the endpoint; both get a silent `{ "success": true }`), sends the inquiry through [Resend](https://resend.com), with `reply_to` set to the visitor so
 replying from the inbox goes straight to them. The site stays static. The Resend key lives only
 in the Worker.
 
@@ -23,8 +24,25 @@ on failure, the email fallback.
    npx wrangler secret put RESEND_API_KEY
    npx wrangler deploy
    ```
-4. Smoke test: `curl -s -X POST https://ciuculescu.com/api/contact -F name=Test -F email=you@example.com -F message=hi`
+4. Smoke test: `curl -s -X POST https://ciuculescu.com/api/contact -F name=Test -F email=you@example.com -F message=hi -F source_page=/smoke/`
    should return `{"success":true}` and the email should arrive.
+
+## Turnstile
+
+The contact page shows a Cloudflare Turnstile widget when `contact_form.turnstile_site_key` is set
+in `_config.yml`. The Worker checks the token (`cf-turnstile-response`) with Cloudflare's
+siteverify after validating the fields, and answers 403 when it fails. It enforces this only once
+the secret exists: `npx wrangler secret put TURNSTILE_SECRET`. Order for a change: deploy the
+Worker, publish the page with the site key, then put the secret. For local testing on
+`localhost:4000`, add `localhost` to the widget's hostnames in the Cloudflare dashboard.
+
+## Logs
+
+Each request writes one JSON line (`event: "contact"`): `outcome` (`sent`, `honeypot`,
+`no_source_page`, `invalid`, `turnstile_failed` (with Cloudflare's error codes), `bad_body`, `resend_error`), Cloudflare's country, ASN and network
+name, user agent, Origin, Referer, source page, the email's domain and the message length. No IP,
+name, full address or message text. Read them live with `npx wrangler tail`, or later in the
+Cloudflare dashboard (Workers → ciuculescu-contact → Logs; `[observability]` in `wrangler.toml`).
 
 ## Tests
 

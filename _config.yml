@@ -16,6 +16,8 @@ permalink: /posts/:year-:month-:day-:title/
 # shows only the email address, never a dead form.
 contact_form:
   action: "/api/contact"
+  # Cloudflare Turnstile site key (public). Empty = no widget. The secret is only on the Worker.
+  turnstile_site_key: "0x4AAAAAAGUJIwsGJ8PdVkg7"
 
 # Build settings
 markdown: kramdown

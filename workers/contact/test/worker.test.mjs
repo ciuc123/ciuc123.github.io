@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import worker, { validate, isSpam, buildEmail } from '../src/index.js';
+import worker, { validate, isSpam, buildEmail, missingSourcePage, requestSummary, verifyTurnstile } from '../src/index.js';
 
 const env = {
   RESEND_API_KEY: 'test-key',
@@ -18,9 +18,15 @@ function post(fields, origin = 'https://ciuculescu.com') {
 
 const good = { name: 'Ana', email: 'ana@example.com', message: 'Need a Laravel upgrade', source_page: '/posts/x/' };
 
-function mockResend(status = 200) {
+// Resend calls are recorded in the returned array; Turnstile calls in its .turnstile property.
+function mockResend(status = 200, turnstile = { success: true }) {
   const calls = [];
+  calls.turnstile = [];
   globalThis.fetch = async (url, init) => {
+    if (url.includes('challenges.cloudflare.com')) {
+      calls.turnstile.push(Object.fromEntries(init.body.entries()));
+      return new Response(JSON.stringify(turnstile), { status: 200 });
+    }
     calls.push({ url, body: JSON.parse(init.body), auth: init.headers.Authorization });
     return new Response('{}', { status });
   };
@@ -88,4 +94,70 @@ test('foreign origin gets no CORS header; GET is rejected', async () => {
   assert.equal(res.headers.get('Access-Control-Allow-Origin'), null);
   const get = await worker.fetch(new Request('https://ciuculescu.com/api/contact'), env);
   assert.equal(get.status, 405);
+});
+
+test('post without source_page returns success but sends nothing', async () => {
+  const calls = mockResend(200);
+  const { source_page, ...noSource } = good;
+  const res = await worker.fetch(post(noSource), env);
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { success: true });
+  assert.equal(calls.length, 0);
+  const blank = await worker.fetch(post({ ...good, source_page: '  ' }), env);
+  assert.equal(blank.status, 200);
+  assert.equal(calls.length, 0);
+  assert.equal(missingSourcePage({ source_page: '(direct)' }), false);
+});
+
+test('request summary keeps no personal data', () => {
+  const req = post(good);
+  Object.defineProperty(req, 'cf', { value: { country: 'NL', asn: 64500, asOrganization: 'Host Co', colo: 'AMS' } });
+  const s = requestSummary(req, 'sent', good);
+  assert.equal(s.outcome, 'sent');
+  assert.equal(s.country, 'NL');
+  assert.equal(s.as_org, 'Host Co');
+  assert.equal(s.email_domain, 'example.com');
+  assert.equal(s.source_page, '/posts/x/');
+  const line = JSON.stringify(s);
+  for (const secret of [good.name, good.email, good.message]) assert.ok(!line.includes(secret));
+});
+
+const withTurnstile = { ...env, TURNSTILE_SECRET: 'ts-secret' };
+
+test('Turnstile is skipped until the secret is set', async () => {
+  const calls = mockResend(200);
+  const res = await worker.fetch(post(good), env);
+  assert.equal(res.status, 200);
+  assert.equal(calls.turnstile.length, 0);
+  assert.equal(calls.length, 1);
+});
+
+test('Turnstile: valid token is verified, then the email is sent', async () => {
+  const calls = mockResend(200, { success: true });
+  const res = await worker.fetch(post({ ...good, 'cf-turnstile-response': 'tok' }), withTurnstile);
+  assert.equal(res.status, 200);
+  assert.deepEqual(calls.turnstile[0], { secret: 'ts-secret', response: 'tok' });
+  assert.equal(calls.length, 1);
+});
+
+test('Turnstile: missing or rejected token returns 403 and sends nothing', async () => {
+  let calls = mockResend(200);
+  let res = await worker.fetch(post(good), withTurnstile);
+  assert.equal(res.status, 403);
+  assert.equal((await res.json()).success, false);
+  assert.equal(calls.turnstile.length, 0);
+  assert.equal(calls.length, 0);
+
+  calls = mockResend(200, { success: false, 'error-codes': ['invalid-input-response'] });
+  res = await worker.fetch(post({ ...good, 'cf-turnstile-response': 'bad' }), withTurnstile);
+  assert.equal(res.status, 403);
+  assert.equal(calls.length, 0);
+  assert.deepEqual(await verifyTurnstile('bad', post(good), withTurnstile), { ok: false, codes: ['invalid-input-response'] });
+});
+
+test('Turnstile: invalid fields fail before the token is used', async () => {
+  const calls = mockResend(200);
+  const res = await worker.fetch(post({ ...good, email: 'bad', 'cf-turnstile-response': 'tok' }), withTurnstile);
+  assert.equal(res.status, 422);
+  assert.equal(calls.turnstile.length, 0);
 });

@@ -113,6 +113,10 @@ if (contactForm) {
       track('lead_submit_failed', { source_page: sourcePage, form: 'contact', error: String(err && err.message || err).slice(0, 200) });
     } finally {
       setLoading(false);
+      // Turnstile tokens are single use: get a fresh one for the next try.
+      if (window.turnstile && contactForm.querySelector('.cf-turnstile')) {
+        try { window.turnstile.reset(contactForm.querySelector('.cf-turnstile')); } catch (err) { /* ignore */ }
+      }
     }
   });
 }
