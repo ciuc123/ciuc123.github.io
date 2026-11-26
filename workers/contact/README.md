@@ -2,7 +2,8 @@
 
 `/contact/` posts to `/api/contact`. This Cloudflare Worker owns that path on the
 `ciuculescu.com` zone. It checks the honeypot (`_gotcha`, `botcheck`), validates the fields and
-sends the inquiry through [Resend](https://resend.com), with `reply_to` set to the visitor so
+drops posts with an empty `source_page` (the page's script always fills it, so an empty one
+means a bot posted straight to the endpoint; both get a silent `{ "success": true }`), sends the inquiry through [Resend](https://resend.com), with `reply_to` set to the visitor so
 replying from the inbox goes straight to them. The site stays static. The Resend key lives only
 in the Worker.
 
@@ -23,8 +24,16 @@ on failure, the email fallback.
    npx wrangler secret put RESEND_API_KEY
    npx wrangler deploy
    ```
-4. Smoke test: `curl -s -X POST https://ciuculescu.com/api/contact -F name=Test -F email=you@example.com -F message=hi`
+4. Smoke test: `curl -s -X POST https://ciuculescu.com/api/contact -F name=Test -F email=you@example.com -F message=hi -F source_page=/smoke/`
    should return `{"success":true}` and the email should arrive.
+
+## Logs
+
+Each request writes one JSON line (`event: "contact"`): `outcome` (`sent`, `honeypot`,
+`no_source_page`, `invalid`, `bad_body`, `resend_error`), Cloudflare's country, ASN and network
+name, user agent, Origin, Referer, source page, the email's domain and the message length. No IP,
+name, full address or message text. Read them live with `npx wrangler tail`, or later in the
+Cloudflare dashboard (Workers → ciuculescu-contact → Logs; `[observability]` in `wrangler.toml`).
 
 ## Tests
 

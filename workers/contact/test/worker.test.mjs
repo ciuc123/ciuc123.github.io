@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import worker, { validate, isSpam, buildEmail } from '../src/index.js';
+import worker, { validate, isSpam, buildEmail, missingSourcePage, requestSummary } from '../src/index.js';
 
 const env = {
   RESEND_API_KEY: 'test-key',
@@ -88,4 +88,30 @@ test('foreign origin gets no CORS header; GET is rejected', async () => {
   assert.equal(res.headers.get('Access-Control-Allow-Origin'), null);
   const get = await worker.fetch(new Request('https://ciuculescu.com/api/contact'), env);
   assert.equal(get.status, 405);
+});
+
+test('post without source_page returns success but sends nothing', async () => {
+  const calls = mockResend(200);
+  const { source_page, ...noSource } = good;
+  const res = await worker.fetch(post(noSource), env);
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { success: true });
+  assert.equal(calls.length, 0);
+  const blank = await worker.fetch(post({ ...good, source_page: '  ' }), env);
+  assert.equal(blank.status, 200);
+  assert.equal(calls.length, 0);
+  assert.equal(missingSourcePage({ source_page: '(direct)' }), false);
+});
+
+test('request summary keeps no personal data', () => {
+  const req = post(good);
+  Object.defineProperty(req, 'cf', { value: { country: 'NL', asn: 64500, asOrganization: 'Host Co', colo: 'AMS' } });
+  const s = requestSummary(req, 'sent', good);
+  assert.equal(s.outcome, 'sent');
+  assert.equal(s.country, 'NL');
+  assert.equal(s.as_org, 'Host Co');
+  assert.equal(s.email_domain, 'example.com');
+  assert.equal(s.source_page, '/posts/x/');
+  const line = JSON.stringify(s);
+  for (const secret of [good.name, good.email, good.message]) assert.ok(!line.includes(secret));
 });

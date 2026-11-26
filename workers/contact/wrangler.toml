@@ -2,6 +2,10 @@ name = "ciuculescu-contact"
 main = "src/index.js"
 compatibility_date = "2026-11-01"
 
+# Workers Logs: the one JSON line per request from src/index.js, searchable in the dashboard.
+[observability]
+enabled = true
+
 # Same-origin endpoint: the site is proxied through Cloudflare, so the Worker can own this path.
 routes = [{ pattern = "ciuculescu.com/api/contact", zone_name = "ciuculescu.com" }]
 
