@@ -3,6 +3,7 @@ layout: post
 title: "A Sentry Uptime Monitor Ate My Vercel Hobby CPU"
 description: "My Vercel Hobby project hit 3h 55m of its 4h Fluid Active CPU. The cause was a Sentry uptime monitor I never created. How I found it, fixed it and guard it now."
 date: 2026-11-24
+last_modified_at: 2026-11-26
 tags: [vercel, sentry, neon, nextjs, devops, free-tier]
 tldr:
   - "Vercel Hobby includes 4 hours of Fluid Active CPU per 30 days; my side project reached 3h 55m with one day to go."
@@ -18,6 +19,8 @@ faq:
   - q: "How long does Vercel keep runtime logs on Hobby?"
     a: "About one hour in my case: vercel logs --since 24h only returned entries from the last hour, and older ranges came back empty. Look at the logs while the problem is happening, or use Observability, which keeps longer history per route."
 ---
+
+**Update, 2026-11-26:** the window did not reset the next day. Vercel counts a rolling 30 days, and it paused every project in the team for 30 days anyway. How that went and how I got it lifted: [Vercel Hobby Paused My Projects for 30 Days. Then It Didn't](/posts/2026-11-26-vercel-hobby-pause-30-days/).
 
 My Vercel Hobby account showed **3h 55m of 4h Fluid Active CPU used**, with the 30-day window resetting the next day. The cause was not traffic. It was a Sentry uptime monitor that Sentry created by itself, loading a server-rendered dashboard on my dev site once a minute for nine days. Here is how I found it with one hour of logs, what I changed, and the guard I'm building so I don't find the next one on a dashboard again.
 
