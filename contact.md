@@ -31,6 +31,10 @@ permalink: /contact/
             <label for="project">Project Details</label>
             <textarea id="project" name="message" rows="4" placeholder="Brief description of your project requirements, timeline, and budget range" required></textarea>
           </div>
+          {%- if cf.turnstile_site_key and cf.turnstile_site_key != "" %}
+          <div class="cf-turnstile" data-sitekey="{{ cf.turnstile_site_key }}" data-action="contact"></div>
+          <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+          {%- endif %}
           <button type="submit" class="btn btn-primary">Send Inquiry</button>
           <div class="form-status" role="status" aria-live="polite" hidden></div>
         </form>

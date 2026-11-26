@@ -49,9 +49,28 @@ export function missingSourcePage(fields) {
   return !String(fields.source_page || '').trim();
 }
 
+// Cloudflare Turnstile. Enforced only once the TURNSTILE_SECRET secret is set, so the Worker can be
+// deployed before the page that sends the token. Returns { ok, codes }.
+export async function verifyTurnstile(token, request, env) {
+  if (!env.TURNSTILE_SECRET) return { ok: true, codes: ['not_configured'] };
+  if (!token) return { ok: false, codes: ['missing-input-response'] };
+  const body = new FormData();
+  body.append('secret', env.TURNSTILE_SECRET);
+  body.append('response', String(token).slice(0, 2048));
+  const ip = request.headers.get('CF-Connecting-IP');
+  if (ip) body.append('remoteip', ip);
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+    const data = await res.json();
+    return { ok: data.success === true, codes: data['error-codes'] || [] };
+  } catch (err) {
+    return { ok: false, codes: ['siteverify-unreachable'] };
+  }
+}
+
 // One JSON line per request, for Workers Logs / wrangler tail. No IP, name, address or message:
 // only what tells a bot from a person (network, country, browser, where it came from).
-export function requestSummary(request, outcome, fields = {}) {
+export function requestSummary(request, outcome, fields = {}, extra = {}) {
   const cf = request.cf || {};
   const h = (name) => (request.headers.get(name) || '').slice(0, 200);
   const email = String(fields.email || '');
@@ -70,6 +89,7 @@ export function requestSummary(request, outcome, fields = {}) {
     source_page: String(fields.source_page || '').slice(0, 100) || null,
     email_domain: email.includes('@') ? email.split('@').pop().slice(0, 100).toLowerCase() : null,
     message_length: String(fields.message || '').length,
+    ...extra,
   };
 }
 
@@ -93,7 +113,8 @@ async function readFields(request) {
 
 export default {
   async fetch(request, env) {
-    const log = (outcome, fields) => console.log(JSON.stringify(requestSummary(request, outcome, fields)));
+    const log = (outcome, fields, extra) =>
+      console.log(JSON.stringify(requestSummary(request, outcome, fields, extra)));
     const cors = corsHeaders(request, env);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
     if (request.method !== 'POST') return json({ success: false, message: 'Method not allowed' }, 405, cors);
@@ -121,6 +142,13 @@ export default {
     if (checked.error) {
       log('invalid', fields);
       return json({ success: false, message: checked.error }, 422, cors);
+    }
+
+    // After validation, so a typo does not use up the single-use token.
+    const human = await verifyTurnstile(fields['cf-turnstile-response'], request, env);
+    if (!human.ok) {
+      log('turnstile_failed', fields, { turnstile: human.codes });
+      return json({ success: false, message: 'The spam check failed. Please reload the page and try again.' }, 403, cors);
     }
 
     const res = await fetch('https://api.resend.com/emails', {
